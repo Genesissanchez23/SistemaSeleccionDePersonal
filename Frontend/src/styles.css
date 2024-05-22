@@ -1,1 +1,131 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --orange-custom: #D95747;
+    --yellow-custom: #FFD873;
+    --green-custom: #5B9761;
+    --blue-custom: #4377E7;
+    --white-custom: #F5F5F5;
+    --black-custom: #333333;
+}
+
+@font-face {
+    font-family: 'panichesta';
+    src: url('./assets/fonts/panichesta.otf');
+}
+
+@font-face {
+    font-family: 'astonpoliz';
+    src: url('./assets/fonts/astonpoliz.otf');
+}
+
+
+.font-panichesta {
+    font-family: 'panichesta', sans-serif;
+}
+
+.font-astonpoliz {
+    font-family: 'astonpoliz', sans-serif;    
+}
+
+.font-raleway {
+    font-family: 'Raleway', sans-serif;    
+}
+
+/* Custom Input */
+
+.container-input {
+    width: 100%;
+    height: 65px;
+    margin: 4px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-input label {
+    font-size: .625rem;
+    font-weight: bold;
+    color: var(--black-custom);
+    margin-bottom: 4px;
+    margin-left: 1px;
+}
+
+.container-input .input-box {
+    border: 1px solid var(--black-custom);
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+}
+
+.container-input .input-box .icon {
+    width: 1.4rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black-custom);
+    margin-left: 2px;
+}
+
+.container-input .input-box .icon i {
+    color: var(--white-custom);
+}
+
+.container-input .input-box  input {
+    width: 100%;
+    font-family: 'Raleway', sans-serif; 
+    border: 0;
+    font-size: .70rem;
+    padding: 0 9px;
+    outline: none;
+    color: black;
+    font-weight: 500;
+}
+
+.container-input .input-helper {
+    color: var(--orange-custom);
+    font-size: .6rem;
+    margin-top: 9px;
+    margin-left: 1px;
+    transform: translateY(-.5rem);
+}
+
+
+/* Custom Buttom */
+
+.btn-custom {
+    width: 100%;
+    height: 1.8rem;
+    color: white;
+    background-color: var(--black-custom);
+    font-family: 'astonpoliz', sans-serif; 
+    font-size: small;
+    text-transform: capitalize;
+    padding: .3rem 1rem;    
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: ease-in-out 225ms;
+}
+
+.btn-custom:hover {
+    background-color: #000;
+}
+
+.btn-custom:active {
+    background-color: #666;
+    transform: scale(.995);
+}
+
+
+/*Colors validators*/
+
+.ng-invalid:not(form).ng-touched {
+    border-radius: 3px;
+    border-right: 7px solid var(--orange-custom);
+}

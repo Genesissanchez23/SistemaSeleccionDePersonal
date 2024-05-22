@@ -1,0 +1,80 @@
+<section class="container-fluid vh-100">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black overflow-hidden border-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                            <div class="card-body p-md-4 mx-md-3">
+                                <div class="text-center mb-4">
+                                    <img src="../../../../assets/image/logo.png" alt="logo">
+                                    <app-title title="Únete a nuestra misión, haz tu impacto" />
+                                </div>
+                                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                    <app-text text="Por favor, inicia sesión en tu cuenta" />
+
+                                    <div class="container-input">
+                                        <label> Username </label>
+                                        <div class="input-box rounded-1 shadow-sm">
+                                            <div class="icon"><i class="bi bi-person"></i></div>
+                                            <input class="input" type="text" formControlName="username"
+                                                autocomplete="off">
+                                        </div>
+                                        @if (username.invalid && (username.dirty || username.touched)) {
+                                        <span class="input-helper">Campo requerido</span>
+                                        }
+                                    </div>
+
+                                    <div class="container-input">
+                                        <label> Password </label>
+                                        <div class="input-box rounded-1 shadow-sm">
+                                            <div class="icon"><i class="bi bi-key"></i></div>
+                                            <input class="input" type="password" formControlName="password"
+                                                autocomplete="off">
+                                        </div>
+                                        @if (password.invalid && (password.dirty || password.touched)) {
+                                        <span class="input-helper">Campo requerido</span>
+                                        }
+                                    </div>
+
+                                    <button type="submit" class="btn-custom rounded-1 my-4 shadow-sm">
+                                        @if (loading()) {
+                                        <div class="spinner-border spinner-border-sm">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        } @else {
+                                        <span>Iniciar Sesión </span>
+                                        }
+                                    </button>
+
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="pt-3 pe-2">
+                                            <app-text text="¿No tiene cuenta?" [xsmall]=true />
+                                        </div>
+                                        <a routerLink="">Registrarse</a>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="container-right col-lg-6 d-flex align-items-center">
+                            <div class="px-3 pb-4 p-md-4">
+                                <div class="mx-md-4 text-center">
+                                    <app-title title="¡Somos más que una empresa!" />
+                                </div>
+                                <hr>
+                                <div class="container-p p-2">
+                                    <p class="mt-5 px-4 text-center">
+                                        Creamos un entorno donde puedes crecer y marcar la diferencia. Unete a nosotros
+                                        y
+                                        construye tu futuro en una organizacion comprometida con la excelencia.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
