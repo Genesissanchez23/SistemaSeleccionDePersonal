@@ -20,6 +20,7 @@ CREATE TABLE usuario (
     contrasena VARCHAR(255) NOT NULL,
     estado CHAR(1) NOT NULL CHECK (estado IN ('A', 'N')),
     tipo_usuario_id INT,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario(tipo_usuario_id)
 );
 
@@ -27,11 +28,12 @@ CREATE TABLE usuario (
 CREATE TABLE datos_personales (
     datos_personales_id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
-    apellido VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL ,
     cedula VARCHAR(20) NOT NULL,
     direccion VARCHAR(255) NOT NULL,
     correo VARCHAR(100) NOT NULL,
     usuario_id INT,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id)
 );
 
@@ -53,6 +55,7 @@ CREATE TABLE ciudad (
     ciudad_id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     provincia_id INT,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (provincia_id) REFERENCES provincia(provincia_id)
 );
 
@@ -207,6 +210,7 @@ CREATE TABLE plaza_laboral (
     tipo_contratacion VARCHAR(50) NOT NULL CHECK (tipo_contratacion IN ('Tiempo Completo', 'Medio Tiempo', 'Por Horas')),
     nombre_empresa VARCHAR(255) NOT NULL,
     estado CHAR(1) NOT NULL CHECK (estado IN ('A', 'N')),
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (provincia_id) REFERENCES provincia(provincia_id),
     FOREIGN KEY (ciudad_id) REFERENCES ciudad(ciudad_id)
 );
@@ -216,7 +220,8 @@ CREATE TABLE plaza_laboral (
 CREATE TABLE estado_solicitud_empleado (
     estado_solicitud_empleado_id INT AUTO_INCREMENT PRIMARY KEY,
     estado CHAR(1) NOT NULL CHECK (estado IN ('E', 'A', 'D')),
-    nombre_estado_solicitud VARCHAR(50) NOT NULL
+    nombre_estado_solicitud VARCHAR(50) NOT NULL,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Insertar valores por defecto en la tabla estado_solicitud_empleado
@@ -228,7 +233,8 @@ INSERT INTO estado_solicitud_empleado (estado, nombre_estado_solicitud) VALUES
 -- Crear la tabla tipo_solicitud
 CREATE TABLE tipo_solicitud (
     tipo_solicitud_id INT AUTO_INCREMENT PRIMARY KEY,
-    tipo VARCHAR(50) NOT NULL
+    tipo VARCHAR(50) NOT NULL,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Crear la tabla solicitud_empleado
@@ -241,6 +247,7 @@ CREATE TABLE solicitud_empleado (
     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_inicio DATETIME NOT NULL,
     fecha_fin DATETIME NOT NULL,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
     FOREIGN KEY (tipo_solicitud_id) REFERENCES tipo_solicitud(tipo_solicitud_id),
     FOREIGN KEY (estado_solicitud_empleado_id) REFERENCES estado_solicitud_empleado(estado_solicitud_empleado_id)
@@ -250,7 +257,8 @@ CREATE TABLE solicitud_empleado (
 CREATE TABLE estado_solicitud_postulante (
     estado_solicitud_postulante_id INT AUTO_INCREMENT PRIMARY KEY,
     estado CHAR(1) NOT NULL CHECK (estado IN ('E', 'P', 'I', 'F')),
-    nombre_estado_solicitud VARCHAR(50) NOT NULL
+    nombre_estado_solicitud VARCHAR(50) NOT NULL,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Insertar valores por defecto en la tabla estado_solicitud_postulante
@@ -266,6 +274,7 @@ CREATE TABLE postulaciones (
     usuario_id INT,
     plaza_laboral_id INT,
     estado_solicitud_postulante_id INT,
+    fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
     cv BLOB, -- Nuevo campo para almacenar el archivo PDF
     FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
     FOREIGN KEY (plaza_laboral_id) REFERENCES plaza_laboral(plaza_laboral_id),
