@@ -27,24 +27,28 @@ async def login(request: Request, usuario_login: UsuarioLogin = Body(...)):
             # Obtener el segundo conjunto de resultados
             result2 = await cur.fetchall()
             if result  and result2:
-                usuario_id = result[0]["usuario_id"]
-                nombre = result[0]["nombre"]
-                apellido = result[0]["apellido"]
-                tipo_usuario_id = result[0]["tipo_usuario_id"]
+                usuario_id = result[0]["s_usuario_id"]
+                nombre = result[0]["s_nombre"]
+                apellido = result[0]["s_apellido"]
+                tipo = result[0]["s_tipo_usuario"]
+                id_tipo = result[0]["s_tipo_usuario_id"]
+                
                 # Generar token de acceso
                 token_data = {
-                    "id_usuario": usuario_id,
-                    "nombre": nombre,
-                    "apellido": apellido,
-                    "rol": tipo_usuario_id,
+                    "s_usuario_id": usuario_id,
+                    "s_nombre": nombre,
+                    "s_apellido": apellido,
+                    "s_tipo_usuario": tipo,
+                    "s_tipo_usuario_id": id_tipo,
                     "exp": datetime.utcnow() + timedelta(minutes=api.Api.TOKEN_TIME)
                 }
+                
                 access_token = Tokenizacion.generarToken(token_data)
                 return {"resultado": access_token, "mensaje":result2[0]["mensaje"]}
             else:
-                return {"resultado": "", "mensaje":"Credenciales incorrectas"}
+                return {"resultado": "", "mensaje":"False"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))  # Pasar el mensaje de error como detalle
+        return {"resultado": str(e), "mensaje":"False"}
     finally:
         conn.close()
 
@@ -73,9 +77,9 @@ async def registrar_usuario(usuario_registro: UsuarioRegistro = Body(...),bearer
             if result:
                 return {"resultado": "", "mensaje": result[0]["mensaje"]}
             else:
-                return {"resultado": "", "mensaje": "Error al registrar el usuario"}
+                return {"resultado": "", "mensaje":"True"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"resultado": str(e), "mensaje":"False"}
     finally:
         conn.close()
 
@@ -105,9 +109,9 @@ async def consultar_usuario(s_usuario_id: int,bearer: HTTPAuthorizationCredentia
             if result and result2:
                 return {"resultado": result[0], "mensaje": result2[0]["mensaje"]}
             else:
-                return {"resultado": None, "mensaje": "No se encontró el usuario con el ID proporcionado"}
+                return {"resultado": "", "mensaje":"True"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"resultado": str(e), "mensaje":"False"}
     finally:
         conn.close()
 
@@ -131,12 +135,13 @@ async def actualizar_usuario(usuario_actualizado: UsuarioActualizar = Body(...),
             result = await cur.fetchall()
             # Pasar al siguiente conjunto de resultados
             await cur.nextset()
+            print(result)
             if result:
                 return {"resultado": "", "mensaje": result[0]["mensaje"]}
             else:
-                return {"resultado": "", "mensaje": "Error al actualizar el usuario"}
+                return {"resultado": "", "mensaje":"False"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"resultado": str(e), "mensaje":"False"}
     finally:
         conn.close()
 
@@ -165,8 +170,8 @@ async def consultar_usuario(bearer: HTTPAuthorizationCredentials = Depends(auth_
             if result and result2:
                 return {"resultado": result, "mensaje": result2[0]["mensaje"]}
             else:
-                return {"resultado": None, "mensaje": "No se encontró el usuario con el ID proporcionado"}
+                return {"resultado": "", "mensaje":"True"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"resultado": str(e), "mensaje":"False"}
     finally:
         conn.close()
