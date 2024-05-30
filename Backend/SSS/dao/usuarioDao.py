@@ -35,8 +35,16 @@ class UsuarioActualizar(BaseModel):
 class UsuarioRegistro(BaseModel):
     s_alias: str
     s_contrasena: str
-    s_estado: str
     s_tipo_usuario_id: int
+    s_nombre: str
+    s_apellido: str
+    s_cedula: str
+    s_direccion: str
+    s_correo: str
+
+class UsuarioPostulante(BaseModel):
+    s_alias: str
+    s_contrasena: str
     s_nombre: str
     s_apellido: str
     s_cedula: str
