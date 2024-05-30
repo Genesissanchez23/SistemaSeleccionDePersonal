@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from fastapi.security import HTTPAuthorizationCredentials
 from dao.tokenizacionDao import Tokenizacion,auth_scheme,acciones
 from dao.usuarioDao import UsuarioDao
-from dao.usuarioDao import UsuarioLogin,UsuarioRegistro,UsuarioConsulta,UsuarioActualizar
+from dao.usuarioDao import UsuarioLogin,UsuarioRegistro,UsuarioConsulta,UsuarioActualizar,UsuarioPostulante
 from dao import conexion
 from environments import api
 
@@ -65,6 +65,34 @@ async def registrar_usuario(usuario_registro: UsuarioRegistro = Body(...),bearer
         usuario_dao = UsuarioDao(
             s_opcion=1,
             **usuario_registro.dict() 
+        )
+
+        # Ejecutar el procedimiento almacenado
+        async with conn.cursor() as cur:
+            await cur.callproc('pr_usuario', tuple(dict(usuario_dao).values()))
+            result = await cur.fetchall()
+            print(result[0])
+            # Pasar al siguiente conjunto de resultados
+            await cur.nextset()
+            if result:
+                return {"resultado": "", "mensaje": result[0]["mensaje"]}
+            else:
+                return {"resultado": "", "mensaje":"True"}
+    except Exception as e:
+        return {"resultado": str(e), "mensaje":"False"}
+    finally:
+        conn.close()
+
+@usuario.post("/registrarPostulante")
+async def registrar_usuario(usuario_registro: UsuarioPostulante = Body(...)):
+
+    conn = await conexion.conectar()
+    try:
+        # Mapear los datos de UsuarioRegistro a UsuarioDao
+        usuario_dao = UsuarioDao(
+            s_opcion=1,
+            **usuario_registro.dict() ,
+            s_tipo_usuario_id = 3
         )
 
         # Ejecutar el procedimiento almacenado
@@ -156,6 +184,35 @@ async def consultar_usuario(bearer: HTTPAuthorizationCredentials = Depends(auth_
         # Mapear los datos 
         usuario_dao = UsuarioDao(
             s_opcion=5
+        )
+        # Crear una instancia de UsuarioDao con los datos proporcionados
+        print(tuple(dict(usuario_dao).values()))
+        # Ejecutar el procedimiento almacenado
+        async with conn.cursor() as cur:
+            await cur.callproc('pr_usuario', tuple(dict(usuario_dao).values()))
+            result = await cur.fetchall()
+            # Pasar al siguiente conjunto de resultados
+            await cur.nextset()
+            # Obtener el segundo conjunto de resultados
+            result2 = await cur.fetchall()
+            if result and result2:
+                return {"resultado": result, "mensaje": result2[0]["mensaje"]}
+            else:
+                return {"resultado": "", "mensaje":"True"}
+    except Exception as e:
+        return {"resultado": str(e), "mensaje":"False"}
+    finally:
+        conn.close()
+
+
+
+@usuario.get("/consultarTipos")
+async def consultarTipos():
+    conn = await conexion.conectar()
+    try:
+        # Mapear los datos 
+        usuario_dao = UsuarioDao(
+            s_opcion=6
         )
         # Crear una instancia de UsuarioDao con los datos proporcionados
         print(tuple(dict(usuario_dao).values()))
