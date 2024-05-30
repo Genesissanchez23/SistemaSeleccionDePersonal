@@ -23,10 +23,10 @@ BEGIN
     CASE s_opcion
         WHEN 1 THEN
             -- Opción 1: Insertar nuevo usuario y datos personales
-            IF s_alias IS NOT NULL AND s_contrasena IS NOT NULL AND s_estado IS NOT NULL AND s_tipo_usuario_id IS NOT NULL AND s_nombre IS NOT NULL AND s_apellido IS NOT NULL AND s_cedula IS NOT NULL AND s_direccion IS NOT NULL AND s_correo IS NOT NULL THEN
+            IF s_alias IS NOT NULL AND s_contrasena IS NOT NULL AND s_tipo_usuario_id IS NOT NULL AND s_nombre IS NOT NULL AND s_apellido IS NOT NULL AND s_cedula IS NOT NULL AND s_direccion IS NOT NULL AND s_correo IS NOT NULL THEN
                 BEGIN
                     INSERT INTO usuario (alias, contrasena, estado, tipo_usuario_id) 
-                    VALUES (s_alias, s_contrasena, s_estado, s_tipo_usuario_id);
+                    VALUES (s_alias, s_contrasena, "A", s_tipo_usuario_id);
                     SET conteo = ROW_COUNT();
                     SET @last_usuario_id = LAST_INSERT_ID();
                     
@@ -157,8 +157,7 @@ BEGIN
 			BEGIN
 				SELECT 
 					tipo_usuario_id AS s_tipo_usuario_id,
-					nombre AS s_nombre,
-					descripcion AS s_descripcion
+					tipo AS s_tipo
 				FROM tipo_usuario;
 				SET v_estado = true;
 				SET v_mensaje = 'True';
