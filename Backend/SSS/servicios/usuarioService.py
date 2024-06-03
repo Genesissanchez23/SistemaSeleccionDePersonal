@@ -6,6 +6,7 @@ from dao.usuarioDao import UsuarioDao
 from dao.usuarioDao import UsuarioLogin,UsuarioRegistro,UsuarioConsulta,UsuarioActualizar,UsuarioPostulante
 from dao import conexion
 from environments import api
+from dao.ErrorResponse import extraer_mensaje_error
 
 usuario = APIRouter()
 
@@ -44,11 +45,11 @@ async def login(request: Request, usuario_login: UsuarioLogin = Body(...)):
                 }
                 
                 access_token = Tokenizacion.generarToken(token_data)
-                return {"resultado": access_token, "mensaje":result2[0]["mensaje"]}
+                return {"resultado": access_token, "mensaje":bool(result2[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"False"}
+                return {"resultado": "", "mensaje":False}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
 
@@ -75,11 +76,11 @@ async def registrar_usuario(usuario_registro: UsuarioRegistro = Body(...),bearer
             # Pasar al siguiente conjunto de resultados
             await cur.nextset()
             if result:
-                return {"resultado": "", "mensaje": result[0]["mensaje"]}
+                return {"resultado": "", "mensaje": bool(result[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"True"}
+                return {"resultado": "", "mensaje":True}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
 
@@ -103,11 +104,11 @@ async def registrar_usuario(usuario_registro: UsuarioPostulante = Body(...)):
             # Pasar al siguiente conjunto de resultados
             await cur.nextset()
             if result:
-                return {"resultado": "", "mensaje": result[0]["mensaje"]}
+                return {"resultado": "", "mensaje": bool(result[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"True"}
+                return {"resultado": "", "mensaje":True}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
 
@@ -135,11 +136,11 @@ async def consultar_usuario(s_usuario_id: int,bearer: HTTPAuthorizationCredentia
             # Obtener el segundo conjunto de resultados
             result2 = await cur.fetchall()
             if result and result2:
-                return {"resultado": result[0], "mensaje": result2[0]["mensaje"]}
+                return {"resultado": result[0], "mensaje": bool(result2[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"True"}
+                return {"resultado": "", "mensaje":True}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
 
@@ -165,11 +166,11 @@ async def actualizar_usuario(usuario_actualizado: UsuarioActualizar = Body(...),
             await cur.nextset()
             print(result)
             if result:
-                return {"resultado": "", "mensaje": result[0]["mensaje"]}
+                return {"resultado": "", "mensaje": bool(result[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"False"}
+                return {"resultado": "", "mensaje":False}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
 
@@ -196,11 +197,11 @@ async def consultar_usuario(bearer: HTTPAuthorizationCredentials = Depends(auth_
             # Obtener el segundo conjunto de resultados
             result2 = await cur.fetchall()
             if result and result2:
-                return {"resultado": result, "mensaje": result2[0]["mensaje"]}
+                return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"True"}
+                return {"resultado": "", "mensaje":True}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
 
@@ -225,10 +226,10 @@ async def consultarTipos():
             # Obtener el segundo conjunto de resultados
             result2 = await cur.fetchall()
             if result and result2:
-                return {"resultado": result, "mensaje": result2[0]["mensaje"]}
+                return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
-                return {"resultado": "", "mensaje":"True"}
+                return {"resultado": "", "mensaje":True}
     except Exception as e:
-        return {"resultado": str(e), "mensaje":"False"}
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
         conn.close()
