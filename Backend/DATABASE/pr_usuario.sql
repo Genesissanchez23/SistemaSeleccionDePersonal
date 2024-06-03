@@ -35,15 +35,12 @@ BEGIN
                     SET conteo = ROW_COUNT() + conteo;
                     IF conteo = 2 THEN
 						SET v_estado = true;
-						SET v_mensaje = 'True';
 					ELSE
 						SET v_estado = false;
-						SET v_mensaje = 'False';
 					END IF;
                 END;
             ELSE
 				SET v_estado = false;
-                SET v_mensaje = 'False';
             END IF;
 
 		WHEN 2 THEN
@@ -66,11 +63,9 @@ BEGIN
 					JOIN tipo_usuario tu ON u.tipo_usuario_id = tu.tipo_usuario_id
 					WHERE u.usuario_id = s_usuario_id;
 					SET v_estado = true;
-					SET v_mensaje = 'True';
 				END;
 			ELSE
 				SET v_estado = false;
-				SET v_mensaje = 'False';
 			END IF;
 
        WHEN 3 THEN
@@ -93,11 +88,9 @@ BEGIN
 					JOIN tipo_usuario tu ON u.tipo_usuario_id = tu.tipo_usuario_id
 					WHERE u.alias = s_alias AND u.contrasena = s_contrasena;
 					SET v_estado = true;
-					SET v_mensaje = 'True';
 				END;
 			ELSE
 				SET v_estado = false;
-				SET v_mensaje = 'False';
 			END IF;
 
         WHEN 4 THEN
@@ -120,15 +113,12 @@ BEGIN
                     SET conteo = ROW_COUNT() + conteo;
                     IF conteo = 1 || conteo = 2 THEN
 						SET v_estado = true;
-						SET v_mensaje = 'True';
 					ELSE
 						SET v_estado = false;
-						SET v_mensaje = 'False';
 					END IF;
                 END;
             ELSE
 				SET v_estado = false;
-                SET v_mensaje = 'False';
             END IF;
 
 		WHEN 5 THEN
@@ -149,7 +139,6 @@ BEGIN
 				JOIN datos_personales dp ON u.usuario_id = dp.usuario_id
 				JOIN tipo_usuario tu ON u.tipo_usuario_id = tu.tipo_usuario_id;
 				SET v_estado = true;
-				SET v_mensaje = 'True';
 			END;
 
 		WHEN 6 THEN
@@ -160,13 +149,11 @@ BEGIN
 					tipo AS s_tipo
 				FROM tipo_usuario;
 				SET v_estado = true;
-				SET v_mensaje = 'True';
 			END;
 
 
         ELSE
 			SET v_estado = false;
-            SET v_mensaje = 'False';
     END CASE;
 
     IF v_estado = true THEN
@@ -174,8 +161,8 @@ BEGIN
     ELSE
         ROLLBACK;
     END IF;
-
-    SELECT v_mensaje AS mensaje;
+	
+    SELECT v_estado AS mensaje;
 END //
 
 DELIMITER ;
