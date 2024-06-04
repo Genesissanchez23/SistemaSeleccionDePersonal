@@ -85,7 +85,7 @@ async def registrar_usuario(usuario_registro: UsuarioRegistro = Body(...),bearer
         conn.close()
 
 @usuario.post("/registrarPostulante")
-async def registrar_usuario(usuario_registro: UsuarioPostulante = Body(...)):
+async def registrar_postulante(usuario_registro: UsuarioPostulante = Body(...)):
 
     conn = await conexion.conectar()
     try:
@@ -114,7 +114,7 @@ async def registrar_usuario(usuario_registro: UsuarioPostulante = Body(...)):
 
 
 @usuario.get("/consultarPorId")
-async def consultar_usuario(s_usuario_id: int,bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def consultar_por_id(s_usuario_id: int,bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
@@ -176,7 +176,7 @@ async def actualizar_usuario(usuario_actualizado: UsuarioActualizar = Body(...),
 
 
 @usuario.get("/consultarTodos")
-async def consultar_usuario(bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def consultar_todos(bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
@@ -208,7 +208,7 @@ async def consultar_usuario(bearer: HTTPAuthorizationCredentials = Depends(auth_
 
 
 @usuario.get("/consultarTipos")
-async def consultarTipos():
+async def consultar_tipos():
     conn = await conexion.conectar()
     try:
         # Mapear los datos 
@@ -231,5 +231,49 @@ async def consultarTipos():
                 return {"resultado": "", "mensaje":True}
     except Exception as e:
         return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
+    finally:
+        conn.close()
+
+@usuario.get("/consultarTodosPorTipo")
+async def consultar_todos_por_tipo(s_tipo: str, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
+    if accion is not None:
+        return accion
+    conn = await conexion.conectar()
+    try:
+        # Consultar la opción 6 del procedimiento almacenado para obtener los tipos de usuario
+        usuario_dao_tipos = UsuarioDao(
+            s_opcion=6
+        )
+        async with conn.cursor() as cur:
+            await cur.callproc('pr_usuario', tuple(dict(usuario_dao_tipos).values()))
+            tipos_usuario = await cur.fetchall()
+            
+            # Verificar si el tipo de usuario proporcionado está en los tipos obtenidos
+            tipo_usuario_id = None
+            for tipo in tipos_usuario:
+                if tipo["s_tipo"].lower() == s_tipo.lower():
+                    tipo_usuario_id = tipo["s_tipo_usuario_id"]
+                    break
+              
+            if tipo_usuario_id is not None:
+                # Si se encontró un tipo de usuario coincidente, proceder con la opción 7
+                usuario_dao_consulta = UsuarioDao(
+                    s_opcion=7,
+                    s_tipo_usuario_id=tipo_usuario_id
+                )
+                
+                await cur.callproc('pr_usuario', tuple(dict(usuario_dao_consulta).values()))
+                result = await cur.fetchall()
+                await cur.nextset()
+                result2 = await cur.fetchall()
+                if result and result2:
+                    return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
+                else:
+                    return {"resultado": "", "mensaje": True}
+            else:
+                    return {"resultado": "El tipo de usuario no coincide", "mensaje": True}
+    except Exception as e:
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje": False}
     finally:
         conn.close()
