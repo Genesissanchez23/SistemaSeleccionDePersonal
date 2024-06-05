@@ -1,6 +1,7 @@
 # Rutas del inicio
 from servicios.inicio import ruta
 from servicios.solicitudService import solicitud
+from servicios.solicitudEmpleadoService import solicitud_empleado
 from servicios.usuarioService import usuario
 # Parámetros de solicitud 
 from fastapi import FastAPI
@@ -40,6 +41,13 @@ sss.include_router(
     solicitud,
     prefix='/v1',
     tags=['solicitud'],
+    responses={404: {'response': 'Error'}}
+)
+
+sss.include_router(
+    solicitud_empleado,
+    prefix='/v1',
+    tags=['solicitud_empleado'],
     responses={404: {'response': 'Error'}}
 )
 

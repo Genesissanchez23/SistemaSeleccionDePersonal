@@ -8,8 +8,8 @@ from dao.tipoSolicitudDao import RegistrarTipoSolicitudDao
 
 solicitud = APIRouter()
 
-@solicitud.get("/consultarSolicitudPorId")
-async def consultar_solicitud_por_id(s_tipo_solicitud_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+@solicitud.get("/consultarTipoSolicitudPorId")
+async def consultar_tipo_solicitud_por_id(s_tipo_solicitud_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
@@ -33,8 +33,8 @@ async def consultar_solicitud_por_id(s_tipo_solicitud_id: int, bearer: HTTPAutho
     finally:
         conn.close()
 
-@solicitud.get("/consultarSolicitudPorTipo")
-async def consultar_solicitud_por_tipo(s_tipo: str, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+@solicitud.get("/consultarTipoSolicitudPorTipo")
+async def consultar_tipo_solicitud_por_tipo(s_tipo: str, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
@@ -50,7 +50,7 @@ async def consultar_solicitud_por_tipo(s_tipo: str, bearer: HTTPAuthorizationCre
             # Obtener el segundo conjunto de resultados
             result2 = await cur.fetchall()
             if result  and result2:
-                return {"resultado": result[0], "mensaje": bool(result2[0]["mensaje"])}
+                return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
                 return {"resultado": "", "mensaje": True}
     except Exception as e:
@@ -58,8 +58,8 @@ async def consultar_solicitud_por_tipo(s_tipo: str, bearer: HTTPAuthorizationCre
     finally:
         conn.close()
 
-@solicitud.get("/consultarSolicitudes")
-async def consultar_solicitudes(bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+@solicitud.get("/consultarTipoSolicitudes")
+async def consultar_tipo_solicitudes(bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
@@ -78,7 +78,7 @@ async def consultar_solicitudes(bearer: HTTPAuthorizationCredentials = Depends(a
             result2 = await cur.fetchall()
             print(result2)
             if result and result2:
-                return {"resultado": result[0], "mensaje": bool(result2[0]["mensaje"])}
+                return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
                 return {"resultado": "", "mensaje": True}
     except Exception as e:
@@ -86,7 +86,7 @@ async def consultar_solicitudes(bearer: HTTPAuthorizationCredentials = Depends(a
     finally:
         conn.close()
 
-@solicitud.post("/registrarSolicitud")
+@solicitud.post("/registrarTipoSolicitud")
 async def registrar_tipo_solicitud(solicitud_body: RegistrarTipoSolicitudDao = Body(...), bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
