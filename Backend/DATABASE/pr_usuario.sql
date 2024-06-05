@@ -150,7 +150,26 @@ BEGIN
 				FROM tipo_usuario;
 				SET v_estado = true;
 			END;
-
+		WHEN 7 THEN
+			-- Opción 5: Consultar todos los usuarios y sus datos personales
+			BEGIN
+				SELECT 
+					u.usuario_id AS s_usuario_id,
+					u.alias AS s_alias,
+					u.contrasena AS s_contrasena,
+					tu.tipo_usuario_id AS s_tipo_usuario_id,
+					tu.tipo AS s_tipo_usuario,
+					dp.nombre AS s_nombre,
+					dp.apellido AS s_apellido,
+					dp.cedula AS s_cedula,
+					dp.direccion AS s_direccion,
+					dp.correo AS s_correo
+				FROM usuario u
+				JOIN datos_personales dp ON u.usuario_id = dp.usuario_id
+				JOIN tipo_usuario tu ON u.tipo_usuario_id = tu.tipo_usuario_id
+                Where u.tipo_usuario_id = s_tipo_usuario_id;
+				SET v_estado = true;
+			END;
 
         ELSE
 			SET v_estado = false;
