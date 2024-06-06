@@ -3,10 +3,10 @@ from pydantic import BaseModel
 from typing import Optional
 # Clase de modelo para los datos de entrada de la opción 3 del procedimiento almacenado
 class UsuarioLogin(BaseModel):
-    s_alias: str
-    s_contrasena: str
+    s_alias: str 
+    s_contrasena: str  
 
-
+     
 class UsuarioDao(BaseModel):
     s_opcion: int
     s_alias: Optional[str] = None
@@ -23,7 +23,6 @@ class UsuarioDao(BaseModel):
 class UsuarioActualizar(BaseModel):
     s_alias: Optional[str] = None
     s_contrasena: Optional[str] = None
-    s_estado: Optional[str] = None
     s_tipo_usuario_id: Optional[int] = None
     s_nombre: Optional[str] = None
     s_apellido: Optional[str] = None
@@ -36,8 +35,16 @@ class UsuarioActualizar(BaseModel):
 class UsuarioRegistro(BaseModel):
     s_alias: str
     s_contrasena: str
-    s_estado: str
     s_tipo_usuario_id: int
+    s_nombre: str
+    s_apellido: str
+    s_cedula: str
+    s_direccion: str
+    s_correo: str
+
+class UsuarioPostulante(BaseModel):
+    s_alias: str
+    s_contrasena: str
     s_nombre: str
     s_apellido: str
     s_cedula: str
