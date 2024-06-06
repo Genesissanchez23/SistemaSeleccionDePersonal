@@ -4,8 +4,16 @@ import { Component, Input } from '@angular/core';
   selector: 'app-title',
   standalone: true,
   imports: [],
-  templateUrl: './title.component.html',
-  styleUrl: './title.component.css'
+  template: `
+    <p class="mt-2 mb-4">{{title}}</p>
+  `,
+  styles: `
+    p {
+      font-family: 'astonpoliz', sans-serif;  
+      line-height: 33px; 
+      font-size: 1.7rem;
+    }
+  `
 })
 export class TitleComponent {
 

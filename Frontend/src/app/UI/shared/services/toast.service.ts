@@ -4,7 +4,7 @@ import { Notyf } from 'notyf';
 @Injectable({
   providedIn: 'root'
 })
-export class ToatService {
+export class ToastService {
 
   notyf = new Notyf();
 
@@ -23,11 +23,18 @@ export class ToatService {
 
   error(mensaje: string) {
     const options = {
-      icon: '<i class="bi bi-emoji-tear-fill"></i>',
+      icon: '<i class="bi bi-exclamation-triangle-fill"></i>',
       background: 'var(--orange-custom)',
     };
     this.showToast(mensaje, options);
   }
 
+  success(mensaje: string) {
+    const options = {
+      icon: '<i class="bi bi-check-circle-fill"></i>',
+      background: 'var(--green-custom)',
+    };
+    this.showToast(mensaje, options);
+  }
 
 }

@@ -1,0 +1,41 @@
+th {
+    background-color: var(--orange-custom);
+    color: #FFFFFF;
+    text-align: start;
+    font-size: mall;
+    height: 1rem;
+    font-family: 'astonpoliz', sans-serif;
+    font-weight: normal;
+    width: 20%;
+    border: 1px solid #555;
+}
+
+tr {
+    font-family: 'Raleway', sans-serif;
+    font-size: small;
+    font-weight: 500;
+    background-color: white;
+}
+
+tr td {
+    border: 1px solid #555;
+}
+
+tr:hover {
+    background-color: whitesmoke;
+}
+
+:host::ng-deep.p-datatable.p-datatable-sm .p-datatable-header {
+    border: none;
+    background: transparent;
+}
+
+:host::ng-deep.p-element {    
+    color: var(--black-custom);           
+    height: 1rem;
+}
+
+:host::ng-deep.p-component  {
+    background-color: transparent;
+    border: none;
+}

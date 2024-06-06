@@ -1,15 +1,21 @@
 import { Observable } from 'rxjs';
-import { UseCase } from '../../common/use-case';
-import { UserModel } from '../../models/user/user.model';
-import { UserGateway } from '../../models/user/gateway/user.gateway';
+import { Injectable } from '@angular/core';
 
-export class UserLoginUsecase implements UseCase<{ username: string, password: string }, UserModel> {
+import { UseCase } from '@domain/common/use-case';
+import { ResponseModel } from '@domain/common/response-model';
+import { UserGateway } from '@domain/models/user/gateway/user.gateway';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class UserLoginUsecase implements UseCase<{ usuario: string, contrasena: string }, ResponseModel> {
 
   constructor(private _userGateway: UserGateway) { }
 
   perform(
-    params: { username: string; password: string; }
-  ): Observable<UserModel> {
+    params: { usuario: string; contrasena: string; }
+  ): Observable<ResponseModel> {
     return this._userGateway.login(params)
   }
 

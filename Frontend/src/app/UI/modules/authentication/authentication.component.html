@@ -1,4 +1,4 @@
-<section class="container-fluid vh-100">
+<section class="container-fluid vh-100 background-custom">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -6,7 +6,8 @@
                     <div class="row g-0">
                         <div class="col-lg-6">
                             <div class="card-body p-md-4 mx-md-3">
-                                <div class="text-center mb-4">
+                                <div class="text-center mb-4 px-2">                                    
+                                    <!-- <img src="src/assets/image/logo.png" alt="logo"> -->
                                     <img src="../../../../assets/image/logo.png" alt="logo">
                                     <app-title title="Únete a nuestra misión, haz tu impacto" />
                                 </div>
@@ -16,7 +17,9 @@
                                     <div class="container-input">
                                         <label> Username </label>
                                         <div class="input-box rounded-1 shadow-sm">
-                                            <div class="icon"><i class="bi bi-person"></i></div>
+                                            <div class="icon">
+                                                <i class="pi pi-user"></i>                                                
+                                            </div>
                                             <input class="input" type="text" formControlName="username"
                                                 autocomplete="off">
                                         </div>
@@ -25,10 +28,12 @@
                                         }
                                     </div>
 
-                                    <div class="container-input">
+                                    <div class="container-input mt-3">
                                         <label> Password </label>
                                         <div class="input-box rounded-1 shadow-sm">
-                                            <div class="icon"><i class="bi bi-key"></i></div>
+                                            <div class="icon">
+                                                <i class="pi pi-lock"></i>
+                                            </div>
                                             <input class="input" type="password" formControlName="password"
                                                 autocomplete="off">
                                         </div>
@@ -48,16 +53,16 @@
                                     </button>
 
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <div class="pt-3 pe-2">
+                                        <div class="pt-2 pe-2">
                                             <app-text text="¿No tiene cuenta?" [xsmall]=true />
                                         </div>
-                                        <a routerLink="">Registrarse</a>
+                                        <a routerLink="/postulante/registrar">Registrarse</a>
                                     </div>
                                 </form>
 
                             </div>
                         </div>
-                        <div class="container-right col-lg-6 d-flex align-items-center">
+                        <div class="container-right col-lg-6 d-none d-lg-flex align-items-center">
                             <div class="px-3 pb-4 p-md-4">
                                 <div class="mx-md-4 text-center">
                                     <app-title title="¡Somos más que una empresa!" />

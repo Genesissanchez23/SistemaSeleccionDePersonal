@@ -1,0 +1,33 @@
+<mat-sidenav-container class="sidenav-container background-custom vh-100">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'side' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="d-flex justify-content-center align-items-center">
+      <i class="bi bi-person-circle fs-3" [matTooltip]="user.tipoUsuario!" matTooltipPosition="right"></i>
+    </mat-toolbar>
+    <mat-nav-list class="mat-nav-list rounded-2">
+      <div class="container-options pt-3">
+        @for (item of routes; track $index) {
+        <a [routerLink]="item.path" [matTooltip]="item.data?.['tooltips']" matTooltipPosition="right">
+          <i class="{{item.data?.['icon']}}"></i>
+        </a>
+        }
+      </div>
+      <button class="btn-logout" matTooltip="Cerrar Sesión" matTooltipPosition="right">
+        <i class="pi pi-sign-out"></i>
+      </button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      }@else {
+      <span></span>
+      }
+      <span class="text-capitalize">Bienvenido, {{user.nombres + ' ' + user.apellidos}}</span>
+    </mat-toolbar>
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

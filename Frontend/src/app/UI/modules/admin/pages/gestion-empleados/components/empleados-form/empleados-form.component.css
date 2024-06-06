@@ -1,0 +1,19 @@
+.card {
+    background-color: var(--orange-custom);
+}
+
+.card-body {
+    background-color: white;
+    border-radius: 0.4rem;
+    border-top-right-radius: 40%;
+}
+
+.container-btn {
+    margin-top: 1.7rem;
+}
+
+@media (width < 777px) {
+    .card-body {
+        border-top-right-radius: 0.4rem;
+    }
+}

@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 :root {
     --orange-custom: #D95747;
@@ -7,6 +10,22 @@
     --blue-custom: #4377E7;
     --white-custom: #F5F5F5;
     --black-custom: #333333;
+}
+
+.bg-black-custom {
+    background-color: var(--black-custom);
+}
+
+.bg-blue-custom {
+    background-color: var(--blue-custom);
+}
+
+.bg-orange-custom {
+    background-color: var(--orange-custom);
+}
+
+body {
+    scrollbar-color: var(--black-custom) var(--white-custom);
 }
 
 @font-face {
@@ -25,26 +44,26 @@
 }
 
 .font-astonpoliz {
-    font-family: 'astonpoliz', sans-serif;    
+    font-family: 'astonpoliz', sans-serif;
 }
 
 .font-raleway {
-    font-family: 'Raleway', sans-serif;    
+    font-family: 'Raleway', sans-serif;
 }
 
 /* Custom Input */
 
 .container-input {
     width: 100%;
-    height: 65px;
+    height: 70px;
     margin: 4px 0;
     display: flex;
     flex-direction: column;
 }
 
 .container-input label {
-    font-size: .625rem;
-    font-weight: bold;
+    font-size: .655rem;
+    font-weight: 500;
     color: var(--black-custom);
     margin-bottom: 4px;
     margin-left: 1px;
@@ -60,8 +79,8 @@
 }
 
 .container-input .input-box .icon {
-    width: 1.4rem;
-    height: 1.3rem;
+    width: 1.5rem;
+    height: 1.4rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -72,11 +91,13 @@
 
 .container-input .input-box .icon i {
     color: var(--white-custom);
+    font-size: small;
 }
 
-.container-input .input-box  input {
+.container-input .input-box input,
+.container-input .input-box select {
     width: 100%;
-    font-family: 'Raleway', sans-serif; 
+    font-family: 'Raleway', sans-serif;
     border: 0;
     font-size: .70rem;
     padding: 0 9px;
@@ -90,6 +111,7 @@
     font-size: .6rem;
     margin-top: 9px;
     margin-left: 1px;
+    font-weight: 500;
     transform: translateY(-.5rem);
 }
 
@@ -101,10 +123,10 @@
     height: 1.8rem;
     color: white;
     background-color: var(--black-custom);
-    font-family: 'astonpoliz', sans-serif; 
+    font-family: 'astonpoliz', sans-serif;
     font-size: small;
     text-transform: capitalize;
-    padding: .3rem 1rem;    
+    padding: .3rem 1rem;
     border: none;
     outline: none;
     display: flex;
@@ -122,10 +144,37 @@
     transform: scale(.995);
 }
 
+.btn-options {
+    height: 1.5rem;
+}
+
+.btn-view {
+    background-color: var(--blue-custom);
+}
+
+.btn-edit {
+    background-color: var(--green-custom);
+}
+
+.btn-delete {
+    background-color: var(--orange-custom);
+}
+
 
 /*Colors validators*/
 
 .ng-invalid:not(form).ng-touched {
     border-radius: 3px;
     border-right: 7px solid var(--orange-custom);
+}
+
+
+/* Background personalizado */
+.background-custom {
+    background:
+        linear-gradient(135deg, #0000 18.75%, #F5F5F5 0 31.25%, #0000 0),
+        repeating-linear-gradient(45deg, #F5F5F5 -6.25% 6.25%, #ffffff 0 18.75%);
+    background-size: 100px 100px;
+    background-attachment: fixed;
+    background-position: center;
 }
