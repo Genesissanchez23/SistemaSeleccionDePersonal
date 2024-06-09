@@ -80,7 +80,6 @@ CREATE TABLE solicitud_empleado (
     tipo_solicitud_id INT,
     descripcion_solicitud TEXT,
     estado_solicitud_empleado_id INT,
-    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_inicio DATETIME NOT NULL,
     fecha_fin DATETIME NOT NULL,
     fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -88,6 +87,7 @@ CREATE TABLE solicitud_empleado (
     FOREIGN KEY (tipo_solicitud_id) REFERENCES tipo_solicitud(tipo_solicitud_id),
     FOREIGN KEY (estado_solicitud_empleado_id) REFERENCES estado_solicitud_empleado(estado_solicitud_empleado_id)
 );
+
 
 -- Crear la tabla estado_solicitud_postulante
 CREATE TABLE estado_solicitud_postulante (

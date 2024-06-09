@@ -1,5 +1,5 @@
-DELIMITER //
 USE SSS_DATABASE;
+DELIMITER //
 CREATE PROCEDURE pr_solicitud_empleado (
     IN s_opcion INT,
     IN s_solicitud_empleado_id INT,
@@ -80,10 +80,11 @@ BEGIN
         WHEN 3 THEN
             -- Opción 3: Consultar todas las solicitud_empleado
             BEGIN
-                SELECT se.*, ts.tipo, ese.nombre_estado_solicitud ,ese.estado
+                SELECT se.*,dt.nombre , dt.apellido, ts.tipo, ese.nombre_estado_solicitud ,ese.estado
                 FROM solicitud_empleado se
                 JOIN tipo_solicitud ts ON se.tipo_solicitud_id = ts.tipo_solicitud_id
-                JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id;
+                JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id
+                JOIN datos_personales dt ON se.usuario_id = dt.usuario_id;
                 SET v_estado = true;
             END;
 
@@ -91,10 +92,11 @@ BEGIN
             -- Opción 4: Consultar todas las solicitud_empleado de un usuario_id específico
             IF s_usuario_id IS NOT NULL THEN
                 BEGIN
-                    SELECT se.*, ts.tipo, ese.nombre_estado_solicitud, ese.estado
+                    SELECT se.*,dt.nombre , dt.apellido, ts.tipo, ese.nombre_estado_solicitud, ese.estado
                     FROM solicitud_empleado se
                     JOIN tipo_solicitud ts ON se.tipo_solicitud_id = ts.tipo_solicitud_id
                     JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id
+                    JOIN datos_personales dt ON se.usuario_id = dt.usuario_id
                     WHERE se.usuario_id = s_usuario_id;
                     SET v_estado = true;
                 END;
