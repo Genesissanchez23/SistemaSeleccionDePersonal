@@ -117,3 +117,8 @@ CREATE TABLE postulaciones (
     FOREIGN KEY (estado_solicitud_postulante_id) REFERENCES estado_solicitud_postulante(estado_solicitud_postulante_id)
 );
 
+
+INSERT INTO usuario (alias, contrasena, estado, tipo_usuario_id) 
+                    VALUES ('admin', '$2b$12$2rCDwRjQU1TSxszMDuLBG.W6HpWNpqLi3Edu7qUviTsEPnJM26U6m', 'A', 1);
+INSERT INTO datos_personales (nombre, apellido, cedula, direccion, correo, usuario_id)
+                    VALUES ('admin', 'admin', '0989324569', 'alborada 3era etapa', 'admin@sss.ec', LAST_INSERT_ID());
