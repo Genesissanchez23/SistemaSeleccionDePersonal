@@ -116,6 +116,11 @@ async def registrar_postulante(usuario_registro: UsuarioPostulante = Body(...)):
 
     conn = await conexion.conectar()
     try:
+        password_manager = Encriptacion()
+        # Encriptar una contraseña
+        password = usuario_registro.s_contrasena
+        hashed_password = password_manager.encriptar(password)
+        usuario_registro.s_contrasena = hashed_password
         # Mapear los datos de UsuarioRegistro a UsuarioDao
         usuario_dao = UsuarioDao(
             s_opcion=1,
