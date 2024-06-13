@@ -8,3 +8,7 @@ class PostulacionesDao(BaseModel):
     p_plaza_laboral_id: Optional[int] = None
     p_cv: Optional[bytes] = None
     p_estado_solicitud_postulante_id: Optional[int] = None
+
+
+class CambiarEstadoPostulacion(BaseModel):
+    p_postulacion_id: int

@@ -28,3 +28,7 @@ class RegistrarSolicitudEmpleadoDao(BaseModel):
     s_descripcion_solicitud: Optional[str] = None
     s_fecha_inicio: Optional[str] = None
     s_fecha_fin: Optional[str] = None
+
+
+class CambiarEstadoEmpleado(BaseModel):
+    s_solicitud_empleado_id : int

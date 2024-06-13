@@ -5,6 +5,7 @@ from dao.tokenizacionDao import Tokenizacion,auth_scheme,acciones
 from dao.usuarioDao import UsuarioDao
 from dao.usuarioDao import UsuarioLogin,UsuarioRegistro,UsuarioConsulta,UsuarioActualizar,UsuarioPostulante
 from dao import conexion
+from dao.Encriptacion import Encriptacion
 from environments import api
 from dao.ErrorResponse import extraer_mensaje_error
 
@@ -14,40 +15,61 @@ usuario = APIRouter()
 async def login(request: Request, usuario_login: UsuarioLogin = Body(...)):
     conn = await conexion.conectar()
     try:
+        password_manager = Encriptacion()
+        # Encriptar una contraseña
+        
+        password = usuario_login.s_contrasena
+        hashed_password = password_manager.encriptar(password)
+        usuario_login.s_contrasena = hashed_password
+
+
+
         # Mapear los datos de UsuarioLogin a UsuarioDao
         usuario_dao = UsuarioDao(
-            s_opcion=3,
+            s_opcion=0,
             **usuario_login.dict()
         )
+        
         # Pasar los valores del diccionario como una tupla
         async with conn.cursor() as cur:
             await cur.callproc('pr_usuario', tuple(dict(usuario_dao).values()))
-            result = await cur.fetchall()
+            value = await cur.fetchall()
             # Pasar al siguiente conjunto de resultados
             await cur.nextset()
             # Obtener el segundo conjunto de resultados
-            result2 = await cur.fetchall()
-            if result  and result2:
-                usuario_id = result[0]["s_usuario_id"]
-                nombre = result[0]["s_nombre"]
-                apellido = result[0]["s_apellido"]
-                tipo = result[0]["s_tipo_usuario"]
-                id_tipo = result[0]["s_tipo_usuario_id"]
+            value2 = await cur.fetchall()
+            if  value  and value2:
+                usuario_dao.s_opcion=3
+                usuario_dao.s_contrasena = value[0]["v_contrasena_hash"] 
+                print(usuario_dao.s_contrasena)
+
+                await cur.callproc('pr_usuario', tuple(dict(usuario_dao).values()))
+                result = await cur.fetchall()
+                # Pasar al siguiente conjunto de resultados
+                await cur.nextset()
+                # Obtener el segundo conjunto de resultados
+                result2 = await cur.fetchall()
+                if result  and result2:
+                    usuario_id = result[0]["s_usuario_id"]
+                    nombre = result[0]["s_nombre"]
+                    apellido = result[0]["s_apellido"]
+                    tipo = result[0]["s_tipo_usuario"]
+                    id_tipo = result[0]["s_tipo_usuario_id"]
+                    
+                    # Generar token de acceso
+                    token_data = {
+                        "s_usuario_id": usuario_id,
+                        "s_nombre": nombre,
+                        "s_apellido": apellido,
+                        "s_tipo_usuario": tipo,
+                        "s_tipo_usuario_id": id_tipo,
+                        "exp": datetime.utcnow() + timedelta(minutes=api.Api.TOKEN_TIME)
+                    }
+                    
+                    access_token = Tokenizacion.generarToken(token_data)
+                    return {"resultado": access_token, "mensaje":bool(result2[0]["mensaje"])}
                 
-                # Generar token de acceso
-                token_data = {
-                    "s_usuario_id": usuario_id,
-                    "s_nombre": nombre,
-                    "s_apellido": apellido,
-                    "s_tipo_usuario": tipo,
-                    "s_tipo_usuario_id": id_tipo,
-                    "exp": datetime.utcnow() + timedelta(minutes=api.Api.TOKEN_TIME)
-                }
-                
-                access_token = Tokenizacion.generarToken(token_data)
-                return {"resultado": access_token, "mensaje":bool(result2[0]["mensaje"])}
-            else:
-                return {"resultado": "", "mensaje":False}
+            return {"resultado": "", "mensaje":False}
     except Exception as e:
         return {"resultado": extraer_mensaje_error(str(e)), "mensaje":False}
     finally:
@@ -62,6 +84,11 @@ async def registrar_usuario(usuario_registro: UsuarioRegistro = Body(...),bearer
         return accion
     conn = await conexion.conectar()
     try:
+        password_manager = Encriptacion()
+        # Encriptar una contraseña
+        password = usuario_registro.s_contrasena
+        hashed_password = password_manager.encriptar(password)
+        usuario_registro.s_contrasena = hashed_password
         # Mapear los datos de UsuarioRegistro a UsuarioDao
         usuario_dao = UsuarioDao(
             s_opcion=1,

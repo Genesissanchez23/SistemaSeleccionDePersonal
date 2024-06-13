@@ -3,7 +3,7 @@ from fastapi.security import HTTPAuthorizationCredentials
 from dao import conexion
 from dao.tokenizacionDao import Tokenizacion, auth_scheme, acciones
 from dao.ErrorResponse import extraer_mensaje_error
-from dao.postulacionesDao import PostulacionesDao
+from dao.postulacionesDao import PostulacionesDao,CambiarEstadoPostulacion
 import base64
 
 # Registrar nuevos endpoints en un nuevo APIRouter
@@ -162,13 +162,13 @@ async def postulaciones_modificar(
         conn.close()
 
 @postulaciones.put("/postulacionesCambiarEstadoEnProceso")
-async def postulaciones_cambiar_estado_en_proceso(p_postulacion_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def postulaciones_cambiar_estado_en_proceso(objeto: CambiarEstadoPostulacion, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=6, p_postulacion_id=p_postulacion_id)
+        postulaciones_dao = PostulacionesDao(p_opcion=6, p_postulacion_id=objeto.p_postulacion_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -182,13 +182,13 @@ async def postulaciones_cambiar_estado_en_proceso(p_postulacion_id: int, bearer:
         conn.close()
 
 @postulaciones.put("/postulacionesCambiarEstadoInformacionPersonal")
-async def postulaciones_cambiar_estado_informacion_personal(p_postulacion_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def postulaciones_cambiar_estado_informacion_personal(objeto: CambiarEstadoPostulacion, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=7, p_postulacion_id=p_postulacion_id)
+        postulaciones_dao = PostulacionesDao(p_opcion=7, p_postulacion_id=objeto.p_postulacion_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -202,13 +202,13 @@ async def postulaciones_cambiar_estado_informacion_personal(p_postulacion_id: in
         conn.close()
 
 @postulaciones.put("/postulacionesCambiarEstadoFinalizado")
-async def postulaciones_cambiar_estado_finalizado(p_postulacion_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def postulaciones_cambiar_estado_finalizado(objeto: CambiarEstadoPostulacion, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=8, p_postulacion_id=p_postulacion_id)
+        postulaciones_dao = PostulacionesDao(p_opcion=8, p_postulacion_id=objeto.p_postulacion_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
