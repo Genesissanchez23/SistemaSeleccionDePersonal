@@ -86,8 +86,8 @@ async def postulaciones_consultar(bearer: HTTPAuthorizationCredentials = Depends
 
             # Codificar el campo BLOB (cv) a base64
             for row in result:
-                if 'cv' in row and row['cv'] is not None:
-                    row['cv'] = base64.b64encode(row['cv']).decode('utf-8')
+                if 's_cv' in row and row['s_cv'] is not None:
+                    row['s_cv'] = base64.b64encode(row['s_cv']).decode('utf-8')
 
             if result and result2:
                 return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
@@ -113,8 +113,8 @@ async def postulaciones_consultar_por_usuario(p_usuario_id: int, bearer: HTTPAut
             result2 = await cur.fetchall()
              # Codificar el campo BLOB (cv) a base64
             for row in result:
-                if 'cv' in row and row['cv'] is not None:
-                    row['cv'] = base64.b64encode(row['cv']).decode('utf-8')
+                if 's_cv' in row and row['s_cv'] is not None:
+                    row['s_cv'] = base64.b64encode(row['s_cv']).decode('utf-8')
             if result and result2:
                 return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
