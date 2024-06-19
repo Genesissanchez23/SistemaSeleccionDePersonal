@@ -18,9 +18,29 @@ BEGIN
     DECLARE v_mensaje VARCHAR(255);
 	DECLARE v_estado BOOLEAN DEFAULT false;
     DECLARE conteo INT DEFAULT 0;
+    DECLARE v_contrasena_hash VARCHAR(255);
     START TRANSACTION;
 
     CASE s_opcion
+		WHEN 0 THEN
+            -- Opción 0: Consultar la contraseña de un usuario
+            IF s_alias IS NOT NULL THEN
+                BEGIN
+                    
+                    SELECT contrasena INTO v_contrasena_hash
+                    FROM usuario
+                    WHERE alias = s_alias;
+
+                    IF v_contrasena_hash IS NOT NULL THEN
+                        select v_contrasena_hash;
+                        SET v_estado = true;
+                    ELSE
+                        SET v_estado = false;
+                    END IF;
+                END;
+            ELSE
+                SET v_estado = false;
+            END IF;
         WHEN 1 THEN
             -- Opción 1: Insertar nuevo usuario y datos personales
             IF s_alias IS NOT NULL AND s_contrasena IS NOT NULL AND s_tipo_usuario_id IS NOT NULL AND s_nombre IS NOT NULL AND s_apellido IS NOT NULL AND s_cedula IS NOT NULL AND s_direccion IS NOT NULL AND s_correo IS NOT NULL THEN

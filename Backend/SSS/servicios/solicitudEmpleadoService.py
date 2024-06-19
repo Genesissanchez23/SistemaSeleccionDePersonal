@@ -3,7 +3,7 @@ from fastapi.security import HTTPAuthorizationCredentials
 from dao import conexion
 from dao.tokenizacionDao import Tokenizacion, auth_scheme, acciones
 from dao.ErrorResponse import extraer_mensaje_error
-from dao.solicitudEmpleadoDao import SolicitudEmpleadoDao,ModificarSolicitudEmpleadoDao,RegistrarSolicitudEmpleadoDao
+from dao.solicitudEmpleadoDao import CambiarEstadoEmpleado,SolicitudEmpleadoDao,ModificarSolicitudEmpleadoDao,RegistrarSolicitudEmpleadoDao
 
 solicitud_empleado = APIRouter()
 
@@ -130,13 +130,13 @@ async def modificar_solicitud_empleado(solicitud_body: ModificarSolicitudEmplead
         conn.close()
 
 @solicitud_empleado.put("/aceptarSolicitudEmpleado")
-async def aceptar_solicitud_empleado(s_solicitud_empleado_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def aceptar_solicitud_empleado(objeto: CambiarEstadoEmpleado, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        solicitud_empleado_dao = SolicitudEmpleadoDao(s_opcion=6, s_solicitud_empleado_id=s_solicitud_empleado_id)
+        solicitud_empleado_dao = SolicitudEmpleadoDao(s_opcion=6, s_solicitud_empleado_id=objeto.s_solicitud_empleado_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_solicitud_empleado', tuple(dict(solicitud_empleado_dao).values()))
             result = await cur.fetchall()
@@ -150,13 +150,13 @@ async def aceptar_solicitud_empleado(s_solicitud_empleado_id: int, bearer: HTTPA
         conn.close()
 
 @solicitud_empleado.put("/declinarSolicitudEmpleado")
-async def declinar_solicitud_empleado(s_solicitud_empleado_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def declinar_solicitud_empleado(objeto: CambiarEstadoEmpleado, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        solicitud_empleado_dao = SolicitudEmpleadoDao(s_opcion=7, s_solicitud_empleado_id=s_solicitud_empleado_id)
+        solicitud_empleado_dao = SolicitudEmpleadoDao(s_opcion=7, s_solicitud_empleado_id=objeto.s_solicitud_empleado_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_solicitud_empleado', tuple(dict(solicitud_empleado_dao).values()))
             result = await cur.fetchall()

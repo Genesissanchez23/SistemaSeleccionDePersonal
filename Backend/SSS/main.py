@@ -1,8 +1,10 @@
 # Rutas del inicio
 from servicios.inicio import ruta
 from servicios.solicitudService import solicitud
+from servicios.plazasLaboralesService import plaza_laboral
 from servicios.solicitudEmpleadoService import solicitud_empleado
 from servicios.usuarioService import usuario
+from servicios.postulacionesService import postulaciones
 # Parámetros de solicitud 
 from fastapi import FastAPI
 # Middleware CORS
@@ -48,6 +50,20 @@ sss.include_router(
     solicitud_empleado,
     prefix='/v1',
     tags=['solicitud_empleado'],
+    responses={404: {'response': 'Error'}}
+)
+
+sss.include_router(
+    plaza_laboral,
+    prefix='/v1',
+    tags=['plaza_laboral'],
+    responses={404: {'response': 'Error'}}
+)
+
+sss.include_router(
+    postulaciones,
+    prefix='/v1',
+    tags=['postulaciones'],
     responses={404: {'response': 'Error'}}
 )
 
