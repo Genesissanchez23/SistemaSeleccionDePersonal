@@ -1,5 +1,6 @@
 import { ResponseModel } from "@domain/common/response-model";
 import { PermisoSolicitudModel } from "@domain/models/permisos/permiso-solicitud.model";
+
 import { Mapper } from "@infrastructure/common/mapper";
 import { PermisoEntity, ResponseData } from "@infrastructure/repositories/permisos/entities/permiso.entity";
 
@@ -19,17 +20,17 @@ export class PermisoListaRepositoryMapper extends Mapper<ResponseData, ResponseM
 
   private mapToPermisoModel(entity: PermisoEntity): PermisoSolicitudModel {
     return {
-      id:                   entity.solicitud_empleado_id,
-      usuarioId:            entity.usuario_id,
-      nombres:              entity.nombre + ' ' + entity.apellido,
-      permisoTipoId:        entity.tipo_solicitud_id,
-      permisoTipo:          entity.tipo,
-      descripcion:          entity.descripcion_solicitud,
-      fechaRegistro:        entity.fecha_ingreso,
-      fechaInicioPermiso:   entity.fecha_inicio,
-      fechaFinPermiso:      entity.fecha_fin,
-      estado:               entity.estado,
-      descripcionEstado:    entity.nombre_estado_solicitud
+      id:                   entity.s_solicitud_empleado_id,
+      usuarioId:            entity.s_usuario_id,
+      nombres:              entity.s_nombre + ' ' + entity.s_apellido,
+      permisoTipoId:        entity.s_tipo_solicitud_id,
+      permisoTipo:          entity.s_tipo,
+      descripcion:          entity.s_descripcion_solicitud,
+      fechaRegistro:        entity.s_fecha_ingreso,
+      fechaInicioPermiso:   entity.s_fecha_inicio,
+      fechaFinPermiso:      entity.s_fecha_fin,
+      estado:               entity.s_estado,
+      descripcionEstado:    entity.s_nombre_estado_solicitud
     };
   }
 

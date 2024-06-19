@@ -5,8 +5,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 
 //Domain
-import { UserLoginUsecase } from '@domain/usecases/user/user-login.usecase';
+import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
+import { UserLoginUsecase } from '@domain/usecases/user/user-login.usecase';
 
 //Services
 import { ToastService } from '@shared/services/toast.service';
@@ -64,15 +65,24 @@ export default class AuthenticationComponent implements OnInit, OnDestroy {
       contrasena: this.password.value
     };
 
-    this.loading.update(() => true); 
+    this.loading.update(() => true);
 
     this.response$ = this._userLogin.perform(params);
     this.subscription.add(
       this.response$.subscribe({
         next: (data: ResponseModel) => {
           if (data.status) {
+            const usuario: UserModel = this._token.decryptAndSetUserData()
+            const rol = usuario.tipoUsuario?.toLowerCase()
+
+            if (rol !== 'administrador' && rol !== 'empleado' && rol !== 'postulante') {
+              this._toast.error('Rol no identificado.');
+              this._router.navigate(['/login']);
+              return;
+            }
+
             this._toast.success('Enhorabuena, Bienvenido!')
-            this._router.navigate(['/administrador/'])                
+            this._router.navigate([rol + '/'])
           }
           else {
             this._toast.error('Credenciales incorrectas')

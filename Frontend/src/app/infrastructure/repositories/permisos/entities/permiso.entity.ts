@@ -4,18 +4,19 @@ export interface ResponseData {
 }
 
 export interface PermisoEntity {
-    solicitud_empleado_id?:         number
-    usuario_id?:                    number
-    tipo_solicitud_id?:             number
-    descripcion_solicitud:          string
-    estado_solicitud_empleado_id?:  number
-    fecha_inicio?:                  Date
-    fecha_fin?:                     Date
-    fecha_ingreso?:                 Date
-    nombre?:                        string
-    apellido?:                      string
-    tipo:                           string
-    nombre_estado_solicitud:        string
-    estado:                         string
+    s_solicitud_empleado_id?:         number
+    s_usuario_id?:                    number
+    s_tipo_solicitud_id?:             number
+    s_descripcion_solicitud?:         string
+    s_estado_solicitud_empleado_id?:  number
+    s_fecha_inicio?:                  Date
+    s_fecha_fin?:                     Date
+    s_fecha_ingreso?:                 Date
+    s_nombre?:                        string
+    s_apellido?:                      string
+    s_tipo?:                          string
+    tipo?:                            string
+    s_nombre_estado_solicitud?:       string
+    s_estado?:                        string
 }
 

@@ -27,7 +27,7 @@ import { TitleComponent } from '@shared/atoms/title/title.component';
   templateUrl: './postulante-form.component.html',
   styleUrl: './postulante-form.component.css'
 })
-export class PostulanteFormComponent implements OnDestroy {
+export default class PostulanteFormComponent implements OnDestroy {
 
   public form: FormGroup
   public loading = signal<boolean>(false)

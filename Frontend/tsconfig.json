@@ -27,6 +27,7 @@
     "paths": {
       "@domain/*": ["src/app/domain/*"],
       "@infrastructure/*": ["src/app/infrastructure/*"],
+      "@UI/*": ["src/app/UI/*"],
       "@shared/*" : ["src/app/UI/shared/*"],
       "@environment/*" : ["src/environments/*"],
     },

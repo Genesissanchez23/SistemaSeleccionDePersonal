@@ -11,8 +11,9 @@ import { PermisoGateway } from '@domain/models/permisos/gateway/permiso.gateway'
 import { PermisoSolicitudModel } from '@domain/models/permisos/permiso-solicitud.model';
 
 //Infrastructure
-import { ResponseData } from '@infrastructure/repositories/permisos/entities/permiso.entity';
+import { PermisoEntity, ResponseData } from '@infrastructure/repositories/permisos/entities/permiso.entity';
 import { PermisoListaRepositoryMapper } from '@infrastructure/repositories/permisos/mappers/permiso-listar.mapper';
+import { PermisoRegistrarRepositoryMapper } from '@infrastructure/repositories/permisos/mappers/permiso-registrar.mapper';
 import { PermisoListaTiposRepositoryMapper } from '@infrastructure/repositories/permisos/mappers/permiso-tipos-listar.mapper';
 
 @Injectable({
@@ -27,8 +28,14 @@ export class LocalPermisoRepositoryService extends PermisoGateway {
   private listaSolicitudesPermisosEndpoint: string = 'consultarSolicitudesEmpleado'
   private listaSolicitudesPermisosUsuarioEndpoint: string = 'consultarSolicitudesEmpleadoPorUsuario?s_usuario_id='
 
+  private registrarSolicitudPermisoEndpoint: string = 'registrarSolicitudEmpleado'
+  private modificarSolicitudPermisoEndpoint: string = 'modificarSolicitudEmpleado'
+  private aceptarSolicitudPermisoEndpoint: string = 'aceptarSolicitudEmpleado'
+  private rechazarSolicitudPermisoEndpoint: string = 'declinarSolicitudEmpleado'
+
   private permisosListaMapper = new PermisoListaRepositoryMapper()
   private permisosListaTiposMapper = new PermisoListaTiposRepositoryMapper()
+  private permisosRegistrarTiposMapper = new PermisoRegistrarRepositoryMapper()
 
   constructor(
     private http: HttpClient
@@ -42,16 +49,16 @@ export class LocalPermisoRepositoryService extends PermisoGateway {
       's_tipo': params.tipo
     }
     return this.http
-    .post<ResponseData>(`${this.urlBase}${this.registrarTipoPermisoEndpoint}`, parametro)
-    .pipe(
-      map(response => {
-        const responseModel: ResponseModel = {
-          status: response.mensaje,
-          body: response.resultado
-        }
-        return responseModel
-      } )
-    )    
+      .post<ResponseData>(`${this.urlBase}${this.registrarTipoPermisoEndpoint}`, parametro)
+      .pipe(
+        map(response => {
+          const responseModel: ResponseModel = {
+            status: response.mensaje,
+            body: response.resultado
+          }
+          return responseModel
+        })
+      )
   }
 
   override listaTipoPermisos(): Observable<ResponseModel<PermisoTipoModel[]>> {
@@ -65,25 +72,67 @@ export class LocalPermisoRepositoryService extends PermisoGateway {
   override registrarSolicitudPermiso(
     params: PermisoSolicitudModel
   ): Observable<ResponseModel<any>> {
-    throw new Error('Method not implemented.');
+    const requestBody: PermisoEntity = this.permisosRegistrarTiposMapper.mapTo(params);
+    return this.http
+      .post<ResponseData>(`${this.urlBase}${this.registrarSolicitudPermisoEndpoint}`, requestBody)
+      .pipe(
+        map(response => {
+          const respuesta = this.permisosRegistrarTiposMapper.mapFrom(response)
+          return respuesta
+        })
+      )
   }
 
   override modificarSolicitudPermiso(
     params: PermisoSolicitudModel
   ): Observable<ResponseModel<any>> {
-    throw new Error('Method not implemented.');
+    const requestBody: PermisoEntity = this.permisosRegistrarTiposMapper.mapTo(params);
+    return this.http
+      .put<ResponseData>(`${this.urlBase}${this.modificarSolicitudPermisoEndpoint}`, requestBody)
+      .pipe(
+        map(response => {
+          const respuesta = this.permisosRegistrarTiposMapper.mapFrom(response)
+          return respuesta
+        })
+      )
   }
 
   override aceptarSolicitudPermiso(
     params: { id: number; }
-  ): Observable<ResponseModel<any>> {
-    throw new Error('Method not implemented.');
+  ): Observable<ResponseModel> {
+    const param = {
+      's_solicitud_empleado_id': params.id
+    }
+    return this.http
+      .put<ResponseData>(`${this.urlBase}${this.aceptarSolicitudPermisoEndpoint}`, param)
+      .pipe(
+        map(response => {
+          const respondeData: ResponseModel = {
+            status: response.mensaje,
+            body: response.resultado
+          }
+          return respondeData
+        })
+      )
   }
 
   override rechazarSolicitudPermiso(
     params: { id: number; }
-  ): Observable<ResponseModel<any>> {
-    throw new Error('Method not implemented.');
+  ): Observable<ResponseModel> {
+    const param = {
+      's_solicitud_empleado_id': params.id
+    }
+    return this.http
+      .put<ResponseData>(`${this.urlBase}${this.rechazarSolicitudPermisoEndpoint}`, param)
+      .pipe(
+        map(response => {
+          const respondeData: ResponseModel = {
+            status: response.mensaje,
+            body: response.resultado
+          }
+          return respondeData
+        })
+      )
   }
 
   override listaSolicitudes(): Observable<ResponseModel<PermisoSolicitudModel[]>> {

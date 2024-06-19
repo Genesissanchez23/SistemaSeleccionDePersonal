@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { Observable, Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 //Domain
 import { PermisoTipoModel } from '@domain/models/permisos/permiso-tipo.model';
+import { ResponseModel } from '@domain/common/response-model';
+import { PermisoRegistrarTipoUsecase } from '@domain/usecases/permisos/permiso-registrar-tipo.usecase';
+import { PermisoListaTiposUsecase } from '@domain/usecases/permisos/permiso-lista-tipos.usecase';
 
 //Services
 import { ToastService } from '@shared/services/toast.service';
-import { PermisoListaTiposUsecase } from '@domain/usecases/permisos/permiso-lista-tipos.usecase';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PermisoRegistrarTipoUsecase } from '@domain/usecases/permisos/permiso-registrar-tipo.usecase';
-import { ResponseModel } from '@domain/common/response-model';
-import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-permisos-form',
@@ -80,11 +80,13 @@ export class PermisosFormComponent implements OnInit {
           }
         },
         error: () => this._toast.error('Ha ocurrido un error'),
-        complete: () => this.loadTipoSolicitud()
+        complete: () => {        
+          this.loading = false
+          this.loadTipoSolicitud()
+        }
       })
     )
     this.form.reset()
-    this.loading = false
   }
 
   get tipo() { return this.form.get('tipo')! }

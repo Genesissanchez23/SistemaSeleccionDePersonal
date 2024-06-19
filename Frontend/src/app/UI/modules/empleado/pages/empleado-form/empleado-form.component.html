@@ -1,0 +1,79 @@
+<div class="container-fluid px-3 pt-5 pb-3">
+    <div class="card w-100 mx-auto">
+        <div class="testimonial-card">
+            <div class="card-up"></div>
+            <div class="avatar mx-auto bg-white overflow-hidden rounded-circle">
+                <img src="assets/image/logo.png" class="img-fluid w-100" />
+            </div>
+        </div>
+        <div class="card-body text-center py-0">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="text-end">
+                    <p>Guayaquil, Ecuador, {{ currentDate | date:"MMM dd, yyyy" }}</p>
+                </div>
+                <div class="row descripcion mt-1">
+                    <p class="mt-3 mb-4">Estimados/as equipo de Recursos Humanos,</p>
+                    <p>
+                        Espero que este mensaje les encuentre bien. Me dirijo a ustedes respetuosamente para solicitar
+                        un permiso laboral por el motivo siguiente:
+                    </p>
+
+                    <div class="mt-3 row row-cols-md-4 d-flex align-items-center">
+                        <div class="col-md-1">
+                            <strong>Tipo</strong>
+                        </div>
+                        <div class="container-input h-auto">
+                            <div class="input-box rounded-1 shadow-sm">
+                                <select class="rounded-1 input form-select" formControlName="permisoTipoId">
+                                    <option selected disabled value="">Seleccionar Tipo</option>
+                                    @for (item of list; track $index) {
+                                        <option [value]="item.id">{{item.tipo}}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="w-auto mt-2 mt-md-0">
+                            <strong>Descripción:</strong>
+                        </div>
+                        <div class="container-input h-auto col-md-6">
+                            <div class="input-box rounded-1 shadow-sm">
+                                <input class="input w-100" type="text" autocomplete="off" formControlName="descripcion" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" mt-4">
+                        <p class="fst-italic small fw-semibold">Rango de Fechas Solicitadas</p>
+                    </div>
+
+                    <div class="row row-cols-md-4 d-flex align-items-center">
+                        <div class="col-md-2">
+                            <strong>Fecha inicio:</strong>
+                        </div>
+                        <div class="container-input h-auto col-md-4">
+                            <div class="input-box rounded-1 shadow-sm">
+                                <input class="input w-100" type="date" autocomplete="off" formControlName="fechaInicioPermiso" />
+                            </div>
+                        </div>
+                        
+                        <div class="w-auto mt-2 mt-md-0">
+                            <strong>Fecha fin:</strong>
+                        </div>
+                        <div class="container-input h-auto col-md-4">
+                            <div class="input-box rounded-1 shadow-sm">
+                                <input class="input w-100" type="date" autocomplete="off" formControlName="fechaFinPermiso" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row d-flex align-items-center justify-content-center py-4 px-2">
+                    <button type="submit" class="btn-custom rounded-1 shadow-sm py-3 fs-6">
+                        <i class="pi pi-check"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

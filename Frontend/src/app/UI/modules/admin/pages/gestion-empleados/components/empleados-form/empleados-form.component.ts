@@ -1,24 +1,30 @@
 import { Component, Inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 //Domain
 import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
 import { UserRegistrarEmpleadoUsecase } from '@domain/usecases/user/user-registrar-empleado.usecase';
+import { UserModificarEmpleadoUsecase } from '@domain/usecases/user/user-modificar-empleado.usecase';
+
+//Infrastructure
+import { RolEntity } from '@infrastructure/repositories/roles/entities/rol.entity';
+import { LocalUserRolesRepositoryService } from '@infrastructure/repositories/roles/drivernadapters/local-user-rol.repository.service';
 
 //Servicies
 import { ToastService } from '@shared/services/toast.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { LocalUserRolesRepositoryService } from '@infrastructure/repositories/roles/drivernadapters/local-user-rol.repository.service';
-import { RolEntity } from '@infrastructure/repositories/roles/entities/rol.entity';
-import { UserModificarEmpleadoUsecase } from '@domain/usecases/user/user-modificar-empleado.usecase';
+
+//UI
+import { TitleComponent } from '@UI/shared/atoms/title/title.component';
 
 @Component({
   selector: 'app-empleados-form',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TitleComponent
   ],
   templateUrl: './empleados-form.component.html',
   styleUrl: './empleados-form.component.css'
@@ -26,12 +32,12 @@ import { UserModificarEmpleadoUsecase } from '@domain/usecases/user/user-modific
 export class EmpleadosFormComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup
-  public loading = signal<boolean>(false)
-  public title: string = 'Registrar'
   private rol!: RolEntity;
+  public title: string = 'Registrar'
+  public loading = signal<boolean>(false)
+  private readonly tipoRol: string = "Empleado"
   private response$!: Observable<ResponseModel>;
   private subscription: Subscription = new Subscription();
-  private readonly tipoRol: string = "Empleado"
 
   constructor(
     private _fb: FormBuilder,
@@ -139,10 +145,10 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
           this.dialogRef.close(data)
 
         },
-        error: () => this._toast.error('Lo sentimos, intente mas luego.')
+        error: () => this._toast.error('Lo sentimos, intente mas luego.'),
+        complete: () => this.loading.update(() => false)
       })
     )
-    this.loading.update(() => false)
 
   }
 

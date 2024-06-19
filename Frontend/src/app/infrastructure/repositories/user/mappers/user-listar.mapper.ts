@@ -17,7 +17,7 @@ export class UserListaRepositoryMapper extends Mapper<ResponseData, ResponseMode
     throw new Error("Method not implemented.");
   }
 
-  private mapToUserModel(entity: UserEntity): UserModel {
+  public mapToUserModel(entity: UserEntity): UserModel {
     return {
       id: entity.s_usuario_id,
       nombres: entity.s_nombre,

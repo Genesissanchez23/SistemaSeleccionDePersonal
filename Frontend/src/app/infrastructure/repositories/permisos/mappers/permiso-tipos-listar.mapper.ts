@@ -1,8 +1,9 @@
 import { ResponseModel } from "@domain/common/response-model";
+import { PermisoTipoModel } from "@domain/models/permisos/permiso-tipo.model";
+
 import { Mapper } from "@infrastructure/common/mapper";
 import { ResponseData } from "@infrastructure/repositories/permisos/entities/permiso.entity";
 import { PermisoTipoEntity } from "../entities/permiso-tipo.entity";
-import { PermisoTipoModel } from "@domain/models/permisos/permiso-tipo.model";
 
 export class PermisoListaTiposRepositoryMapper extends Mapper<ResponseData, ResponseModel> {
 

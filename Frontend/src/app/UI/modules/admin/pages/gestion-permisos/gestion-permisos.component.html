@@ -1,6 +1,6 @@
 <div class="container-fluid bg-transparent">
     <p-table #dt2 [value]="list" [rows]="11" styleClass="p-datatable-sm" [loading]="loading" [paginator]="true"
-        [globalFilterFields]="['Usuario', 'Registrada', 'Tipo', 'Estado']">
+        [globalFilterFields]="['nombres', 'fechaRegistro', 'permisoTipo', 'estado']">
         <ng-template pTemplate="caption">
             <div class="row row-cols-2">
                 <div class="container-input h-auto ps-1 col-8 col-lg-10 bg-white">
@@ -30,7 +30,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-list>
             <tr>
-                <td>{{ list.nombres }}</td>
+                <td class="text-capitalize">{{ list.nombres }}</td>
                 <td>{{ list.fechaRegistro | date:"MMM dd, yyyy" }}</td>
                 <td>{{ list.permisoTipo }}</td>
                 <td class="text-center">
@@ -41,18 +41,18 @@
                 <td>
                     <div class="row row-cols-3 m-0 gap-1 d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn-custom btn-options btn-view rounded-1 shadow-sm col-3"
-                            (click)="openAceptar()">
-                           <i class="pi pi-eye"></i>
+                            (click)="openDetalle(list)">
+                            <i class="pi pi-eye"></i>
                         </button>
                         @if (list.estado === 'E') {
-                            <button type="submit" class="btn-custom btn-options btn-edit rounded-1 shadow-sm col-3"
-                                (click)="openAceptar()">
-                                <i class="pi pi-file-check"></i>
-                            </button>
-                            <button type="submit" class="btn-custom btn-options btn-delete rounded-1 shadow-sm col-3"
-                                (click)="openRechazar()">
-                                <i class="pi pi-file-excel"></i>
-                            </button>
+                        <button type="submit" class="btn-custom btn-options btn-edit rounded-1 shadow-sm col-3"
+                            (click)="openAceptar(list)">
+                            <i class="pi pi-file-check"></i>
+                        </button>
+                        <button type="submit" class="btn-custom btn-options btn-delete rounded-1 shadow-sm col-3"
+                            (click)="openRechazar(list)">
+                            <i class="pi pi-file-excel"></i>
+                        </button>
                         }
                     </div>
                 </td>

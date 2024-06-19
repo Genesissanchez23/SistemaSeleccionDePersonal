@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 
 export const postulante: Routes = [
-    {
+/*     {
         path: '',
         children: [
             {
@@ -10,5 +10,5 @@ export const postulante: Routes = [
                 loadComponent: () => import('./pages/postulante-form/postulante-form.component').then(c => c.PostulanteFormComponent)
             }
         ]
-    }
+    } */
 ]

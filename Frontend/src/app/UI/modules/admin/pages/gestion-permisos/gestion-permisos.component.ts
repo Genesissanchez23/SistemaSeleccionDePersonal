@@ -4,7 +4,6 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 
 //Domain
-import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
 import { PermisoSolicitudModel } from '@domain/models/permisos/permiso-solicitud.model';
 import { PermisoListaSolicitudesUsecase } from '@domain/usecases/permisos/permiso-lista-solicitudes.usecase';
@@ -14,6 +13,8 @@ import { ToastService } from '@shared/services/toast.service';
 
 //Components
 import { PermisosFormComponent } from './components/permisos-form/permisos-form.component';
+import { PermisosActionsComponent } from './components/permisos-actions/permisos-actions.component';
+import { PermisosDetailsComponent } from './components/permisos-details/permisos-details.component';
 
 @Component({
   selector: 'app-gestion-permisos',
@@ -35,7 +36,7 @@ export class GestionPermisosComponent implements OnInit {
     private toast: ToastService,
     private _listSolicitudes: PermisoListaSolicitudesUsecase
   ) { }
-
+ 
   ngOnInit(): void {
     this.loadSolicitudes()
   }
@@ -44,7 +45,7 @@ export class GestionPermisosComponent implements OnInit {
     this.loading = true;
     this._listSolicitudes.perform().subscribe({
       next: (data) => {
-        this.list = data.body;
+        this.list = data.body.sort((a, b) => new Date(b.fechaRegistro!).getTime() - new Date(a.fechaRegistro!).getTime());
         this.loading = false;
       }
     });
@@ -72,10 +73,37 @@ export class GestionPermisosComponent implements OnInit {
     }).afterClosed().subscribe((respuesta: ResponseModel) => this.toastClose(respuesta));
   }
 
-  openAceptar() {
+  openDetalle(data: PermisoSolicitudModel){
+    this.dialog.open(PermisosDetailsComponent, {
+      autoFocus: false,
+      disableClose: false,
+      width: '560px',
+      data: data
+    })
   }
 
-  openRechazar() {
+  openAceptar(data: PermisoSolicitudModel) {
+    this.dialog.open(PermisosActionsComponent, {
+      autoFocus: false,
+      disableClose: false,
+      width: 'auto',
+      data: {
+        type: true,
+        objeto: data
+      }
+    }).afterClosed().subscribe((respuesta: ResponseModel) => this.toastClose(respuesta));
+  }
+
+  openRechazar(data: PermisoSolicitudModel) {
+    this.dialog.open(PermisosActionsComponent, {
+      autoFocus: false,
+      disableClose: false,
+      width: 'auto',
+      data: {
+        type: false,
+        objeto: data
+      }
+    }).afterClosed().subscribe((respuesta: ResponseModel) => this.toastClose(respuesta));
   }
 
   private toastClose(respuesta: ResponseModel): void {

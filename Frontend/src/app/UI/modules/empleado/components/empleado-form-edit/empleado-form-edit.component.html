@@ -1,0 +1,85 @@
+<div class="card text-black border-0 p-1 w-100 h-auto rounded-0">
+    <div class="card-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-11">
+                <div class="fw-semibold">
+                    <app-title title="Editar Solicitud"></app-title>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-start mt-3">
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Tipo </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-list"></i>
+                                </div>
+                                <select class="input" autocomplete="off" formControlName="permisoTipoId">
+                                    <option selected disabled value="">Seleccionar Tipo</option>
+                                    @for (item of tipos; track $index) {
+                                    <option [value]="item.id">{{item.tipo}}</option>
+                                    }
+                                </select>
+                            </div>
+                            @if (permisoTipoId.invalid && (permisoTipoId.dirty || permisoTipoId.touched)) { <span
+                                class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Descripción </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-align-left"></i>
+                                </div>
+                                <input class="input" type="text" autocomplete="off" formControlName="descripcion">
+                            </div>
+                            @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) { <span
+                                class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Fecha Inicio </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-calendar-plus"></i>
+                                </div>
+                                <input class="input" type="date" autocomplete="off" formControlName="fechaInicioPermiso">
+                            </div>
+                            @if (fechaInicioPermiso.invalid && (fechaInicioPermiso.dirty ||
+                            fechaInicioPermiso.touched)) { <span class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Fecha Fin </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-calendar-times"></i>
+                                </div>
+                                <input class="input" type="date" autocomplete="off" formControlName="fechaFinPermiso">
+                            </div>
+                            @if (fechaFinPermiso.invalid && (fechaFinPermiso.dirty || fechaFinPermiso.touched)) {
+                            <span class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="container-btn">
+                        <button type="submit" class="btn-custom rounded-1 shadow-sm">
+                            @if (loading()) {
+                                <div class="spinner-border spinner-border-sm">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } @else {
+                                <span>Editar</span>
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

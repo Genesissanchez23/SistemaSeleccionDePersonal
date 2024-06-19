@@ -1,5 +1,5 @@
 export interface UserModel {
-    id?:                     number
+    id?:                    number
     nombres?:               string
     apellidos?:             string
     cedula?:                string

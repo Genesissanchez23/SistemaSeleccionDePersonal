@@ -1,0 +1,25 @@
+<section class="container-fluid vh-100 background-custom text-center p-0">
+    <div class="radio-inputs w-100 bg-orange-custom d-flex justify-content-center pt-3 position-relative">
+        @for (item of routes; track $index) {
+            <label class="radio">
+                <input type="radio" name="radio" [checked]="item.path == 'home'" [routerLink]="item.path" />
+                <span class="item">
+                    <i [class]="item.data?.['icon']"></i>
+                    <span>{{item.data?.['label']}}</span>
+                </span>
+            </label>
+        }
+        <div class="position-absolute absolute-top-left pe-4 d-lg-flex justify-content-center align-items-center h-100 d-none me-5">
+            <i class="pi pi-user"></i>
+            <span class="text-capitalize pt-1">Bienvenido, {{user.nombres + ' ' + user.apellidos}}</span>
+        </div>
+        <div class="position-absolute absolute-top-left me-2 d-flex justify-content-center align-items-center h-100">
+            <button class="w-auto bg-transparent d-flex border-0" matTooltip="Cerrar Sesión" (click)="onCerrarSesion()">
+                <i class="pi pi-power-off"></i>
+            </button>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+
+</section>

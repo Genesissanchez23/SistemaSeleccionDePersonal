@@ -24,6 +24,10 @@
     background-color: var(--orange-custom);
 }
 
+.bg-green-custom {
+    background-color: var(--green-custom);
+}
+
 body {
     scrollbar-color: var(--black-custom) var(--white-custom);
 }

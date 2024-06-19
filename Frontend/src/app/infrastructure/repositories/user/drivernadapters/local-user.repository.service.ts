@@ -1,18 +1,18 @@
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environment/environment';
 import { TokenService } from '@infrastructure/common/token.service';
 
-//Domain
+// Dominio
 import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
 import { UserGateway } from '@domain/models/user/gateway/user.gateway';
 
-//Infrastructure
-import { ResponseData, UserEntity } from '@infrastructure/repositories/user/entities/user.entity';
+// Infraestructura
 import { UserLoginMapper } from '@infrastructure/repositories/user/mappers/user-login.mapper';
+import { ResponseData, UserEntity } from '@infrastructure/repositories/user/entities/user.entity';
 import { UserInsertRepositoryMapper } from '@infrastructure/repositories/user/mappers/user-insert.mapper';
 import { UserListaRepositoryMapper } from '@infrastructure/repositories/user/mappers/user-listar.mapper';
 
@@ -21,13 +21,22 @@ import { UserListaRepositoryMapper } from '@infrastructure/repositories/user/map
 })
 export class LocalUserRepositoryService extends UserGateway {
 
+  // URL base para los endpoints de la API Local
   private urlBase = environment.endpoint
+
+  // Endpoint para login
   private loginEndpoint: string = 'login'
+
+  // Endpoints para Postulante
   private registrarPostulanteEndpoint: string = 'registrarPostulante'
+
+  // Endpoints para Empleado
   private registrarEmpleadoEndpoint: string = 'registrar'
   private modificarEmpleadoEndpoint: string = 'actualizarUsuario'
+  private consultarEmpleadoEndpoint: string = 'consultarPorId?s_usuario_id='
   private listaEmpleadosEndpoint: string = 'consultarTodosPorTipo?s_tipo=empleado'
 
+  // Mappers
   private loginMapper = new UserLoginMapper();
   private userInsertMapper = new UserInsertRepositoryMapper()
   private userListaMapper = new UserListaRepositoryMapper()
@@ -46,7 +55,7 @@ export class LocalUserRepositoryService extends UserGateway {
       .pipe(
         map((response) => {
           const respuesta = this.loginMapper.mapFrom(response)
-          if (respuesta.status) this.tokenService.createToken(response.resultado as string)
+          if (respuesta.status) this.tokenService.createToken(respuesta.body as string)
           return respuesta
         })
       )
@@ -93,6 +102,20 @@ export class LocalUserRepositoryService extends UserGateway {
         })
       )
   }
+
+  override consultarEmpleado(params: { id: number; }): Observable<ResponseModel<UserModel>> {
+    return this.http
+      .get<ResponseData>(`${this.urlBase}${this.consultarEmpleadoEndpoint}${params.id}`)
+      .pipe(
+        map(response => {
+          return {
+            status: response.mensaje,
+            body: this.userListaMapper.mapToUserModel(response.resultado as UserEntity)
+          }
+        })
+      )
+  }
+
 
   override listaEmpleados(): Observable<ResponseModel<UserModel[]>> {
     return this.http

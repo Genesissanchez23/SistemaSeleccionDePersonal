@@ -8,6 +8,12 @@
     border-top-right-radius: 40%;
 }
 
+strong {
+    text-transform: capitalize;
+    font-weight: 550;
+    color: black;
+}
+
 @media (width < 777px) {
     .card-body {
         border-top-right-radius: 0.4rem;

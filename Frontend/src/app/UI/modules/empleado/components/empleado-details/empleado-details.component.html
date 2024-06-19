@@ -1,0 +1,61 @@
+<div class="card text-black border-0 p-1 w-100 h-auto rounded-0">
+    <div class="card-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-11">
+                <div class="fw-semibold">
+                    <app-title title="Información Solicitud"></app-title>
+                </div>
+                <form [formGroup]="form" class="text-start mt-3">
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Tipo </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-list"></i>
+                                </div>
+                                <input class="input" type="text" autocomplete="off" formControlName="permisoTipo"
+                                    readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Descripción </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-align-left"></i>
+                                </div>
+                                <input class="input" type="text" autocomplete="off" formControlName="descripcion"
+                                    readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Fecha Inicio </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-calendar-plus"></i>
+                                </div>
+                                <input class="input" type="date" autocomplete="off" formControlName="fechaInicioPermiso"
+                                    readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Fecha Fin </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-calendar-times"></i>
+                                </div>
+                                <input class="input" type="date" autocomplete="off" formControlName="fechaFinPermiso"
+                                    readonly>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
