@@ -33,3 +33,4 @@ export class UserListaRepositoryMapper extends Mapper<ResponseData, ResponseMode
   }
 
 }
+ 

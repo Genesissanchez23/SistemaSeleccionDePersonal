@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, signal } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { ToastService } from '@shared/services/toast.service';
   templateUrl: './permisos-actions.component.html',
   styleUrl: './permisos-actions.component.css'
 })
-export class PermisosActionsComponent implements OnInit {
+export class PermisosActionsComponent implements OnInit, OnDestroy {
 
   public type: boolean = true
   public loading = signal<boolean>(false)
@@ -57,6 +57,10 @@ export class PermisosActionsComponent implements OnInit {
           complete: () => this.loading.update(() => false)
         })
       )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
 }

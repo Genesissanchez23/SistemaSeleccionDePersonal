@@ -1,4 +1,4 @@
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -103,7 +103,9 @@ export class LocalUserRepositoryService extends UserGateway {
       )
   }
 
-  override consultarEmpleado(params: { id: number; }): Observable<ResponseModel<UserModel>> {
+  override consultarEmpleado(
+    params: { id: number; }
+  ): Observable<ResponseModel<UserModel>> {
     return this.http
       .get<ResponseData>(`${this.urlBase}${this.consultarEmpleadoEndpoint}${params.id}`)
       .pipe(

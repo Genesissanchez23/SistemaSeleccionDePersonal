@@ -35,6 +35,15 @@ export const administrador: Routes = [
                     tooltips: 'Gestionar de empleados'
                 },
                 loadComponent: () => import('./pages/gestion-empleados/gestion-empleados.component').then(c => c.GestionEmpleadosComponent)
+            },
+            {
+                path: 'gestion-trabajos',
+                title: 'Gestión de trabajos | SSDP',
+                data: {
+                    icon: 'pi pi-briefcase',
+                    tooltips: 'Plazas laborales'
+                },
+                loadComponent: () => import('./pages/gestion-trabajos/gestion-trabajos.component').then(c => c.GestionTrabajosComponent)
             }
         ]
     }

@@ -17,8 +17,8 @@
                                     <input class="input" type="text" autocomplete="off"
                                         (keypress)="onLettersWithSpacesKeyPress($event, 50)" formControlName="nombres">
                                 </div>
-                                @if (nombres.invalid && (nombres.dirty || nombres.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (nombres.invalid && (nombres.dirty || nombres.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
                             </div>
                         </div>
@@ -33,8 +33,8 @@
                                         (keypress)="onLettersWithSpacesKeyPress($event, 50)"
                                         formControlName="apellidos">
                                 </div>
-                                @if (apellidos.invalid && (apellidos.dirty || apellidos.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (apellidos.invalid && (apellidos.dirty || apellidos.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
                             </div>
                         </div>
@@ -50,8 +50,8 @@
                                     <input class="input" type="text" autocomplete="off"
                                         (keypress)="onNumberKeyPress($event, 20)" formControlName="cedula">
                                 </div>
-                                @if (cedula.invalid && (cedula.dirty || cedula.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (cedula.invalid && (cedula.dirty || cedula.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
                             </div>
                         </div>
@@ -65,8 +65,8 @@
                                     <input class="input" type="text" autocomplete="off"
                                         (keypress)="onValidateMaxLength($event, 100)" formControlName="correo">
                                 </div>
-                                @if (correo.invalid && (correo.dirty || correo.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (correo.invalid && (correo.dirty || correo.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
                             </div>
                         </div>
@@ -81,8 +81,8 @@
                                     </div>
                                     <input class="input" type="text" autocomplete="off" formControlName="usuario">
                                 </div>
-                                @if (usuario.invalid && (usuario.dirty || usuario.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (usuario.invalid && (usuario.dirty || usuario.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
                             </div>
                         </div>
@@ -96,8 +96,8 @@
                                     <input class="input" type="password" autocomplete="off"
                                         formControlName="contrasena">
                                 </div>
-                                @if (contrasena.invalid && (contrasena.dirty || contrasena.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (contrasena.invalid && (contrasena.dirty || contrasena.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
                             </div>
                         </div>
@@ -113,8 +113,8 @@
                                     <input class="input" type="text" autocomplete="off"
                                         (keypress)="onValidateMaxLength($event, 255)" formControlName="direccion">
                                 </div>
-                                @if (direccion.invalid && (direccion.dirty || direccion.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (direccion.invalid && (direccion.dirty || direccion.touched)) {
+                                <span class="input-helper">Campo requerido</span>
                                 }
 
                             </div>

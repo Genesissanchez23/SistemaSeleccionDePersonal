@@ -7,11 +7,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 //Domain
 import { UserGateway } from '@domain/models/user/gateway/user.gateway';
 import { PermisoGateway } from '@domain/models/permisos/gateway/permiso.gateway';
+import { TrabajoGateway } from '@domain/models/trabajos/gateway/user.gateway';
 
 //Infrastructure
 import { tokenInterceptor } from '@infrastructure/interceptors/token.interceptor';
 import { LocalUserRepositoryService } from '@infrastructure/repositories/user/drivernadapters/local-user.repository.service';
 import { LocalPermisoRepositoryService } from '@infrastructure/repositories/permisos/drivernadapters/local-permiso.repository.service';
+import { LocalTrabajoRespositoryService } from '@infrastructure/repositories/trabajos/drivernadapters/local-trabajo.respository.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,8 +21,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     provideHttpClient(withInterceptors([tokenInterceptor])),
     provideAnimationsAsync(),
-    provideAnimationsAsync(),
     { provide: UserGateway, useClass: LocalUserRepositoryService },
-    { provide: PermisoGateway, useClass: LocalPermisoRepositoryService }
+    { provide: PermisoGateway, useClass: LocalPermisoRepositoryService },
+    { provide: TrabajoGateway, useClass: LocalTrabajoRespositoryService }
   ]
 };

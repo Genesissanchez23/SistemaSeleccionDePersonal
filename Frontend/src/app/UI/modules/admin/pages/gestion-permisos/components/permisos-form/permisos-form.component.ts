@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Observable, Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -24,7 +24,7 @@ import { ToastService } from '@shared/services/toast.service';
   templateUrl: './permisos-form.component.html',
   styleUrl: './permisos-form.component.css'
 })
-export class PermisosFormComponent implements OnInit {
+export class PermisosFormComponent implements OnInit, OnDestroy {
 
   public list!: PermisoTipoModel[]
   public loading: boolean = false
@@ -88,6 +88,11 @@ export class PermisosFormComponent implements OnInit {
     )
     this.form.reset()
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
 
   get tipo() { return this.form.get('tipo')! }
 

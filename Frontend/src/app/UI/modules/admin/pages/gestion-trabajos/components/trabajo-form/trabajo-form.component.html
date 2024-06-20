@@ -1,0 +1,111 @@
+<div class="card text-black border-0 p-1 w-100 h-auto rounded-0">
+    <div class="card-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-11">
+                <div class="fw-semibold">
+                    <app-title title="{{ title + ' Trabajo' }}"></app-title>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-start mt-3">
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Titulo </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-tag"></i>
+                                </div>
+                                <input class="input" type="text" autocomplete="off"
+                                    (keypress)="onLettersWithSpacesKeyPress($event, 50)" formControlName="titulo">
+                            </div>
+                            @if (titulo.invalid && (titulo.dirty || titulo.touched)) {
+                            <span class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Cupos </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-users"></i>
+                                </div>
+                                <input class="input" type="text" autocomplete="off"
+                                    (keypress)="onNumberKeyPress($event, 20)" formControlName="cupos">
+                            </div>
+                            @if (cupos.invalid && (cupos.dirty || cupos.touched)) {
+                            <span class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Modalidad </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-sun"></i>
+                                </div>
+                                <select class="input" formControlName="modalidad">
+                                    <option selected disabled value="">Seleccionar Modalidad</option>
+                                    @for (item of listModalidad; track $index) {
+                                    <option [value]="item.value">{{item.descripcion}}</option>
+                                    }
+                                </select>
+                            </div>
+                            @if (modalidad.invalid && (modalidad.dirty || modalidad.touched)) { <span
+                                class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-input">
+                            <label> Contrato </label>
+                            <div class="input-box rounded-1 shadow-sm">
+                                <div class="icon">
+                                    <i class="pi pi-file"></i>
+                                </div>
+                                <select class="input" formControlName="contrato">
+                                    <option selected disabled value="">Seleccionar Contrato</option>
+                                    @for (item of listContrato; track $index) {
+                                    <option [value]="item.value">{{item.descripcion}}</option>
+                                    }
+                                </select>
+                            </div>
+                            @if (contrato.invalid && (contrato.dirty || contrato.touched)) { <span
+                                class="input-helper">Campo requerido</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="container-input">
+                                <label> Descripción </label>
+                                <div class="input-box rounded-1 shadow-sm">
+                                    <div class="icon">
+                                        <i class="pi pi-file"></i>
+                                    </div>
+                                    <input type="text" class="input" formControlName="descripcion" />
+                                </div>
+                                @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) { <span
+                                    class="input-helper">Campo requerido</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="container-btn">
+                            <button type="submit" class="btn-custom rounded-1 shadow-sm">
+                                @if (loading()) {
+                                <div class="spinner-border spinner-border-sm">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                } @else {
+                                <span>{{title}}</span>
+                                }
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
