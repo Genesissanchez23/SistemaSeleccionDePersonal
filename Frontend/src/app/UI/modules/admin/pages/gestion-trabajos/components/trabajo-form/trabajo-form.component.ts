@@ -88,7 +88,7 @@ export class TrabajoFormComponent implements OnInit, OnDestroy {
     this.listContrato = [
       { value: 'Tiempo Completo', descripcion: 'Tiempo Completo' },
       { value: 'Medio Tiempo', descripcion: 'Medio Tiempo' },
-      { value: 'Por Hora', descripcion: 'Por Hora' }
+      { value: 'Por Horas', descripcion: 'Por Hora' }
     ];
   }
 
