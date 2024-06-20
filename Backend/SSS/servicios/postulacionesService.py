@@ -16,7 +16,7 @@ async def postulaciones_consultar_estados_solicitud(bearer: HTTPAuthorizationCre
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=1)
+        postulaciones_dao = PostulacionesDao(s_opcion=1)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -33,8 +33,8 @@ async def postulaciones_consultar_estados_solicitud(bearer: HTTPAuthorizationCre
 
 @postulaciones.post("/postulacionesRegistrar")
 async def postulaciones_registrar(
-    p_usuario_id: int = Body(...),
-    p_plaza_laboral_id: int = Body(...),
+    s_usuario_id: int = Body(...),
+    s_plaza_laboral_id: int = Body(...),
     cv: UploadFile = File(...),
     bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
@@ -48,10 +48,10 @@ async def postulaciones_registrar(
         
         # Crear el DAO con los datos recibidos
         postulaciones_dao = PostulacionesDao(
-            p_opcion=2,
-            p_usuario_id=p_usuario_id,
-            p_plaza_laboral_id=p_plaza_laboral_id,
-            p_cv=cv_bytes
+            s_opcion=2,
+            s_usuario_id=s_usuario_id,
+            s_plaza_laboral_id=s_plaza_laboral_id,
+            s_cv=cv_bytes
         )
         
         async with conn.cursor() as cur:
@@ -75,7 +75,7 @@ async def postulaciones_consultar(bearer: HTTPAuthorizationCredentials = Depends
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=3)
+        postulaciones_dao = PostulacionesDao(s_opcion=3)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -99,13 +99,13 @@ async def postulaciones_consultar(bearer: HTTPAuthorizationCredentials = Depends
         conn.close()
 
 @postulaciones.get("/postulacionesConsultarPorUsuario")
-async def postulaciones_consultar_por_usuario(p_usuario_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def postulaciones_consultar_por_usuario(s_usuario_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=4, p_usuario_id=p_usuario_id)
+        postulaciones_dao = PostulacionesDao(s_opcion=4, s_usuario_id=s_usuario_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -126,9 +126,9 @@ async def postulaciones_consultar_por_usuario(p_usuario_id: int, bearer: HTTPAut
 
 @postulaciones.put("/postulacionesModificar")
 async def postulaciones_modificar(
-    p_usuario_id: int = Body(...),
-    p_plaza_laboral_id: int = Body(...),
-    p_postulacion_id: int = Body(...),
+    s_usuario_id: int = Body(...),
+    s_plaza_laboral_id: int = Body(...),
+    s_postulacion_id: int = Body(...),
     cv: UploadFile = File(...),
     bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
@@ -142,11 +142,11 @@ async def postulaciones_modificar(
         
         # Crear el DAO con los datos recibidos
         postulaciones_dao = PostulacionesDao(
-            p_opcion=5,
-            p_usuario_id=p_usuario_id,
-            p_plaza_laboral_id=p_plaza_laboral_id,
-            p_postulacion_id=p_postulacion_id,
-            p_cv=cv_bytes
+            s_opcion=5,
+            s_usuario_id=s_usuario_id,
+            s_plaza_laboral_id=s_plaza_laboral_id,
+            s_postulacion_id=s_postulacion_id,
+            s_cv=cv_bytes
         )
         
         async with conn.cursor() as cur:
@@ -168,7 +168,7 @@ async def postulaciones_cambiar_estado_en_proceso(objeto: CambiarEstadoPostulaci
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=6, p_postulacion_id=objeto.p_postulacion_id)
+        postulaciones_dao = PostulacionesDao(s_opcion=6, s_postulacion_id=objeto.s_postulacion_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -188,7 +188,7 @@ async def postulaciones_cambiar_estado_informacion_personal(objeto: CambiarEstad
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=7, p_postulacion_id=objeto.p_postulacion_id)
+        postulaciones_dao = PostulacionesDao(s_opcion=7, s_postulacion_id=objeto.s_postulacion_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()
@@ -208,7 +208,7 @@ async def postulaciones_cambiar_estado_finalizado(objeto: CambiarEstadoPostulaci
         return accion
     conn = await conexion.conectar()
     try:
-        postulaciones_dao = PostulacionesDao(p_opcion=8, p_postulacion_id=objeto.p_postulacion_id)
+        postulaciones_dao = PostulacionesDao(s_opcion=8, s_postulacion_id=objeto.s_postulacion_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
             result = await cur.fetchall()

@@ -16,7 +16,7 @@ async def registrar_plaza_laboral(plaza_body: RegistrarPlazaLaboralDao = Body(..
         return accion
     conn = await conexion.conectar()
     try:
-        plaza_laboral_dao = PlazaLaboralDao(p_opcion=1, **plaza_body.dict())
+        plaza_laboral_dao = PlazaLaboralDao(s_opcion=1, **plaza_body.dict())
         print(plaza_laboral_dao)
         async with conn.cursor() as cur:
             await cur.callproc('pr_plaza_laboral', tuple(dict(plaza_laboral_dao).values()))
@@ -36,13 +36,13 @@ async def registrar_plaza_laboral(plaza_body: RegistrarPlazaLaboralDao = Body(..
 
 # Consultar una plaza laboral por ID
 @plaza_laboral.get("/consultarPlazaLaboralPorId")
-async def consultar_plaza_laboral_por_id(p_plaza_laboral_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def consultar_plaza_laboral_por_id(s_plaza_laboral_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        plaza_laboral_dao = PlazaLaboralDao(p_opcion=2, p_plaza_laboral_id=p_plaza_laboral_id)
+        plaza_laboral_dao = PlazaLaboralDao(s_opcion=2, s_plaza_laboral_id=s_plaza_laboral_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_plaza_laboral', tuple(dict(plaza_laboral_dao).values()))
             result = await cur.fetchall()
@@ -65,7 +65,7 @@ async def consultar_plazas_laborales(bearer: HTTPAuthorizationCredentials = Depe
         return accion
     conn = await conexion.conectar()
     try:
-        plaza_laboral_dao = PlazaLaboralDao(p_opcion=3, p_plaza_laboral_id=None)
+        plaza_laboral_dao = PlazaLaboralDao(s_opcion=3, s_plaza_laboral_id=None)
         async with conn.cursor() as cur:
             await cur.callproc('pr_plaza_laboral', tuple(dict(plaza_laboral_dao).values()))
             result = await cur.fetchall()
@@ -81,14 +81,14 @@ async def consultar_plazas_laborales(bearer: HTTPAuthorizationCredentials = Depe
         conn.close()
 
 # Modificar una plaza laboral
-@plaza_laboral.post("/modificarPlazaLaboral")
+@plaza_laboral.put("/modificarPlazaLaboral")
 async def modificar_plaza_laboral(plaza_body: ModificarPlazaLaboralDao = Body(...), bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        plaza_laboral_dao = PlazaLaboralDao(p_opcion=4, **plaza_body.dict())
+        plaza_laboral_dao = PlazaLaboralDao(s_opcion=4, **plaza_body.dict())
         async with conn.cursor() as cur:
             await cur.callproc('pr_plaza_laboral', tuple(dict(plaza_laboral_dao).values()))
             result = await cur.fetchall()
@@ -106,14 +106,14 @@ async def modificar_plaza_laboral(plaza_body: ModificarPlazaLaboralDao = Body(..
         conn.close()
 
 # Eliminar (cambiar el estado a 'N') una plaza laboral
-@plaza_laboral.post("/eliminarPlazaLaboral")
-async def eliminar_plaza_laboral(p_plaza_laboral_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+@plaza_laboral.delete("/eliminarPlazaLaboral")
+async def eliminar_plaza_laboral(s_plaza_laboral_id: int, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        plaza_laboral_dao = PlazaLaboralDao(p_opcion=5, p_plaza_laboral_id=p_plaza_laboral_id)
+        plaza_laboral_dao = PlazaLaboralDao(s_opcion=5, s_plaza_laboral_id=s_plaza_laboral_id)
         async with conn.cursor() as cur:
             await cur.callproc('pr_plaza_laboral', tuple(dict(plaza_laboral_dao).values()))
             result = await cur.fetchall()
