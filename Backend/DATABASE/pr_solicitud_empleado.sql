@@ -43,7 +43,12 @@ BEGIN
         WHEN 1 THEN
             -- Opción 1: Consultar todos los estados_solicitud empleado
             BEGIN
-                SELECT * FROM estado_solicitud_empleado;
+                SELECT 
+                    estado_solicitud_empleado_id AS s_estado_solicitud_empleado_id,
+                    estado AS s_estado,
+                    nombre_estado_solicitud AS s_nombre_estado_solicitud,
+                    fecha_ingreso AS s_fecha_ingreso
+                FROM estado_solicitud_empleado;
                 SET v_estado = true;
             END;
 
@@ -55,32 +60,45 @@ BEGIN
                     SELECT COUNT(*) INTO conteoE
                     FROM solicitud_empleado
                     WHERE usuario_id = s_usuario_id AND estado_solicitud_empleado_id = v_estado_solicitud_empleado_id;
-	
+    
                     IF conteoE = 0 THEN
                         INSERT INTO solicitud_empleado (usuario_id, tipo_solicitud_id, descripcion_solicitud, estado_solicitud_empleado_id, fecha_inicio, fecha_fin) 
                         VALUES (s_usuario_id, s_tipo_solicitud_id, s_descripcion_solicitud, v_estado_solicitud_empleado_id , s_fecha_inicio, s_fecha_fin);
                         SET conteo = ROW_COUNT();
                         IF conteo = 1 THEN
-							select "Solicitud enviada con exito." as v_mensaje;
+                            SELECT "Solicitud enviada con exito." AS v_mensaje;
                             SET v_estado = true;
                         ELSE
-							select "" as v_mensaje;
+                            SELECT "" AS v_mensaje;
                             SET v_estado = false;
                         END IF;
                     ELSE
-						select "Usuario ya tiene una solicitud Activa." as v_mensaje;
+                        SELECT "Usuario ya tiene una solicitud Activa." AS v_mensaje;
                         SET v_estado = false;
                     END IF;
                 END;
             ELSE
-				select "" as v_mensaje;
+                SELECT "" AS v_mensaje;
                 SET v_estado = false;
             END IF;
 
         WHEN 3 THEN
             -- Opción 3: Consultar todas las solicitud_empleado
             BEGIN
-                SELECT se.*,dt.nombre , dt.apellido, ts.tipo, ese.nombre_estado_solicitud ,ese.estado
+                SELECT 
+                    se.solicitud_empleado_id AS s_solicitud_empleado_id,
+                    se.usuario_id AS s_usuario_id,
+                    se.tipo_solicitud_id AS s_tipo_solicitud_id,
+                    se.descripcion_solicitud AS s_descripcion_solicitud,
+                    se.estado_solicitud_empleado_id AS s_estado_solicitud_empleado_id,
+                    se.fecha_inicio AS s_fecha_inicio,
+                    se.fecha_fin AS s_fecha_fin,
+                    se.fecha_ingreso AS s_fecha_ingreso,
+                    dt.nombre AS s_nombre,
+                    dt.apellido AS s_apellido,
+                    ts.tipo AS s_tipo,
+                    ese.nombre_estado_solicitud AS s_nombre_estado_solicitud,
+                    ese.estado AS s_estado
                 FROM solicitud_empleado se
                 JOIN tipo_solicitud ts ON se.tipo_solicitud_id = ts.tipo_solicitud_id
                 JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id
@@ -92,7 +110,20 @@ BEGIN
             -- Opción 4: Consultar todas las solicitud_empleado de un usuario_id específico
             IF s_usuario_id IS NOT NULL THEN
                 BEGIN
-                    SELECT se.*,dt.nombre , dt.apellido, ts.tipo, ese.nombre_estado_solicitud, ese.estado
+                    SELECT 
+                        se.solicitud_empleado_id AS s_solicitud_empleado_id,
+                        se.usuario_id AS s_usuario_id,
+                        se.tipo_solicitud_id AS s_tipo_solicitud_id,
+                        se.descripcion_solicitud AS s_descripcion_solicitud,
+                        se.estado_solicitud_empleado_id AS s_estado_solicitud_empleado_id,
+                        se.fecha_inicio AS s_fecha_inicio,
+                        se.fecha_fin AS s_fecha_fin,
+                        se.fecha_ingreso AS s_fecha_ingreso,
+                        dt.nombre AS s_nombre,
+                        dt.apellido AS s_apellido,
+                        ts.tipo AS s_tipo,
+                        ese.nombre_estado_solicitud AS s_nombre_estado_solicitud,
+                        ese.estado AS s_estado
                     FROM solicitud_empleado se
                     JOIN tipo_solicitud ts ON se.tipo_solicitud_id = ts.tipo_solicitud_id
                     JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id

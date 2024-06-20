@@ -1,12 +1,12 @@
 USE SSS_DATABASE;
 DELIMITER //
 CREATE PROCEDURE pr_postulaciones (
-    IN p_opcion INT,
-    IN p_postulacion_id INT,
-    IN p_usuario_id INT,
-    IN p_plaza_laboral_id INT,
-    IN p_cv BLOB,
-    IN p_estado_solicitud_postulante_id INT
+    IN s_opcion INT,
+    IN s_postulacion_id INT,
+    IN s_usuario_id INT,
+    IN s_plaza_laboral_id INT,
+    IN s_cv BLOB,
+    IN s_estado_solicitud_postulante_id INT
 )
 BEGIN
     DECLARE v_mensaje VARCHAR(255);
@@ -44,26 +44,31 @@ BEGIN
 
     START TRANSACTION;
 
-    CASE p_opcion
+    CASE s_opcion
         WHEN 1 THEN
             -- Opción 1: Consultar todos los estados_solicitud_postulante
             BEGIN
-                SELECT * FROM estado_solicitud_postulante;
+                SELECT 
+                    estado_solicitud_postulante_id AS s_estado_solicitud_postulante_id,
+                    estado AS s_estado,
+                    nombre_estado_solicitud AS s_nombre_estado_solicitud,
+                    fecha_ingreso AS s_fecha_ingreso
+                FROM estado_solicitud_postulante;
                 SET v_estado = true;
             END;
 
         WHEN 2 THEN
             -- Opción 2: Registrar una postulacion
-            IF p_usuario_id IS NOT NULL AND p_plaza_laboral_id IS NOT NULL AND p_cv IS NOT NULL THEN
+            IF s_usuario_id IS NOT NULL AND s_plaza_laboral_id IS NOT NULL AND s_cv IS NOT NULL THEN
                 BEGIN
                     -- Validar que el usuario no tenga otra postulacion con estado 'E'
                     SELECT COUNT(*) INTO conteoE
                     FROM postulaciones
-                    WHERE usuario_id = p_usuario_id AND estado_solicitud_postulante_id = v_estado_solicitud_postulante_id;
+                    WHERE usuario_id = s_usuario_id AND estado_solicitud_postulante_id = v_estado_solicitud_postulante_id;
     
                     IF conteoE = 0 THEN
                         INSERT INTO postulaciones (usuario_id, plaza_laboral_id, estado_solicitud_postulante_id, cv) 
-                        VALUES (p_usuario_id, p_plaza_laboral_id, v_estado_solicitud_postulante_id, p_cv);
+                        VALUES (s_usuario_id, s_plaza_laboral_id, v_estado_solicitud_postulante_id, s_cv);
                         SET conteo = ROW_COUNT();
                         IF conteo = 1 THEN
                             SELECT "Postulación enviada con éxito." AS v_mensaje;
@@ -85,7 +90,19 @@ BEGIN
         WHEN 3 THEN
             -- Opción 3: Consultar todas las postulaciones
             BEGIN
-                SELECT p.*, u.alias, du.nombre, du.apellido, pl.titulo_oferta, esp.nombre_estado_solicitud, esp.estado
+                SELECT 
+                    p.postulacion_id AS s_postulacion_id,
+                    p.usuario_id AS s_usuario_id,
+                    p.plaza_laboral_id AS s_plaza_laboral_id,
+                    p.estado_solicitud_postulante_id AS s_estado_solicitud_postulante_id,
+                    p.fecha_ingreso AS s_fecha_ingreso,
+                    p.cv AS s_cv,
+                    u.alias AS s_alias,
+                    du.nombre AS s_nombre,
+                    du.apellido AS s_apellido,
+                    pl.titulo_oferta AS s_titulo_oferta,
+                    esp.nombre_estado_solicitud AS s_nombre_estado_solicitud,
+                    esp.estado AS s_estado
                 FROM postulaciones p
                 JOIN usuario u ON p.usuario_id = u.usuario_id
                 JOIN datos_personales du ON p.usuario_id = du.usuario_id
@@ -96,15 +113,27 @@ BEGIN
 
         WHEN 4 THEN
             -- Opción 4: Consultar todas las postulaciones de un usuario_id específico
-            IF p_usuario_id IS NOT NULL THEN
+            IF s_usuario_id IS NOT NULL THEN
                 BEGIN
-                    SELECT p.*, u.alias, du.nombre, du.apellido, pl.titulo_oferta, esp.nombre_estado_solicitud, esp.estado
+                    SELECT 
+                        p.postulacion_id AS s_postulacion_id,
+                        p.usuario_id AS s_usuario_id,
+                        p.plaza_laboral_id AS s_plaza_laboral_id,
+                        p.estado_solicitud_postulante_id AS s_estado_solicitud_postulante_id,
+                        p.fecha_ingreso AS s_fecha_ingreso,
+                        p.cv AS s_cv,
+                        u.alias AS s_alias,
+                        du.nombre AS s_nombre,
+                        du.apellido AS s_apellido,
+                        pl.titulo_oferta AS s_titulo_oferta,
+                        esp.nombre_estado_solicitud AS s_nombre_estado_solicitud,
+                        esp.estado AS s_estado
                     FROM postulaciones p
                     JOIN usuario u ON p.usuario_id = u.usuario_id
                     JOIN datos_personales du ON p.usuario_id = du.usuario_id
                     JOIN plaza_laboral pl ON p.plaza_laboral_id = pl.plaza_laboral_id
                     JOIN estado_solicitud_postulante esp ON p.estado_solicitud_postulante_id = esp.estado_solicitud_postulante_id
-                    WHERE p.usuario_id = p_usuario_id;
+                    WHERE p.usuario_id = s_usuario_id;
                     SET v_estado = true;
                 END;
             ELSE
@@ -113,14 +142,14 @@ BEGIN
 
         WHEN 5 THEN
             -- Opción 5: Modificar postulacion sin permitir cambiar el estado de solicitud
-            IF p_postulacion_id IS NOT NULL THEN
+            IF s_postulacion_id IS NOT NULL THEN
                 BEGIN
                     UPDATE postulaciones
                     SET 
-                        usuario_id = IFNULL(p_usuario_id, usuario_id),
-                        plaza_laboral_id = IFNULL(p_plaza_laboral_id, plaza_laboral_id),
-                        cv = IFNULL(p_cv, cv)
-                    WHERE postulacion_id = p_postulacion_id;
+                        usuario_id = IFNULL(s_usuario_id, usuario_id),
+                        plaza_laboral_id = IFNULL(s_plaza_laboral_id, plaza_laboral_id),
+                        cv = IFNULL(s_cv, cv)
+                    WHERE postulacion_id = s_postulacion_id;
                     SET conteo = ROW_COUNT();
                     IF conteo = 1 THEN
                         SET v_estado = true;
@@ -134,11 +163,11 @@ BEGIN
 
         WHEN 6 THEN
             -- Opción 6: Cambiar estado a 'En Proceso'
-            IF p_postulacion_id IS NOT NULL THEN
+            IF s_postulacion_id IS NOT NULL THEN
                 BEGIN
                     UPDATE postulaciones
                     SET estado_solicitud_postulante_id = v_estado_solicitud_proceso_id
-                    WHERE postulacion_id = p_postulacion_id;
+                    WHERE postulacion_id = s_postulacion_id;
                     SET conteo = ROW_COUNT();
                     IF conteo = 1 THEN
                         SET v_estado = true;
@@ -152,11 +181,11 @@ BEGIN
 
         WHEN 7 THEN
             -- Opción 7: Cambiar estado a 'Informacion Personal'
-            IF p_postulacion_id IS NOT NULL THEN
+            IF s_postulacion_id IS NOT NULL THEN
                 BEGIN
                     UPDATE postulaciones
                     SET estado_solicitud_postulante_id = v_estado_solicitud_informacion_id
-                    WHERE postulacion_id = p_postulacion_id;
+                    WHERE postulacion_id = s_postulacion_id;
                     SET conteo = ROW_COUNT();
                     IF conteo = 1 THEN
                         SET v_estado = true;
@@ -170,11 +199,11 @@ BEGIN
 
         WHEN 8 THEN
             -- Opción 8: Cambiar estado a 'Finalizado'
-            IF p_postulacion_id IS NOT NULL THEN
+            IF s_postulacion_id IS NOT NULL THEN
                 BEGIN
                     UPDATE postulaciones
                     SET estado_solicitud_postulante_id = v_estado_solicitud_finalizado_id
-                    WHERE postulacion_id = p_postulacion_id;
+                    WHERE postulacion_id = s_postulacion_id;
                     SET conteo = ROW_COUNT();
                     IF conteo = 1 THEN
                         SET v_estado = true;
