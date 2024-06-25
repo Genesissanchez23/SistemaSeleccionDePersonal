@@ -1,16 +1,15 @@
 import { Observable, map } from 'rxjs';
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environment/environment';
-import { TokenService } from '@infrastructure/common/token.service';
 
-// Dominio
 import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
 import { UserGateway } from '@domain/models/user/gateway/user.gateway';
 
-// Infraestructura
+import { TokenService } from '@infrastructure/common/token.service';
 import { UserLoginMapper } from '@infrastructure/repositories/user/mappers/user-login.mapper';
 import { ResponseData, UserEntity } from '@infrastructure/repositories/user/entities/user.entity';
 import { UserInsertRepositoryMapper } from '@infrastructure/repositories/user/mappers/user-insert.mapper';
@@ -117,7 +116,6 @@ export class LocalUserRepositoryService extends UserGateway {
         })
       )
   }
-
 
   override listaEmpleados(): Observable<ResponseModel<UserModel[]>> {
     return this.http

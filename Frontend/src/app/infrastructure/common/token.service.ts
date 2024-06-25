@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { TOKEN_NAME } from '../../core/constants/constants';
 import { jwtDecode } from 'jwt-decode';
-import { UserEntity } from '../repositories/user/entities/user.entity';
+import { Injectable } from '@angular/core';
 import { UserModel } from '@domain/models/user/user.model';
+import { TOKEN_NAME } from 'src/app/core/constants/constants';
+import { UserEntity } from '@infrastructure/repositories/user/entities/user.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class TokenService {
   clearToken() {
     localStorage.removeItem(this.token);
   }
- 
+
   getToken() {
     return localStorage.getItem(this.token);
   }

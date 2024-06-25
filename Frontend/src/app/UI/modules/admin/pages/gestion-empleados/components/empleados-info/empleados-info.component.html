@@ -4,33 +4,11 @@
             <app-title title="Información del Empleado"></app-title>
         </div>
         <hr class="w-75">
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Nombres:</span>
-            <strong>{{data.nombres}}</strong>
-        </div>
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Apellidos:</span>
-            <strong>{{data.apellidos}}</strong>
-        </div>
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Cédula:</span>
-            <strong>{{data.cedula}}</strong>
-        </div>
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Correo:</span>
-            <strong>{{data.correo}}</strong>
-        </div>
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Dirección:</span>
-            <strong>{{data.direccion}}</strong>
-        </div>
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Usuario:</span>
-            <strong>{{data.usuario}}</strong>
-        </div>
-        <div class="row row-cols-2 font-astonpoliz mb-2">
-            <span class="col-4">Contraseña:</span>
-            <strong>{{data.contrasena}}</strong>
-        </div>
+        @for (item of employeeInfo; track $index) {
+            <div class="row row-cols-2 font-astonpoliz mb-2">
+                <span class="col-4">{{ item.label }}:</span>
+                <strong>{{ item.value }}</strong>
+            </div>
+        }
     </div>
 </div>

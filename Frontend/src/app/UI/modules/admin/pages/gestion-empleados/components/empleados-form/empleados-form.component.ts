@@ -78,7 +78,6 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
       correo: data.correo,
       direccion: data.direccion,
       usuario: data.usuario,
-      contrasena: data.contrasena
     });
   }
 

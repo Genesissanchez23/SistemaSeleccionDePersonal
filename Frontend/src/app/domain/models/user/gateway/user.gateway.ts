@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
+
 import { ResponseModel } from '@domain/common/response-model';
 import { UserModel } from '@domain/models/user/user.model';
 
@@ -13,7 +14,6 @@ export abstract class UserGateway {
 
     //Postulante 
     abstract registrarPostulante(usuario: UserModel): Observable<ResponseModel>
-
 
     //Empleados
     abstract registrarEmpleado(usuario: UserModel): Observable<ResponseModel>

@@ -25,7 +25,7 @@ export class LocalTrabajoRespositoryService extends TrabajoGateway {
   // Endpoints para Trabajo
   private registrarTrabajoEndpoint: string = 'registrarPlazaLaboral'
   private modificarTrabajoEndpoint: string = 'modificarPlazaLaboral'
-  private eliminarTrabajoEndpoint: string = 'eliminarPlazaLaboral?p_plaza_laboral_id='
+  private eliminarTrabajoEndpoint: string = 'eliminarPlazaLaboral?s_plaza_laboral_id='
   private consultarTrabajoEndpoint: string = 'consultarPlazaLaboralPorId?p_plaza_laboral_id='
   private listarTrabajosEndpoint: string = 'consultarPlazasLaborales'
 
@@ -40,16 +40,7 @@ export class LocalTrabajoRespositoryService extends TrabajoGateway {
   override registrarTrabajo(
     trabajo: TrabajoModel
   ): Observable<ResponseModel> {
-    // const requestBody: TrabajoEntity = this.trabajoInsertMapper.mapTo(trabajo);
-    const requestBody = {
-      'p_plaza_laboral_id': trabajo.id,
-      'p_titulo_oferta': trabajo.titulo,
-      'p_descripcion_oferta': trabajo.descripcion,
-      'p_cupos_disponibles': trabajo.cupos,
-      'p_modalidad': trabajo.modalidad,
-      'p_tipo_contratacion': trabajo.contrato
-    }
-
+    const requestBody: TrabajoEntity = this.trabajoInsertMapper.mapTo(trabajo);
     return this.http
       .post<ResponseData>(`${this.urlBase}${this.registrarTrabajoEndpoint}`, requestBody)
       .pipe(
@@ -63,17 +54,9 @@ export class LocalTrabajoRespositoryService extends TrabajoGateway {
   override modificarTrabajo(
     trabajo: TrabajoModel
   ): Observable<ResponseModel> {
-    // const requestBody: TrabajoEntity = this.trabajoInsertMapper.mapTo(trabajo);
-    const requestBody = {
-      'p_plaza_laboral_id': trabajo.id,
-      'p_titulo_oferta': trabajo.titulo,
-      'p_descripcion_oferta': trabajo.descripcion,
-      'p_cupos_disponibles': trabajo.cupos,
-      'p_modalidad': trabajo.modalidad,
-      'p_tipo_contratacion': trabajo.contrato
-    }
+    const requestBody: TrabajoEntity = this.trabajoInsertMapper.mapTo(trabajo);
     return this.http
-      .post<ResponseData>(`${this.urlBase}${this.modificarTrabajoEndpoint}`, requestBody)
+      .put<ResponseData>(`${this.urlBase}${this.modificarTrabajoEndpoint}`, requestBody)
       .pipe(
         map(response => {
           const respuesta = this.trabajoInsertMapper.mapFrom(response)
@@ -84,7 +67,7 @@ export class LocalTrabajoRespositoryService extends TrabajoGateway {
 
   override eliminarTrabajo(params: { id: number; }): Observable<ResponseModel> {
     return this.http
-      .post<ResponseData>(`${this.urlBase}${this.eliminarTrabajoEndpoint}${params.id}`,null)
+      .delete<ResponseData>(`${this.urlBase}${this.eliminarTrabajoEndpoint}${params.id}`)
       .pipe(
         map(response => {
           return {

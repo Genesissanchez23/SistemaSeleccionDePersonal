@@ -1,19 +1,21 @@
+// Importaciones principales de RxJS
 import { Observable, Subscription } from 'rxjs';
+
+// Angular: Importaciones para manejar la navegación, ciclo de vida de componentes y formularios reactivos
 import { Router, RouterLink } from '@angular/router';
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-
-//Domain
+// Modelos de Dominio y Casos de Uso
 import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
 import { UserLoginUsecase } from '@domain/usecases/user/user-login.usecase';
 
-//Services
+// Servicios
 import { ToastService } from '@shared/services/toast.service';
 import { TokenService } from '@infrastructure/common/token.service';
 
-//Components
+// Componentes Atómicos Compartidos
 import { TextComponent } from '@shared/atoms/text/text.component';
 import { TitleComponent } from '@shared/atoms/title/title.component';
 
@@ -72,7 +74,9 @@ export default class AuthenticationComponent implements OnInit, OnDestroy {
       this.response$.subscribe({
         next: (data: ResponseModel) => {
           if (data.status) {
+            
             const usuario: UserModel = this._token.decryptAndSetUserData()
+
             const rol = usuario.tipoUsuario?.toLowerCase()
 
             if (rol !== 'administrador' && rol !== 'empleado' && rol !== 'postulante') {

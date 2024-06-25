@@ -1,11 +1,12 @@
-import type { HttpInterceptorFn } from '@angular/common/http';
-import { Router } from '@angular/router';
-
-//Services
-import { TokenService } from '../common/token.service';
-import { ToastService } from '../../UI/shared/services/toast.service';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import type { HttpInterceptorFn } from '@angular/common/http';
+
 import { catchError, throwError } from 'rxjs';
+
+import { ToastService } from '@UI/shared/services/toast.service';
+
+import { TokenService } from '@infrastructure/common/token.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 

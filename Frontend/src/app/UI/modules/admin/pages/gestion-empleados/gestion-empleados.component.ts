@@ -71,7 +71,7 @@ export class GestionEmpleadosComponent implements OnInit {
       autoFocus: false,
       disableClose: false,
       data: data,
-      width: '400px'
+      width: '450px'
     })
   }
 

@@ -18,5 +18,13 @@ export class EmpleadosInfoComponent {
     @Inject(MAT_DIALOG_DATA) public data: UserModel,
   ) { }
 
+  employeeInfo = [
+    { label: 'Nombres', value: this.data.nombres },
+    { label: 'Apellidos', value: this.data.apellidos },
+    { label: 'Cédula', value: this.data.cedula },
+    { label: 'Correo', value: this.data.correo },
+    { label: 'Dirección', value: this.data.direccion },
+    { label: 'Usuario', value: this.data.usuario }
+  ];
   
 }
