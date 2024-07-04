@@ -4,9 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-title',
   standalone: true,
   imports: [],
-  template: `
-    <p class="mt-2 mb-4">{{title}}</p>
-  `,
+  template: `<p class="mt-2 mb-4">{{title}}</p>`,
   styles: `
     p {
       font-family: 'astonpoliz', sans-serif;  
@@ -17,6 +15,6 @@ import { Component, Input } from '@angular/core';
 })
 export class TitleComponent {
 
-  @Input({required: true}) title!: string
+  @Input({ required: true }) title!: string
 
 }

@@ -3,14 +3,15 @@
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
-                <div class="card rounded-3 text-black overflow-hidden border-0">
+                <div class="card rounded-0 text-black overflow-hidden border-0">
+                    <!-- <div class="card rounded-3 text-black overflow-hidden border-0"> -->
                     <div class="row g-0">
 
                         <div class="col-lg-6">
                             <div class="card-body p-md-4 mx-md-3">
                                 <div class="text-center mb-4 px-2">
                                     <!-- <img src="src/assets/image/logo.png" alt="logo"> -->
-                                    <img src="../../../../assets/image/logo.png" alt="logo">
+                                    <img src="assets/image/logo.png" alt="logo">
                                     <app-title title="Únete a nuestra misión, haz tu impacto" />
                                 </div>
                                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -18,39 +19,50 @@
 
                                     <div class="container-input">
                                         <label> Username </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-user"></i>
                                             </div>
-                                            <input class="input" type="text" formControlName="username"
-                                                autocomplete="off">
+                                            <input class="input" type="text" formControlName="username" autocomplete="off">
                                         </div>
                                         @if (username.invalid && (username.dirty || username.touched)) {
-                                        <span class="input-helper">Campo requerido</span>
+                                            @if (username.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (username.errors?.['maxlength']) {
+                                                <p class="input-helper">Máximo 50 carácteres</p>
+                                            }
                                         }
                                     </div>
 
                                     <div class="container-input mt-3">
                                         <label> Password </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-lock"></i>
                                             </div>
-                                            <input class="input" type="password" formControlName="password"
-                                                autocomplete="off">
+                                            <input class="input" [type]="passwordVisible() ? 'text' : 'password'"
+                                                formControlName="password" autocomplete="off">
+                                            <div class="icon bg-transparent">
+                                                <i [class]="passwordVisible() ? 'pi-eye-slash': 'pi-eye'"
+                                                    class="pi text-black fs-6" (click)="alternarPassword()"></i>
+                                            </div>
                                         </div>
                                         @if (password.invalid && (password.dirty || password.touched)) {
-                                        <span class="input-helper">Campo requerido</span>
+                                            @if (password.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (password.errors?.['maxlength']) {
+                                                <p class="input-helper">Máximo 255 carácteres</p>
+                                            }
                                         }
                                     </div>
 
-                                    <button type="submit" class="btn-custom rounded-1 my-4 shadow-sm">
+                                    <button type="submit" class="btn-custom my-4 shadow-sm">
                                         @if (loading()) {
-                                        <div class="spinner-border spinner-border-sm">
-                                            <span class="visually-hidden">Loading...</span>
-                                        </div>
+                                            <div class="spinner-border spinner-border-sm">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
                                         } @else {
-                                        <span>Iniciar Sesión </span>
+                                            <span>Iniciar Sesión </span>
                                         }
                                     </button>
 
@@ -68,11 +80,13 @@
                         <div class="container-right col-lg-6 d-none d-lg-flex align-items-center">
                             <div class="px-3 pb-4 p-md-4">
                                 <div class="mx-md-4 text-center">
-                                    <app-title title="¡Somos más que una empresa!" />
+                                    <span class="font-astonpoliz display-6 user-select-none">
+                                        ¡Somos más que una empresa!
+                                    </span>
                                 </div>
                                 <hr>
                                 <div class="container-p p-2">
-                                    <p class="mt-5 px-4 text-center">
+                                    <p class="mt-5 px-4 text-center user-select-none">
                                         Creamos un entorno donde puedes crecer y marcar la diferencia. Unete a nosotros
                                         y
                                         construye tu futuro en una organizacion comprometida con la excelencia.
@@ -80,11 +94,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </section>

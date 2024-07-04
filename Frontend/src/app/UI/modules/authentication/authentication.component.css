@@ -24,16 +24,17 @@ img {
 }
 
 .container-p {
-    background: url(../../../../assets/image/background-text.png) no-repeat center;
+    background: url("../../../../assets/image/background-text.png") no-repeat top;
     background-size: cover;
 }
 
 .container-right div p {
-    font-size: 1.7rem;
+    font-size: 2rem;
     line-height: 1.2;
     font-weight: bold;
     font-family: 'astonpoliz', sans-serif;
     color: var(--white-custom);
+    opacity: .95;
 }
 
 a {
@@ -46,4 +47,8 @@ a {
 
 a:hover {
     color: var(--orange-custom);
+}
+
+.icon .text-black {
+    cursor: pointer;
 }

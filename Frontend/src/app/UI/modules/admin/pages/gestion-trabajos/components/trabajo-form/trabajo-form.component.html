@@ -1,4 +1,4 @@
-<div class="card text-black border-0 p-1 w-100 h-auto rounded-0">
+<div class="card text-black border-0 w-100 h-auto rounded-0">
     <div class="card-body">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-11">
@@ -9,22 +9,26 @@
                     <div class="row">
                         <div class="container-input">
                             <label> Titulo </label>
-                            <div class="input-box rounded-1 shadow-sm">
+                            <div class="input-box shadow-sm">
                                 <div class="icon">
                                     <i class="pi pi-tag"></i>
                                 </div>
                                 <input class="input" type="text" autocomplete="off"
-                                    (keypress)="onLettersWithSpacesKeyPress($event, 50)" formControlName="titulo">
+                                    (keypress)="onLettersWithSpacesKeyPress($event, 255)" formControlName="titulo">
                             </div>
-                            @if (titulo.invalid && (titulo.dirty || titulo.touched)) {
-                            <span class="input-helper">Campo requerido</span>
+                            @if (titulo.invalid && (titulo.dirty || titulo.touched)) { 
+                                @if (titulo.errors?.['required']) {
+                                    <span class="input-helper">Campo requerido</span>
+                                } @else if (titulo.errors?.['maxlength']) {
+                                    <span class="input-helper">Máximo 255 carácteres</span>
+                                }
                             }
                         </div>
                     </div>
                     <div class="row">
                         <div class="container-input">
                             <label> Cupos </label>
-                            <div class="input-box rounded-1 shadow-sm">
+                            <div class="input-box shadow-sm">
                                 <div class="icon">
                                     <i class="pi pi-users"></i>
                                 </div>
@@ -32,14 +36,16 @@
                                     (keypress)="onNumberKeyPress($event, 20)" formControlName="cupos">
                             </div>
                             @if (cupos.invalid && (cupos.dirty || cupos.touched)) {
-                            <span class="input-helper">Campo requerido</span>
+                                @if (cupos.errors?.['required']) {
+                                    <span class="input-helper">Campo requerido</span>
+                                }
                             }
                         </div>
                     </div>
                     <div class="row">
                         <div class="container-input">
                             <label> Modalidad </label>
-                            <div class="input-box rounded-1 shadow-sm">
+                            <div class="input-box shadow-sm">
                                 <div class="icon">
                                     <i class="pi pi-sun"></i>
                                 </div>
@@ -50,56 +56,62 @@
                                     }
                                 </select>
                             </div>
-                            @if (modalidad.invalid && (modalidad.dirty || modalidad.touched)) { <span
-                                class="input-helper">Campo requerido</span>
+                            @if (modalidad.invalid && (modalidad.dirty || modalidad.touched)) {
+                                @if (modalidad.errors?.['required']) {
+                                    <span class="input-helper">Campo requerido</span>
+                                }
                             }
                         </div>
                     </div>
                     <div class="row">
                         <div class="container-input">
                             <label> Contrato </label>
-                            <div class="input-box rounded-1 shadow-sm">
+                            <div class="input-box shadow-sm">
                                 <div class="icon">
                                     <i class="pi pi-file"></i>
                                 </div>
                                 <select class="input" formControlName="contrato">
                                     <option selected disabled value="">Seleccionar Contrato</option>
                                     @for (item of listContrato; track $index) {
-                                    <option [value]="item.value">{{item.descripcion}}</option>
+                                        <option [value]="item.value">{{item.descripcion}}</option>
                                     }
                                 </select>
                             </div>
-                            @if (contrato.invalid && (contrato.dirty || contrato.touched)) { <span
-                                class="input-helper">Campo requerido</span>
+                            @if (contrato.invalid && (contrato.dirty || contrato.touched)) {
+                                @if (contrato.errors?.['required']) {
+                                    <span class="input-helper">Campo requerido</span>
+                                }
                             }
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="container-input">
+                            <div class="container-input h-auto">
                                 <label> Descripción </label>
-                                <div class="input-box rounded-1 shadow-sm">
+                                <div class="input-box shadow-sm">
                                     <div class="icon">
-                                        <i class="pi pi-file"></i>
+                                        <i class="pi pi-align-center"></i>
                                     </div>
-                                    <input type="text" class="input" formControlName="descripcion" />
+                                    <textarea class="input" rows="4" formControlName="descripcion"></textarea>
                                 </div>
-                                @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) { <span
-                                    class="input-helper">Campo requerido</span>
+                                @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) { 
+                                    @if (descripcion.errors?.['required']) {
+                                        <span class="input-helper">Campo requerido</span>
+                                    }
                                 }
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="container-btn">
-                            <button type="submit" class="btn-custom rounded-1 shadow-sm">
+                    <div class="row mb-4">
+                        <div class="container-btn mt-3">
+                            <button type="submit" class="btn-custom shadow-sm">
                                 @if (loading()) {
-                                <div class="spinner-border spinner-border-sm">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
+                                    <div class="spinner-border spinner-border-sm">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 } @else {
-                                <span>{{title}}</span>
+                                    <span>{{title}}</span>
                                 }
                             </button>
                         </div>

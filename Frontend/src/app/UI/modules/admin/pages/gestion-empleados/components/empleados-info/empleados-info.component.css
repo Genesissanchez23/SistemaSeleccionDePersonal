@@ -1,11 +1,18 @@
 .card {
-    background-color: var(--orange-custom);
+    padding: .3rem;
+    height: 320px;
+    width: 500px;
+    background-color: var(--orange-custom);    
 }
 
 .card-body {
+    padding: 2rem 3rem;
     background-color: white;
-    border-radius: 0.4rem;
-    border-top-right-radius: 40%;
+    border-radius: 0 100px 0;
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 strong {
@@ -15,7 +22,11 @@ strong {
 }
 
 @media (width < 777px) {
+    .card {
+        padding: .2rem;
+    }
+
     .card-body {
-        border-top-right-radius: 0.4rem;
+        border-radius: 0;
     }
 }

@@ -1,11 +1,9 @@
-<div class="card text-black border-0 p-1 w-100 h-auto rounded-0">
+<div class="card text-black border-0 rounded-0">
     <div class="card-body">
-        <div class="fw-semibold">
-            <app-title title="Información del Empleado"></app-title>
-        </div>
+        <span class="fw-bold mb-4 fs-3 font-raleway">Información del Empleado</span>
         <hr class="w-75">
         @for (item of employeeInfo; track $index) {
-            <div class="row row-cols-2 font-astonpoliz mb-2">
+            <div class="row row-cols-2 mb-2 font-astonpoliz">
                 <span class="col-4">{{ item.label }}:</span>
                 <strong>{{ item.value }}</strong>
             </div>

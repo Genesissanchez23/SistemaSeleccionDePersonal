@@ -1,26 +1,33 @@
 .card {
     max-width: 800px;
     box-shadow:
-    rgba(0, 0, 0, 0.4) 0px 2px 1px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-    rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+        rgba(0, 0, 0, 0.4) 0px 2px 1px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
 }
-  
+
 .testimonial-card .card-up {
     height: 75px;
     overflow: hidden;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
     background-color: var(--orange-custom);
-}
-    
-.testimonial-card .avatar {
-    width: 100px;
-    margin-top: -50px;    
-    border: 15px solid #fff;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 1px 2px,
+        rgba(0, 0, 0, 0.1) 0px 1px 1px -1px,
+        rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
 }
 
-.card-body{
+.testimonial-card .avatar {
+    width: 100px;
+    margin-top: -50px;
+    padding: 1.1rem;
+    background-color: white;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px -2px 2px,
+        rgba(0, 0, 0, 0.1) 0px -7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px 1px 0px inset;
+}
+
+.card-body {
     text-align: center;
     margin: 0 2rem;
     font-weight: 500;
@@ -28,11 +35,12 @@
     font-family: 'Raleway', sans-serif;
 }
 
-.descripcion{
+.descripcion {
     text-align: justify;
 }
 
-select, input {
+select,
+input {
     width: 150px;
     padding: 0 .2rem;
 }

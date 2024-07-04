@@ -1,14 +1,15 @@
+// Importaciones de RxJS y Angular
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { map, shareReplay } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
-//Router
+// Importaciones del enrutador
 import { administrador } from './admin.routes';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
-//Material
+// Importaciones de Material Design
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
@@ -54,17 +55,20 @@ export default class AdminComponent implements OnInit, OnDestroy {
     this.user = this.token.decryptAndSetUserData()
   }
 
+  // Observable para verificar si el dispositivo es un dispositivo móvil
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
+  // Método para cerrar sesión
   cerrarSesion() {
     this._tokenService.clearToken()
     this._router.navigate(['/login'])
   }
 
+  // Obtener las rutas administrativas
   public routes = administrador
     .map(route => route.children ?? [])
     .flat()
@@ -73,7 +77,7 @@ export default class AdminComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.token.clearToken()
+    this.token.clearToken() // Limpiar token al destruir el componente
   }
 
 }

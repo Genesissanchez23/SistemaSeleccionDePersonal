@@ -1,12 +1,17 @@
-import { TitleComponent } from '@UI/shared/atoms/title/title.component';
+// Importaciones de RxJS y Angular
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+// Importaciones de Material Design
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-//Domain
+// Modelos de Dominio y Casos de Uso
 import { PermisoSolicitudModel } from '@domain/models/permisos/permiso-solicitud.model';
 import { PermisoTipoModel } from '@domain/models/permisos/permiso-tipo.model';
 import { PermisoListaTiposUsecase } from '@domain/usecases/permisos/permiso-lista-tipos.usecase';
+
+// Componentes
+import { TitleComponent } from '@UI/shared/atoms/title/title.component';
 
 @Component({
   selector: 'app-empleado-details',
@@ -32,30 +37,21 @@ export class EmpleadoDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTipoSolicitud()
-    this.initFrom()
     if (this.data) {
-      this.initFromEdit(this.data)
+      this.initFrom()
     }
   }
 
   private initFrom() {
+    const fechaInicio = new Date(this.data.fechaInicioPermiso!);
+    const fechaFin = new Date(this.data.fechaFinPermiso!);
+    
     this.form = this._fb.group({
-      permisoTipo: [''],
-      descripcion: [''],
-      fechaInicioPermiso: [''],
-      fechaFinPermiso: [''],
+      permisoTipo: [this.data.permisoTipo],
+      descripcion: [this.data.descripcion],
+      fechaInicioPermiso: [fechaInicio.toISOString().split('T')[0]],
+      fechaFinPermiso: [fechaFin.toISOString().split('T')[0]],
     })
-  }
-
-  private initFromEdit(data: PermisoSolicitudModel) {
-    const fechaInicio = new Date(data.fechaInicioPermiso!);
-    const fechaFin = new Date(data.fechaFinPermiso!);
-    this.form.patchValue({
-      permisoTipo: data.permisoTipo,
-      descripcion: data.descripcion,
-      fechaInicioPermiso: fechaInicio.toISOString().split('T')[0],
-      fechaFinPermiso: fechaFin.toISOString().split('T')[0],
-    });
   }
 
   private loadTipoSolicitud() {
@@ -63,6 +59,5 @@ export class EmpleadoDetailsComponent implements OnInit {
       next: (data) => this.tipos = data.body
     })
   }
-
 
 }

@@ -7,9 +7,7 @@ import { Component, Input } from '@angular/core';
   imports: [
     CommonModule
   ],
-  template: `
-    <p [ngClass]="{'xsmall-text': xsmall, 'text': !xsmall}">{{ text }}</p>
-  `,
+  template: `<p [ngClass]="{'xsmall-text': xsmall, 'text': !xsmall}"> {{ text }} </p>`,
   styles: `
     .text {
       font-size: small;

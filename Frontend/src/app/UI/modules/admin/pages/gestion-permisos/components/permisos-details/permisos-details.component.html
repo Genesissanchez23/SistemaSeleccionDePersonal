@@ -4,25 +4,23 @@
     </div>
     <hr>
     @if(!loading()){
-    <p class="my-4">
-        Registrada el <strong>{{solicitud.fechaRegistro | date:"dd - MMMM - yyyy" }}</strong>
-    </p>
-    <p>
-        Datos de la solicitud de permiso laboral de <strong>{{empleado.nombres + ' ' + empleado.apellidos}}</strong>,
-        identificado con número de cédula <strong>{{empleado.cedula}}</strong> y correo electrónico <strong
-            class="text-lowercase">{{empleado.correo}}</strong>, actualmente desempeñando funciones bajo el rol de
-        <strong>{{empleado.tipoUsuario}}</strong>.
-    </p>
-    <p class="my-3">
-        Permiso solicitado desde el
-        <strong>{{solicitud.fechaInicioPermiso | date:"MMM dd, yyyy" }}</strong> hasta
-        <strong>{{solicitud.fechaInicioPermiso | date:"MMM dd, yyyy" }}</strong>, solicitud de tipo
-        <strong>{{solicitud.permisoTipo }}</strong> por motivo <strong>{{solicitud.descripcion }}</strong>.
-    </p>
-    <p class="my-3 mb-4">
-        Solicitud con estado <strong>{{ solicitud.estado === 'E' ? 'en Espera' : solicitud.descripcionEstado }}</strong> 
-    </p>
-    } @else {
-    <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+        <p class="my-4">Registrada el <strong>{{solicitud.fechaRegistro | date:"dd - MMMM - yyyy" }}</strong></p>
+        <p>
+            Datos de la solicitud de permiso laboral de <strong>{{empleado.nombres + ' ' + empleado.apellidos}}</strong>,
+            identificado con número de cédula <strong>{{empleado.cedula}}</strong> y correo electrónico <strong
+                class="text-lowercase">{{empleado.correo}}</strong>, actualmente desempeñando funciones bajo el rol de
+            <strong>{{empleado.tipoUsuario}}</strong>.
+        </p>
+        <p class="my-3">
+            Permiso solicitado desde el
+            <strong>{{solicitud.fechaInicioPermiso | date:"MMM dd, yyyy" }}</strong> hasta
+            <strong>{{solicitud.fechaInicioPermiso | date:"MMM dd, yyyy" }}</strong>, solicitud de tipo
+            <strong>{{solicitud.permisoTipo }}</strong> por motivo <strong>{{solicitud.descripcion }}</strong>.
+        </p>
+        <p class="my-3 mb-4">
+            Solicitud con estado <strong>{{ solicitud.estado === 'E' ? 'en Espera' : solicitud.descripcionEstado }}</strong>
+        </p>
+    } @else { 
+        <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar> 
     }
 </section>

@@ -3,20 +3,20 @@
 }
 
 .sidenav {
-  width: 80px;
+  width: 65px;
   box-shadow: none;
   border: none;
   background-color: transparent;
 }
 
-.mat-nav-list {
-  height: 85%;
+.container-avatar {
   background-color: var(--orange-custom);
-  margin: 0 .5rem;
+  color: var(--white-custom);
 }
 
-.icon-avatar {
-  color: var(--black-custom);
+.mat-nav-list {
+  height: 89%;
+  background-color: var(--orange-custom);
 }
 
 .mat-nav-list .container-options {
@@ -24,26 +24,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 1.5rem 0; 
-  height: 92%;
+  gap: 1.5rem 0;
+  height: 100%;
 }
 
 .mat-nav-list button {
+  width: 100%;
   border: none;
   background-color: transparent;
-  width: 100%;
+  margin-top: auto;
+  margin-bottom: .5rem;
 }
 
-.mat-nav-list .container-options a, .mat-nav-list button {
-  color: white;  
-  text-align: center;
+.mat-nav-list .container-options a,
+.mat-nav-list button {
   width: 100%;
   height: 1.5rem;
+  color: white;
+  text-align: center;
   transition: padding-left 0.3s ease-in-out;
 }
 
-.mat-nav-list a i, .mat-nav-list button i {
-  font-size: 1.2rem;  
+.mat-nav-list a i,
+.mat-nav-list button i {
+  font-size: 1.2rem;
 }
 
 a:hover {
@@ -62,11 +66,13 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 1;
+  width: 100%;
   height: 2rem;
   background-color: transparent;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 
 .mat-toolbar.mat-primary button {
@@ -76,5 +82,6 @@ a:hover {
 .mat-toolbar.mat-primary span {
   color: var(--black-custom);
   font-family: 'astonpoliz', sans-serif;
+  font-size: medium;
+  padding: 0 .7rem;
 }
-

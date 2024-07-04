@@ -1,12 +1,15 @@
+// Importaciones de Angular
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+// Importaciones de Material Design
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-//UI
-import { TitleComponent } from '@UI/shared/atoms/title/title.component';
-
-//Domain
+// Modelos de Dominio
 import { TrabajoModel } from '@domain/models/trabajos/trabajo.model';
+
+// UI
+import { TitleComponent } from '@UI/shared/atoms/title/title.component';
 
 @Component({
   selector: 'app-trabajo-details',

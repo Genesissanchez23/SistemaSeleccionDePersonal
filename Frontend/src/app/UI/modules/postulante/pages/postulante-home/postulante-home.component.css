@@ -1,0 +1,12 @@
+.rounded-circle {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rounded-circle img {
+    width: 25px;
+    height: 25px;    
+}

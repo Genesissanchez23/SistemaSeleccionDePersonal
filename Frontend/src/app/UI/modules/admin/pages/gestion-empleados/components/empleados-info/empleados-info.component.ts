@@ -1,14 +1,16 @@
-import { TitleComponent } from '@UI/shared/atoms/title/title.component';
+// Importaciones de Angular
 import { Component, Inject } from '@angular/core';
+
+// Importaciones de Material Design
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+// Modelos de Dominio
 import { UserModel } from '@domain/models/user/user.model';
 
 @Component({
   selector: 'app-empleados-info',
   standalone: true,
-  imports: [
-    TitleComponent
-  ],
+  imports: [],
   templateUrl: './empleados-info.component.html',
   styleUrl: './empleados-info.component.css'
 })
@@ -26,5 +28,5 @@ export class EmpleadosInfoComponent {
     { label: 'Dirección', value: this.data.direccion },
     { label: 'Usuario', value: this.data.usuario }
   ];
-  
+
 }

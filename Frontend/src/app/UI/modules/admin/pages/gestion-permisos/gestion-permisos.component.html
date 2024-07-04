@@ -1,67 +1,84 @@
-<div class="container-fluid bg-transparent">
-    <p-table #dt2 [value]="list" [rows]="11" styleClass="p-datatable-sm" [loading]="loading" [paginator]="true"
-        [globalFilterFields]="['nombres', 'fechaRegistro', 'permisoTipo', 'estado']">
-        <ng-template pTemplate="caption">
-            <div class="row row-cols-2">
-                <div class="container-input h-auto ps-1 col-8 col-lg-10 bg-white">
-                    <div class="input-box rounded-1 shadow-sm">
-                        <div class="icon">
-                            <i class="pi pi-search"></i>
-                        </div>
-                        <input class="input" type="text" placeholder="Filtrar.." autocomplete="off" pInputText
-                            type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')">
-                    </div>
+<div class="container-fluid w-100 py-0">
+
+    <div class="row row-cols-2">
+        <div class="container-input h-auto col-8 col-lg-10 bg-white pe-0">
+            <div class="input-box shadow-sm">
+                <div class="icon">
+                    <i class="pi pi-search"></i>
                 </div>
-                <div class="col-4 col-lg-2 p-0 pe-1">
-                    <button type="submit" class="btn-custom rounded-1 shadow-sm" (click)="openAgregar()">
-                        <span>Nuevo tipo permiso</span>
-                    </button>
-                </div>
+                <input class="input" type="text" placeholder="Filtrar.." (keyup)="applyFilter($event)" #input
+                autocomplete="off">
             </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Usuario</th>
-                <th>Registrada</th>
-                <th>Tipo</th>
-                <th class="text-center">Estado</th>
-                <th class="text-center">Acciones</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-list>
-            <tr>
-                <td class="text-capitalize">{{ list.nombres }}</td>
-                <td>{{ list.fechaRegistro | date:"MMM dd, yyyy" }}</td>
-                <td>{{ list.permisoTipo }}</td>
-                <td class="text-center">
-                    <span class="badge px-4 py-2" [ngClass]="getEstadoClass(list.estado)">
-                        {{ list.estado === 'E' ? 'En espera' : list.descripcionEstado }}
+        </div>
+        <div class="col-4 col-lg-2">
+            <button type="submit" class="btn-custom py-3 shadow-sm" (click)="openAgregar()">
+                <span>Nuevo tipo permiso</span>
+            </button>
+        </div>
+    </div>
+
+    @if (loading()) {
+        <div class="container-progress my-2">
+            <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+        </div>
+    }
+
+    <div class="container-table mt-1">
+        
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="nombres">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nombres}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fechaRegistro">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Registrada</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.fechaRegistro | date:"MMM dd, yyy"}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="permisoTipo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.permisoTipo}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="badge px-4 py-2 fw-semibold" [ngClass]="getEstadoClass(element.estado)">
+                        {{ element.estado === 'E' ? 'En espera' : element.descripcionEstado }}
                     </span>
-                </td>
-                <td>
-                    <div class="row row-cols-3 m-0 gap-1 d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn-custom btn-options btn-view rounded-1 shadow-sm col-3"
-                            (click)="openDetalle(list)">
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell *matHeaderCellDef class="text-center">
+                    <span class="w-100">Acciones</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
+                    <div class="container-actions row row-cols-3 flex-nowrap">
+                        <button type="submit" class="col-3"
+                            (click)="openDetalle(element)">
                             <i class="pi pi-eye"></i>
                         </button>
-                        @if (list.estado === 'E') {
-                        <button type="submit" class="btn-custom btn-options btn-edit rounded-1 shadow-sm col-3"
-                            (click)="openAceptar(list)">
+                        @if (element.estado === 'E') {
+                        <button type="submit" class="col-3"
+                            (click)="openAceptar(element)">
                             <i class="pi pi-file-check"></i>
                         </button>
-                        <button type="submit" class="btn-custom btn-options btn-delete rounded-1 shadow-sm col-3"
-                            (click)="openRechazar(list)">
+                        <button type="submit" class="col-3"
+                            (click)="openRechazar(element)">
                             <i class="pi pi-file-excel"></i>
                         </button>
                         }
                     </div>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="5">No customers found.</td>
-            </tr>
-        </ng-template>
-    </p-table>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;" class="table-header"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[25]" [pageSizeOptions]="[25, 50, 75, 100]"></mat-paginator>
+    </div>
+
 </div>

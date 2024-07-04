@@ -1,8 +1,11 @@
-import { Component, Inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+// Importaciones de RxJS y Angular
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Component, Inject, OnDestroy, signal } from '@angular/core';
+
+// Importaciones de Material Design
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-//Domain
+// Modelos de Dominio y Casos de Uso
 import { ResponseModel } from '@domain/common/response-model';
 import { TrabajoModel } from '@domain/models/trabajos/trabajo.model';
 import { TrabajoEliminarUsecase } from '@domain/usecases/trabajo/trabajo-eliminar.usecase';
@@ -20,14 +23,14 @@ import { ToastService } from '@UI/shared/services/toast.service';
 export class TrabajoDeleteComponent implements OnDestroy {
 
   public loading = signal<boolean>(false)
+  private destroy$ = new Subject<void>()
   private response$!: Observable<ResponseModel>
-  private subscription: Subscription = new Subscription();
 
   constructor(
     private _toast: ToastService,
     private dialogRef: MatDialogRef<TrabajoDeleteComponent>,
     private _trabajoEliminarServices: TrabajoEliminarUsecase,
-    @Inject(MAT_DIALOG_DATA) public data: TrabajoModel ,
+    @Inject(MAT_DIALOG_DATA) public data: TrabajoModel,
   ) { }
 
   onSubmit() {
@@ -35,20 +38,23 @@ export class TrabajoDeleteComponent implements OnDestroy {
     this.loading.update(() => true)
 
     this.response$ = this._trabajoEliminarServices.perform({ id: this.data.id! })
-
-      this.subscription.add(
-        this.response$.subscribe({
-          next: (data) => {            
-            this.dialogRef.close(data)
-          },
-          error: () => this._toast.error('Lo sentimos, intente mas luego.'),
-          complete: () => this.loading.update(() => false)
-        })
-      )
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: ResponseModel) => this.dialogRef.close(data),
+      error: (err) => this.handleError(err),
+      complete: () => this.loading.update(() => false)
+    })
   }
-  
+
+  // Maneja el error de la respuesta
+  private handleError(err: any) {
+    console.error('Ha ocurrido un error:', err)
+    this._toast.error('Lo sentimos, intente mas luego.')
+  }
+
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
 }

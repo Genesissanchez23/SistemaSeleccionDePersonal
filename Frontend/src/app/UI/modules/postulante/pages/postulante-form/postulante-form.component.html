@@ -8,17 +8,17 @@
     </div>
 
     <div class="d-flex justify-content-center align-content-center">
-        <div class="card mx-5 mx-md-5 rounded-3 text-black overflow-hidden border-0 p-1">
+        <div class="card mx-5 mx-md-5 rounded-0 text-black overflow-hidden border-0">
             <div class="card-body py-5 px-md-5">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-11">
-                        <span class="fw-bold mb-4 fs-3 font-raleway">Sign up now</span>
-                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-start mt-3">
+                        <span class="fw-bold mb-4 fs-1 font-raleway">Sign up now</span>
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-start mt-4">
                             <div class="row">
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Nombres </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="bi bi-person-standing"></i>
                                             </div>
@@ -26,15 +26,19 @@
                                                 (keypress)="onLettersWithSpacesKeyPress($event, 50)"
                                                 formControlName="nombres">
                                         </div>
-                                        @if (nombres.invalid && (nombres.dirty || nombres.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (nombres.invalid && (nombres.dirty || nombres.touched)) { 
+                                            @if (nombres.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (nombres.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 50 carácteres</span>
+                                            }
                                         }
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Apellidos </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="bi bi-person-standing"></i>
                                             </div>
@@ -42,8 +46,12 @@
                                                 (keypress)="onLettersWithSpacesKeyPress($event, 50)"
                                                 formControlName="apellidos">
                                         </div>
-                                        @if (apellidos.invalid && (apellidos.dirty || apellidos.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (apellidos.invalid && (apellidos.dirty || apellidos.touched)) { 
+                                            @if (apellidos.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (apellidos.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 50 carácteres</span>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -52,30 +60,40 @@
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Cédula </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-id-card"></i>
                                             </div>
                                             <input class="input" type="text" autocomplete="off"
                                                 (keypress)="onNumberKeyPress($event, 20)" formControlName="cedula">
                                         </div>
-                                        @if (cedula.invalid && (cedula.dirty || cedula.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (cedula.invalid && (cedula.dirty || cedula.touched)) {  
+                                            @if (cedula.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (cedula.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 20 carácteres</span>
+                                            }
                                         }
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Correo </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-envelope"></i>
                                             </div>
                                             <input class="input" type="text" autocomplete="off"
                                                 (keypress)="onValidateMaxLength($event, 100)" formControlName="correo">
                                         </div>
-                                        @if (correo.invalid && (correo.dirty || correo.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (correo.invalid && (correo.dirty || correo.touched)) { 
+                                            @if (correo.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (correo.errors?.['email']) {
+                                                <span class="input-helper">Formato invalido</span>
+                                            } @else if (correo.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 20 carácteres</span>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -84,30 +102,44 @@
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Usuario </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-user"></i>
                                             </div>
                                             <input class="input" type="text" autocomplete="off"
                                                 formControlName="usuario">
                                         </div>
-                                        @if (usuario.invalid && (usuario.dirty || usuario.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (usuario.invalid && (usuario.dirty || usuario.touched)) { 
+                                            @if (usuario.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (usuario.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 50 carácteres</span>
+                                            }
                                         }
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Contraseña </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-lock"></i>
                                             </div>
-                                            <input class="input" type="password" autocomplete="off"
+                                            <input class="input" [type]="passwordVisible() ? 'text' : 'password'" autocomplete="off"
                                                 formControlName="contrasena">
+                                            <div class="icon bg-transparent">
+                                                    <i [class]="passwordVisible() ? 'pi-eye-slash': 'pi-eye'"
+                                                        class="pi text-black fs-6" (click)="alternarPassword()"></i>
+                                            </div>
                                         </div>
-                                        @if (contrasena.invalid && (contrasena.dirty || contrasena.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (contrasena.invalid && (contrasena.dirty || contrasena.touched)) {
+                                            @if (contrasena.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (contrasena.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 255 carácteres</span>
+                                            } @else if(contrasena.errors?.['passwordStrength']){
+                                                <span class="input-helper">Mínimo: Mayúscula, Minúscula, Carácteres especiales, 8-20 Caracteres Alfanuméricos.</span>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -116,7 +148,7 @@
                                 <div class="col-md-6 mb-2">
                                     <div class="container-input">
                                         <label> Dirección </label>
-                                        <div class="input-box rounded-1 shadow-sm">
+                                        <div class="input-box shadow-sm">
                                             <div class="icon">
                                                 <i class="pi pi-map-marker"></i>
                                             </div>
@@ -124,21 +156,24 @@
                                                 (keypress)="onValidateMaxLength($event, 255)"
                                                 formControlName="direccion">
                                         </div>
-                                        @if (direccion.invalid && (direccion.dirty || direccion.touched)) { <span
-                                            class="input-helper">Campo requerido</span>
+                                        @if (direccion.invalid && (direccion.dirty || direccion.touched)) { 
+                                            @if (direccion.errors?.['required']) {
+                                                <span class="input-helper">Campo requerido</span>
+                                            } @else if (direccion.errors?.['maxlength']) {
+                                                <span class="input-helper">Máximo 255 carácteres</span>
+                                            }
                                         }
-
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <div class="container-btn">
-                                        <button type="submit" class="btn-custom rounded-1 shadow-sm">
+                                        <button type="submit" class="btn-custom py-3 shadow-sm">
                                             @if (loading()) {
-                                            <div class="spinner-border spinner-border-sm">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div>
+                                                <div class="spinner-border spinner-border-sm">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
                                             } @else {
-                                            <span>Registrarse</span>
+                                                <span>Registrarse</span>
                                             }
                                         </button>
                                     </div>

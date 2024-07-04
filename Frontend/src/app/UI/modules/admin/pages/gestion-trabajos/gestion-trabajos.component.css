@@ -1,41 +1,65 @@
-th {
+.container-table {
+    width: 100%;
+    height: 34.9rem;
+    overflow: auto;
+}
+
+.mdc-data-table__table {
+    min-width: max-content;
+}
+
+.table-header {
+    min-height: 2rem;
+    border-top: 1px solid var(--black-custom);
+    z-index: 0 !important;
     background-color: var(--orange-custom);
-    color: #FFFFFF;
-    text-align: start;
-    font-size: mall;
-    height: 1rem;
     font-family: 'astonpoliz', sans-serif;
-    font-weight: normal;
-    width: 20%;
-    border: 1px solid #555;
+    font-size: .800rem;
+    font-weight: 100;
+    color: #FFFFFF;
 }
 
-tr {
-    font-family: 'Raleway', sans-serif;
-    font-size: small;
-    font-weight: 500;
-    background-color: white;
+.mat-mdc-table {
+    width: 100%;
+    border: 1px solid var(--black-custom);
+    border-top: none;
 }
 
-tr td {
-    border: 1px solid #555;
+.mat-mdc-row .mat-mdc-cell {
+    width: 100%;
+    min-width: 10rem;
+    height: 100%;
+    min-height: 2.3rem;
+    font-family: "Raleway", sans-serif;
+    font-size: .700rem;
+    font-weight: 570;
+    text-transform: capitalize;
+    cursor: pointer;
 }
 
-tr:hover {
-    background-color: whitesmoke;
+mat-row,
+mat-footer-row {
+    min-height: auto;
 }
 
-:host::ng-deep.p-datatable.p-datatable-sm .p-datatable-header {
-    border: none;
-    background: transparent;
+.mat-mdc-row:hover .mat-mdc-cell {
+    font-weight: 525;
+    background-color: #f7f7f7;
 }
 
-:host::ng-deep.p-element {    
-    color: var(--black-custom);           
-    height: 1rem;
+mat-paginator {
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--black-custom);
+    border-top: none;
 }
 
-:host::ng-deep.p-component  {
-    background-color: transparent;
-    border: none;
+.badge {
+    font-size: .550rem;
+    cursor: none;
+    border-radius: 0;
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) .5px .5px .1px -.3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
 }
