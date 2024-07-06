@@ -20,10 +20,7 @@ async def login(request: Request, usuario_login: UsuarioLogin = Body(...)):
         
         password = usuario_login.s_contrasena
         hashed_password = password_manager.encriptar(password)
-        usuario_login.s_contrasena = hashed_password
-
-
-
+        print(hashed_password)
         # Mapear los datos de UsuarioLogin a UsuarioDao
         usuario_dao = UsuarioDao(
             s_opcion=0,
@@ -41,33 +38,35 @@ async def login(request: Request, usuario_login: UsuarioLogin = Body(...)):
             if  value  and value2:
                 usuario_dao.s_opcion=3
                 usuario_dao.s_contrasena = value[0]["v_contrasena_hash"] 
-                print(usuario_dao.s_contrasena)
-
-                await cur.callproc('pr_usuario', tuple(dict(usuario_dao).values()))
-                result = await cur.fetchall()
-                # Pasar al siguiente conjunto de resultados
-                await cur.nextset()
-                # Obtener el segundo conjunto de resultados
-                result2 = await cur.fetchall()
-                if result  and result2:
-                    usuario_id = result[0]["s_usuario_id"]
-                    nombre = result[0]["s_nombre"]
-                    apellido = result[0]["s_apellido"]
-                    tipo = result[0]["s_tipo_usuario"]
-                    id_tipo = result[0]["s_tipo_usuario_id"]
-                    
-                    # Generar token de acceso
-                    token_data = {
-                        "s_usuario_id": usuario_id,
-                        "s_nombre": nombre,
-                        "s_apellido": apellido,
-                        "s_tipo_usuario": tipo,
-                        "s_tipo_usuario_id": id_tipo,
-                        "exp": datetime.utcnow() + timedelta(minutes=api.Api.TOKEN_TIME)
-                    }
-                    
-                    access_token = Tokenizacion.generarToken(token_data)
-                    return {"resultado": access_token, "mensaje":bool(result2[0]["mensaje"])}
+                print("dao :",usuario_dao.s_contrasena)
+                print("login :",usuario_login.s_contrasena)
+                if password_manager.verificar(password,usuario_dao.s_contrasena):
+                    print("Sdsd")
+                    await cur.callproc('pr_usuario', tuple(dict(usuario_dao).values()))
+                    result = await cur.fetchall()
+                    # Pasar al siguiente conjunto de resultados
+                    await cur.nextset()
+                    # Obtener el segundo conjunto de resultados
+                    result2 = await cur.fetchall()
+                    if result  and result2:
+                        usuario_id = result[0]["s_usuario_id"]
+                        nombre = result[0]["s_nombre"]
+                        apellido = result[0]["s_apellido"]
+                        tipo = result[0]["s_tipo_usuario"]
+                        id_tipo = result[0]["s_tipo_usuario_id"]
+                        
+                        # Generar token de acceso
+                        token_data = {
+                            "s_usuario_id": usuario_id,
+                            "s_nombre": nombre,
+                            "s_apellido": apellido,
+                            "s_tipo_usuario": tipo,
+                            "s_tipo_usuario_id": id_tipo,
+                            "exp": datetime.utcnow() + timedelta(minutes=api.Api.TOKEN_TIME)
+                        }
+                        
+                        access_token = Tokenizacion.generarToken(token_data)
+                        return {"resultado": access_token, "mensaje":bool(result2[0]["mensaje"])}
                 
             return {"resultado": "", "mensaje":False}
     except Exception as e:
@@ -184,6 +183,11 @@ async def actualizar_usuario(usuario_actualizado: UsuarioActualizar = Body(...),
         return accion
     conn = await conexion.conectar()
     try:
+        password_manager = Encriptacion()
+        # Encriptar una contraseña
+        password = usuario_actualizado.s_contrasena
+        hashed_password = password_manager.encriptar(password)
+        usuario_actualizado.s_contrasena = hashed_password
         # Mapear los datos 
         usuario_dao = UsuarioDao(
             s_opcion=4,
