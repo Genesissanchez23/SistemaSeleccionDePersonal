@@ -119,6 +119,6 @@ CREATE TABLE postulaciones (
 
 
 INSERT INTO usuario (alias, contrasena, estado, tipo_usuario_id) 
-                    VALUES ('admin', '$2b$12$2rCDwRjQU1TSxszMDuLBG.W6HpWNpqLi3Edu7qUviTsEPnJM26U6m', 'A', 1);
+                    VALUES ('admin', '$2b$12$t99V4EqGzyH.gV6sXyMQh.5Ms9PVrj8No/u9plUjcIpqMIh6QHj.C', 'A', 1);
 INSERT INTO datos_personales (nombre, apellido, cedula, direccion, correo, usuario_id)
                     VALUES ('admin', 'admin', '0989324569', 'alborada 3era etapa', 'admin@sss.ec', LAST_INSERT_ID());

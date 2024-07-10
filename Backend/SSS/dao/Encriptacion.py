@@ -10,5 +10,10 @@ class Encriptacion:
 
     @staticmethod
     def verificar(password: str, hashed_password: str) -> bool:
-        # Verifica la contraseña comparándola con el hash almacenado
-        return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+        try:
+            # Verifica la contraseña comparándola con el hash almacenado
+            return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+        except ValueError as e:
+            # Manejo de errores si el hash no es válido
+            print(f"Error al verificar la contraseña: {e}")
+            return False
