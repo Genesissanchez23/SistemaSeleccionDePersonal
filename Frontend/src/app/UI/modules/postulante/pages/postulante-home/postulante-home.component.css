@@ -1,12 +1,63 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 1px 2px,
+        rgba(0, 0, 0, 0.1) 0px 2px 2px -2px,
+        rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
+}
+
 .rounded-circle {
     width: 30px;
     height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 1px 2px,
+        rgba(0, 0, 0, 0.1) 0px 2px 2px -2px,
+        rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
 }
 
-.rounded-circle img {
-    width: 25px;
-    height: 25px;    
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    margin-left: 1.5rem;
+    color: #fff;
+    font-family: 'astonpoliz', sans-serif;
+    font-size: medium;
+}
+
+.hero {
+    background: url('/assets/image/postulante/banner-hero.png') no-repeat center/cover;
+    height: 75vh;
+    /* mask-image: linear-gradient(to bottom, black 75%, transparent 100%) */
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-family: 'panichesta', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-family: 'astonpoliz', sans-serif;
+}
+
+.btn-custom {
+    width: 255px;
+    margin: 0 auto;
+    background: var(--orange-custom);
+    color: #fff;
+    transition: background 0.3s;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 1px 2px,
+        rgba(0, 0, 0, 0.1) 0px 2px 2px -2px,
+        rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
+}
+
+.btn-custom:hover {
+    background: #444;
 }

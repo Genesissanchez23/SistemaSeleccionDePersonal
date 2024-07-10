@@ -1,26 +1,29 @@
-<div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
-    @for (card of cards | async; track card) {
-      <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>
-              {{card.title}}
-              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>Expand</button>
-                <button mat-menu-item>Remove</button>
-              </mat-menu>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>Card Content Here</div>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    }
-  </mat-grid-list>
-</div>
+<section class="p-3">
+  <header class="d-flex align-items-center py-3 bg-dark px-4 text-white">
+    <i class="pi pi-gauge fs-3"></i>
+    <span class="ps-3 font-astonpoliz fs-3">Dashboard</span>
+  </header>
+  <main>
+    <div class="row m-0 gap-5 mt-5">
+      <div class="col-12 p-0">
+        <app-card-header />
+      </div>
+      <div class="row m-0 p-0">
+        <div class="col-12 col-lg-6">
+          <app-card-contrato />
+        </div>
+        <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+          <app-card-informacion />
+        </div>
+      </div>
+      <div class="row m-0 p-0">
+        <div class="col-12 col-lg-6">
+          <app-card-modalidad />
+        </div>
+        <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+          <app-card-permisos />
+        </div>
+      </div>
+    </div>
+  </main>
+</section>

@@ -1,0 +1,22 @@
+<section class="w-100">
+    <div class="container-fluid w-100 h-auto d-flex align-items-center justify-content-evenly p-0">
+        <div class="row justify-content-center w-100">
+            @for (item of list; track $index) {
+            <div class="{{getClass($index)}}">
+                <div class="card rounded-0">
+                    <div class="title d-flex flex-column justify-content-start align-items-center">
+                        <i class="{{getClassIcon($index)}}"></i>
+                        <p class="title-text">{{item.label}}</p>
+                        <div class="data d-flex flex-column justify-content-start">
+                            <p>{{item.value}} +</p>
+                            <div class="range">
+                                <div class="{{getClassColor($index)}}  fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>

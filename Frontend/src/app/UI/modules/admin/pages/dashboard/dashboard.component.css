@@ -8,14 +8,12 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
-}
-
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+  background-color: white;
+  border-radius: 0;
+  box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
 }
 
 .dashboard-card-content {
   text-align: center;
+  padding: 0;
 }

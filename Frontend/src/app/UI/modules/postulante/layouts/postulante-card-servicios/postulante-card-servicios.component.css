@@ -1,0 +1,76 @@
+.services {
+    position: relative;
+    z-index: 9999;
+    margin-top: -120px;
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 0;
+    background: transparent;
+}
+
+.card {
+    width: 230px;
+}
+
+.card .top-section {
+    height: 150px;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.card .top-section .border {
+    border-bottom-right-radius: 10px;
+    height: 20px;
+    width: 120px;
+    background: white;
+    transform: skew(-40deg);
+    box-shadow: -10px -10px 0 0 white;
+}
+
+.card .top-section .border::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 0;
+    right: -15px;
+    background: rgba(255, 255, 255, 0);    
+    border-top-left-radius: 10px;
+    box-shadow: -5px -5px 0 2px white;
+}
+
+.card .top-section::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    background: rgba(255, 255, 255, 0);
+    height: 15px;
+    width: 15px;
+    border-top-left-radius: 15px;
+    box-shadow: -5px -5px 0 2px white;
+}
+
+.card .bottom-section .title {
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.card .bottom-section .row .item {
+    flex: 50%;
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+.card .bottom-section .row .item .big-text {
+    font-size: 20px;
+    display: block;
+}
+
+.card .bottom-section .row .item .regular-text {
+    font-size: 9px;
+}
+
+.card .bottom-section .row .item:nth-child(2) {
+    border-left: 1px solid black;
+}

@@ -6,7 +6,7 @@
   width: 65px;
   box-shadow: none;
   border: none;
-  background-color: transparent;
+  background-color: white;
 }
 
 .container-avatar {
@@ -68,7 +68,7 @@ a:hover {
   z-index: 1;
   width: 100%;
   height: 2rem;
-  background-color: transparent;
+  background-color: white;
   overflow: hidden;
   display: flex;
   justify-content: space-between;

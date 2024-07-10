@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastService } from '@UI/shared/services/toast.service';
 
 @Component({
-  selector: 'app-empleado-home',
+  selector: 'app-empleado-home', 
   standalone: true,
   imports: [
     RouterOutlet,

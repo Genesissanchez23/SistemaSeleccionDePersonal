@@ -1,0 +1,10 @@
+.card {
+    background: white;
+    transition: border-color .3s ease-in-out;
+    border: 1px solid #c3c6ce;
+}
+
+.card:hover {
+    border-color: var(--blue-custom);
+    box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.20);
+}

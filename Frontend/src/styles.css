@@ -64,7 +64,7 @@
 
 /* 𝗕𝗮𝗰𝗸𝗴𝗿𝗼𝘂𝗻𝗱 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹𝗶𝘇𝗮𝗱𝗼 */
 
-.background-custom {
+ .background-custom {
     background:
         linear-gradient(135deg, #0000 18.75%, #F5F5F5 0 31.25%, #0000 0),
         repeating-linear-gradient(45deg, #F5F5F5 -6.25% 6.25%, #ffffff 0 18.75%);
