@@ -1,0 +1,56 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 1px 2px,
+        rgba(0, 0, 0, 0.1) 0px 2px 2px -2px,
+        rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
+}
+
+.rounded-circle {
+    width: 30px;
+    height: 30px;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 1px 2px,
+        rgba(0, 0, 0, 0.1) 0px 2px 2px -2px,
+        rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    margin-left: 1.5rem;
+    color: #fff;
+    font-family: 'astonpoliz', sans-serif;
+    font-size: medium;
+}
+
+.btn-notification::before, .btn-notification::after {
+    position: absolute;
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    right: 2px;
+    top: -4px;
+    background-color: white;
+}
+
+.btn-notification::after {
+    animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}

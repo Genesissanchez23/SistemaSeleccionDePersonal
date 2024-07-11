@@ -1,0 +1,112 @@
+.card {
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) -2px 2px .1px -.3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+    transition: box-shadow 0.6s ease-in-out;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    width: 7px;
+    left: -8px;
+    top: 15%;
+    height: 75%;
+    background-color: var(--blue-custom);
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) -2px 2px .1px -.3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+    transition: box-shadow 0.6s ease-in-out;
+}
+
+.card:hover,
+.card:hover::before {
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) -1px 1px .1px -.1px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+.card.favorite::before {
+    background-color: var(--orange-custom);
+}
+
+span {
+    color: var(--blue-custom);
+    font-weight: 500;
+}
+
+.btn-agregar {
+    background-color: transparent;
+    border: none;   
+}
+
+.btn-agregar i {
+    font-size: large;
+    color: black;
+    transition: color .2s ease-in-out;
+}
+
+.btn-agregar:hover i {
+    color: var(--blue-custom);
+}
+
+.container-info {
+    border-right: 1px solid rgba(51, 51, 51, 0.319);
+}
+
+ul li {
+    list-style: none;
+    margin-bottom: .2rem;
+}
+
+ul li i {
+    width: 1.6rem;
+}
+
+ul li span {
+    font-family: 'astonpoliz', sans-serif;
+    color: var(--black-custom);
+    font-size: small;
+}
+
+.btn-favorite {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--orange-custom);
+    cursor: pointer;
+}
+
+.container-empty {
+    width: 300px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: var(--orange-custom);
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) -2px 2px .1px -.3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+.container-empty i {
+    color: white;
+    margin: 0;
+    padding: .5rem;
+    padding-bottom: .3rem;
+    font-size: large;
+}
+
+.container-empty span {
+    color: white;
+    margin: 0;
+    padding: .5rem;
+    padding-bottom: 0;
+}

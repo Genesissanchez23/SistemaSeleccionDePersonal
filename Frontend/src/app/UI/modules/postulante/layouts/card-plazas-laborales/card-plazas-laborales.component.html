@@ -1,0 +1,57 @@
+<section>
+    @if (data) { 
+        @for (item of list; track $index) {
+            <div class="card w-100 bg-white rounded-0 mb-4" [class.favorite]="isFavorite(item.id!)">
+                <div class="card-body">
+                    <div class="card-content">
+                        <div class="row d-flex flex-column flex-sm-row">
+                            <div class="col-12 col-sm-8 container-info">
+                                <div class="row d-flex flex-column">
+                                    <div class="col">
+                                        <button class="btn-agregar" matTooltip="Aplicar" matTooltipPosition="above">
+                                            <i class="pi pi-briefcase"></i>
+                                        </button>
+                                        <span class="h5 font-astonpoliz"> {{ item.titulo }} </span>                                        
+                                    </div>
+                                    <div class="col mt-3">
+                                        <p class="small">{{item.descripcion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                <ul class="m-0 d-flex flex-row flex-sm-column justify-content-around p-0 w-100">
+                                    <li>
+                                        <i class="pi pi-warehouse d-block d-lg-inline-block"></i>
+                                        <span>Distecom</span>
+                                    </li>
+                                    <li>
+                                        <i class="pi pi-map-marker d-block d-lg-inline-block"></i>
+                                        <span>Guayaquil, Ecuador</span>
+                                    </li>
+                                    <li>
+                                        <i class="pi pi-briefcase d-block d-lg-inline-block"></i>
+                                        <span>{{item.modalidad}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="pi pi-clock d-block d-lg-inline-block"></i>
+                                        <span>{{item.contrato}}</span>
+                                    </li>
+                                </ul>
+                                <button class="btn-favorite" (click)="toggleFavorite(item.id!)">
+                                    <i [ngClass]="isFavorite(item.id!) ? 'pi pi-heart-fill' : 'pi pi-heart'"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            } @empty {
+                <div class="container-empty">
+                    <i class="pi pi-exclamation-circle"></i>
+                    <span class="h6 font-astonpoliz">No hay datos que mostrar</span>
+                </div>
+            }
+    } @else { 
+        <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar> 
+    }
+</section>
