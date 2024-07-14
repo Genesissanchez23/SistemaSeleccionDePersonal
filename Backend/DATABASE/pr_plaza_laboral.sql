@@ -69,7 +69,8 @@ BEGIN
                     tipo_contratacion AS s_tipo_contratacion,
                     nombre_empresa AS s_nombre_empresa
                 FROM plaza_laboral 
-                WHERE estado = 'A';
+                WHERE estado = 'A'
+				ORDER BY fecha_ingreso DESC;
                 SET v_estado = true;
             END;
 

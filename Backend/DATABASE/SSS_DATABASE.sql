@@ -103,11 +103,30 @@ INSERT INTO estado_solicitud_postulante (estado, nombre_estado_solicitud) VALUES
 ('P', 'En Proceso'), 
 ('I', 'Informacion Personal'), 
 ('F', 'Finalizado');
+-- proceso para gregar estado R
+ALTER TABLE estado_solicitud_postulante DROP CONSTRAINT chk_estado;
+ALTER TABLE estado_solicitud_postulante DROP CONSTRAINT estado_solicitud_postulante_chk_1;
+-- Alterar la tabla para agregar un nuevo CHECK CONSTRAINT
+ALTER TABLE estado_solicitud_postulante ADD CONSTRAINT chk_estado CHECK (estado IN ('E', 'P', 'I', 'F', 'R'));
+-- Insertar valores por defecto en la tabla estado_solicitud_postulante
+INSERT INTO estado_solicitud_postulante (estado, nombre_estado_solicitud) VALUES  ('R', 'Rechazado');
+-- fin del proceso
+
+-- formulario datos personales complementarios
+CREATE TABLE formulario_datos_personales (
+    formulario_datos_personales_id INT AUTO_INCREMENT PRIMARY KEY,
+    telefono VARCHAR(20) NOT NULL,
+    cargo VARCHAR(100) NOT NULL,
+    sueldo DECIMAL(10, 2) NOT NULL,
+    banco VARCHAR(100) NOT NULL,
+    cuenta_bancaria VARCHAR(50) NOT NULL,
+    tipo_sangre VARCHAR(5) NOT NULL
+);
 
 -- Crear la tabla postulaciones
 CREATE TABLE postulaciones (
     postulacion_id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT,
+    usuario_id INT, 
     plaza_laboral_id INT,
     estado_solicitud_postulante_id INT,
     fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -116,6 +135,18 @@ CREATE TABLE postulaciones (
     FOREIGN KEY (plaza_laboral_id) REFERENCES plaza_laboral(plaza_laboral_id),
     FOREIGN KEY (estado_solicitud_postulante_id) REFERENCES estado_solicitud_postulante(estado_solicitud_postulante_id)
 );
+
+
+-- alterar la tabla para agregar la fecha de entrevista y la conexion 
+ALTER TABLE postulaciones
+ADD COLUMN fecha_entrevista DATETIME NULL,
+ADD COLUMN id_formulario_datos_personales INT NULL,
+ADD CONSTRAINT fk_formulario_datos_personales
+FOREIGN KEY (id_formulario_datos_personales) 
+REFERENCES formulario_datos_personales(formulario_datos_personales_id);
+
+ALTER TABLE postulaciones
+ADD COLUMN formulario_entrevista TEXT NULL;
 
 
 INSERT INTO usuario (alias, contrasena, estado, tipo_usuario_id) 
