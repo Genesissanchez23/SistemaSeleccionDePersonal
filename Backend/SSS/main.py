@@ -4,6 +4,7 @@ from servicios.solicitudService import solicitud
 from servicios.plazasLaboralesService import plaza_laboral
 from servicios.solicitudEmpleadoService import solicitud_empleado
 from servicios.usuarioService import usuario
+from servicios.estadisticasService import estadisticas
 from servicios.postulacionesService import postulaciones
 # Parámetros de solicitud 
 from fastapi import FastAPI
@@ -64,6 +65,13 @@ sss.include_router(
     postulaciones,
     prefix='/v1',
     tags=['postulaciones'],
+    responses={404: {'response': 'Error'}}
+)
+
+sss.include_router(
+    estadisticas,
+    prefix='/v1',
+    tags=['estadisticas'],
     responses={404: {'response': 'Error'}}
 )
 
