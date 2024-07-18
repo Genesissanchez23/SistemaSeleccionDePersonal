@@ -1,3 +1,63 @@
+.card-body-historial {
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 500px;
+    height: 100%;
+}
+
+.card-info-historial {
+    background: var(--yellow-custom);    
+    width: 252px;
+    height: 100%;
+    position: relative;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 2px 1px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+.card-info-historial h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 800;
+    padding-bottom: 1rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.card-info-historial .info-estado {
+    position: absolute;
+    background: var(--black-custom);
+    bottom: 15px;
+    width: 91%;
+    padding: .2rem 1.2rem;
+}
+
+.card-info-historial .info-estado p {
+    margin: 0;
+    padding-top: .4rem;
+    display: flex;
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--white-custom);
+    font-family: 'Raleway', sans-serif;
+}
+
+.card-info-historial .info-estado div {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 10px solid #a8935c;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid transparent;
+    z-index: 1;
+}
+
 ol li {
     font-weight: 500;
     font-family: 'astonpoliz', sans-serif;

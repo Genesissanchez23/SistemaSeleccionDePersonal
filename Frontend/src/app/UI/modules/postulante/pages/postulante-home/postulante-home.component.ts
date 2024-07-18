@@ -1,10 +1,5 @@
-// Importaciones de RxJS, Router y Angular
+// Importaciones de Angular
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-
-// Importaciones de Material Design
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 // UI
 import { PostulanteCardServiciosComponent } from '@UI/modules/postulante/layouts/postulante-card-servicios/postulante-card-servicios.component';
@@ -17,9 +12,6 @@ import { PostulanteFooterComponent } from '../../layouts/postulante-footer/postu
   selector: 'app-postulante-home',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterLink,
-    MatTooltipModule,
     PostulanteNavComponent,
     PostulanteFooterComponent,
     PostulanteCardServiciosComponent,
@@ -29,6 +21,5 @@ import { PostulanteFooterComponent } from '../../layouts/postulante-footer/postu
   styleUrl: './postulante-home.component.css',
 })
 export default class PostulanteHomeComponent {
-
 
 }

@@ -1,0 +1,46 @@
+<section>
+    <div class="container">
+        <div class="row row-header d-flex justify-content-around align-items-center">
+            <div class="col">
+                <img src="/assets/image/logo.png" alt="">
+            </div>
+            <button type="submit" class="btn-custom py-3" style="margin-right: .7rem;" (click)="descargarTxt()">
+                <i class="bi bi-filetype-txt"></i>
+            </button>
+        </div>
+        <div class="pt-3">
+            <div class="container-input h-auto">
+                <div class="input-box shadow-sm">
+                    <div class="icon">
+                        <i class="pi pi-user"></i>
+                    </div>
+                    <input class="input" autocomplete="off" [value]="data.aspiranteNombres" readonly/>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <main>
+            @if (cuestionario) {
+                @for (item of cuestionario.blocks; track item; let blockIndex = $index) {
+                    <div class="w-100 d-flex justify-content-center align-items-center">
+                        <span class="title text-capitalize font-astonpoliz text-center user-select-none">{{ item.title }}</span>
+                    </div>
+                    <section class="p-0 mt-3">
+                        @for(questions of item.questions; track questions; let questionIndex = $index) {
+                            <fieldset>
+                                <legend>
+                                    <span class="small user-select-none">{{questionIndex+1}}) </span>{{questions.question}}
+                                </legend>
+                                @for (options of questions.options; track options; let optionIndex = $index) {
+                                    <div>
+                                        <label [for]="'bloque-'+blockIndex+'-pregunta-'+questionIndex+'-opcion-'+optionIndex">{{options}}</label>
+                                    </div>
+                                }
+                            </fieldset>
+                        }
+                    </section>
+                }
+            }
+        </main>
+    </div>
+</section>

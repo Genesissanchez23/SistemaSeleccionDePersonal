@@ -138,7 +138,6 @@ export class PermisosFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Maneja el error de la respuesta
   private handleError(err: any) {
-    console.error('Lo sentimos ocurrió un error:', err)
     this._toast.error('Lo sentimos, intente mas luego.')
   }
 

@@ -1,0 +1,97 @@
+.card {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.card {
+    font-family: 'astonpoliz', sans-serif;
+    color: #fff;
+    background: transparent;
+    border: none;
+    display: grid;
+    cursor: pointer;
+    grid-template-rows: 50px 1fr;
+}
+
+.card:hover .img-section {
+    transform: translateY(1em);
+}
+
+.card-desc {
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    top: -10px;
+    display: grid;
+    gap: 10px;
+    height: 180px;
+    background: #555;
+}
+
+.card-time {
+    font-size: 1.7em;
+    font-weight: 500;
+    height: 3.5rem;
+}
+
+.img-section {
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: var(--orange-custom);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.card-title {
+    flex: 1;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.card-menu {
+    display: flex;
+    gap: 4px;
+    margin-inline: auto;
+}
+
+.card i {
+    padding: .5rem;
+    float: right;
+    max-width: 100%;
+    max-height: 100%;
+    font-size: 3rem;
+    transform: rotate(45deg);
+}
+
+.card .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange-custom);
+}
+
+.btn-custom {
+    font-size: x-small;
+    width: 65%;
+    background-color: whitesmoke;
+    color: #555;
+    transition: background-color .4s ease-in-out;
+    border-radius: 5px;
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) -1px 2px .1px -.3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+.btn-custom:hover {
+    font-size: x-small;
+    width: 65%;
+    background-color: white;
+    color: #555;
+}

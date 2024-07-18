@@ -1,0 +1,97 @@
+section {
+    padding: 5px;
+    font-family: monospace;
+}
+
+.container {
+    height: 570px;
+    padding: 1rem;
+    border: 1px groove #555;
+}
+
+.row .col img {
+    width: 25px;
+}
+
+.row-header {
+    font-size: small;
+}
+
+main {
+    height: 415px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+main .title {
+    font-size: 1.4rem;
+}
+
+main section fieldset {
+    border: 1px dotted #c4c1c1;
+    padding: .5rem;
+    margin-bottom: 1rem;
+}
+
+main section fieldset legend {
+    font-size: .980rem;
+    margin-bottom: .6rem;
+    font-weight: 500;
+}
+
+main section fieldset div {
+    display: flex;
+    align-items: center;
+}
+
+main section fieldset div input {
+    margin-left: 1rem;
+}
+
+main section fieldset div label {
+    font-size: .740rem;
+    margin-left: .5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+input[type=radio] {
+    cursor: pointer;
+}
+
+input[type=radio]:checked+label {
+    color: var(--blue-custom);
+}
+
+.container-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.container-btn .btn-custom {
+    width: 200px;
+}
+
+.btn-close-custom {
+    background-color: var(--orange-custom);
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    opacity: 1;
+    width: .7rem;
+    height: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color .5s ease-in-out;
+}
+
+.btn-close-custom:hover {
+    background-color: rgb(239, 9, 9);
+}
+
+.btn-close-custom  i {
+    color: white;
+    font-size: xx-small;
+}

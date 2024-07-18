@@ -13,12 +13,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 // Domain Gateways
 import { UserGateway } from '@domain/models/user/gateway/user.gateway';
 import { PermisoGateway } from '@domain/models/permisos/gateway/permiso.gateway';
-import { TrabajoGateway } from '@domain/models/trabajos/gateway/user.gateway';
+import { TrabajoGateway } from '@domain/models/trabajos/gateway/trabajo.gateway';
+import { PostulacionGateway } from '@domain/models/postulacion/gateway/postulacion.gateway';
+import { DatosComplementariosGateway } from '@domain/models/postulacion/gateway/datos-complementarios.gateway';
 
 // Infrastructure Services
 import { LocalUserRepositoryService } from '@infrastructure/repositories/user/drivernadapters/local-user.repository.service';
 import { LocalPermisoRepositoryService } from '@infrastructure/repositories/permisos/drivernadapters/local-permiso.repository.service';
 import { LocalTrabajoRespositoryService } from '@infrastructure/repositories/trabajos/drivernadapters/local-trabajo.respository.service';
+import { LocalPostulacionRepositoryService } from '@infrastructure/repositories/postulacion/drivernadapters/local-postulacion.repository.service';
+import { LocalDatosComplementariosRepositoryService } from '@infrastructure/repositories/datos-complementarios/drivernadapters/local-datos-complementarios.repository.service';
 
 // Configuración de la aplicación
 export const appConfig: ApplicationConfig = {
@@ -38,6 +42,8 @@ export const appConfig: ApplicationConfig = {
     // Inyección de dependencias para Gateways del dominio
     { provide: UserGateway, useClass: LocalUserRepositoryService },
     { provide: PermisoGateway, useClass: LocalPermisoRepositoryService },
-    { provide: TrabajoGateway, useClass: LocalTrabajoRespositoryService }
+    { provide: TrabajoGateway, useClass: LocalTrabajoRespositoryService },
+    { provide: PostulacionGateway, useClass: LocalPostulacionRepositoryService },
+    { provide: DatosComplementariosGateway, useClass: LocalDatosComplementariosRepositoryService },
   ]
 };

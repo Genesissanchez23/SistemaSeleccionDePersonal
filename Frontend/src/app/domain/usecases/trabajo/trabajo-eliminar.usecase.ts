@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 // Importaciones de casos de uso y modelos de dominio
 import { UseCase } from "@domain/common/use-case";
 import { ResponseModel } from "@domain/common/response-model";
-import { TrabajoGateway } from "@domain/models/trabajos/gateway/user.gateway";
+import { TrabajoGateway } from "@domain/models/trabajos/gateway/trabajo.gateway";
 
 /**
   * Caso de uso concreto para eliminar un trabajo por su identificador.

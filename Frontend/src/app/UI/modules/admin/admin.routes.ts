@@ -44,6 +44,24 @@ export const administrador: Routes = [
                     tooltips: 'Plazas laborales'
                 },
                 loadComponent: () => import('./pages/gestion-trabajos/gestion-trabajos.component').then(c => c.GestionTrabajosComponent)
+            },
+            {
+                path: 'gestion-postulaciones',
+                title: 'Gestión de postulaciones | SSDP',
+                data: {
+                    icon: 'bi bi-file-earmark-person-fill',
+                    tooltips: 'Postulaciones'
+                },
+                loadComponent: () => import('./pages/gestion-postulaciones/gestion-postulaciones.component').then(c => c.GestionPostulacionesComponent)
+            },
+            {
+                path: 'formularios-entrevista',
+                title: 'Formularios de entrevista | SSDP',
+                data: {
+                    icon: 'pi pi-pen-to-square',
+                    tooltips: 'Formularios de entrevista'
+                },
+                loadComponent: () => import('./pages/gestion-entrevista-trabajo/gestion-entrevista-trabajo.component').then(c => c.GestionEntrevistaTrabajoComponent)
             }
         ]
     }

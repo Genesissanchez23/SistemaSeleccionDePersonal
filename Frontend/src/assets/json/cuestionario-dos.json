@@ -1,0 +1,560 @@
+{
+    "title": "Cuestionario Dos",
+    "blocks": [
+        {
+            "title": "Test de Personalidad",
+            "questions": [
+                {
+                    "question": "Me gusta estar en compañía de otras personas.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Tiendo a preocuparme mucho por el futuro.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Prefiero seguir una rutina diaria establecida.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me considero una persona creativa.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Disfruto tomando riesgos calculados.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Prefiero trabajar solo que en equipo.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Encuentro fácil perdonar a otros.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me resulta difícil expresar mis sentimientos.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Tengo una actitud positiva hacia la vida.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Tiendo a ser perfeccionista en mi trabajo.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me gusta ayudar a los demás siempre que puedo.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me siento cómodo en situaciones sociales grandes.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me considero una persona organizada.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Prefiero evitar conflictos a confrontarlos.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me adapto fácilmente a los cambios.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Tiendo a posponer tareas importantes.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Disfruto aprendiendo cosas nuevas.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me siento incómodo cuando no tengo un plan claro.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Tiendo a tomar decisiones rápidamente.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                },
+                {
+                    "question": "Me considero una persona empática.",
+                    "options": [
+                        "Totalmente en desacuerdo",
+                        "En desacuerdo",
+                        "De acuerdo",
+                        "Totalmente de acuerdo"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Juicio Situacional",
+            "questions": [
+                {
+                    "question": "Situación: Un cliente está insatisfecho con un producto defectuoso. ¿Qué haces?",
+                    "options": [
+                        "Ofreces un reembolso inmediato.",
+                        "Escuchas al cliente y propones una solución.",
+                        "Reenvías la queja al departamento de calidad.",
+                        "Ignoras la queja y sigues con tu trabajo."
+                    ]
+                },
+                {
+                    "question": "Situación: Tu equipo no está de acuerdo sobre una decisión importante. ¿Qué haces?",
+                    "options": [
+                        "Tomas la decisión tú mismo para avanzar.",
+                        "Facilitas una discusión para llegar a un consenso.",
+                        "Pides a un tercero que tome la decisión.",
+                        "Pospones la decisión hasta que haya más información."
+                    ]
+                },
+                {
+                    "question": "Situación: Tienes una sobrecarga de trabajo y una fecha límite cercana. ¿Qué haces?",
+                    "options": [
+                        "Pides ayuda a un compañero.",
+                        "Trabajas horas extras para cumplir con la fecha límite.",
+                        "Informas a tu supervisor sobre la carga de trabajo.",
+                        "Priorizas las tareas más importantes y dejas el resto para después."
+                    ]
+                },
+                {
+                    "question": "Situación: Un colega te pide que cubras su turno sin previo aviso. ¿Qué haces?",
+                    "options": [
+                        "Aceptas sin dudar.",
+                        "Preguntas por qué necesita el cambio antes de decidir.",
+                        "Rechazas porque ya tienes planes.",
+                        "Pides tiempo para verificar si puedes hacerlo."
+                    ]
+                },
+                {
+                    "question": "Situación: Eres un administrador hospitalario y notas que un paciente alérgico a la penicilina ha sido recetado con amoxicilina. ¿Qué haces?",
+                    "options": [
+                        "Asumes que el doctor sabe lo que hace.",
+                        "Cambias el medicamento tú mismo.",
+                        "Contactas a la farmacia para cambiar el medicamento.",
+                        "Hablas con el médico que recetó el medicamento."
+                    ]
+                },
+                {
+                    "question": "Situación: Un compañero de trabajo constantemente llega tarde y afecta la productividad del equipo. ¿Qué haces?",
+                    "options": [
+                        "Hablas con tu compañero directamente.",
+                        "Informas al supervisor.",
+                        "Ignoras el problema.",
+                        "Propones ajustar el horario del equipo."
+                    ]
+                },
+                {
+                    "question": "Situación: Un proyecto importante se ha retrasado por falta de recursos. ¿Qué haces?",
+                    "options": [
+                        "Informas a tu supervisor y pides recursos adicionales.",
+                        "Encuentras formas de trabajar con los recursos disponibles.",
+                        "Propones una nueva fecha de entrega.",
+                        "Trabajas horas extras para compensar el retraso."
+                    ]
+                },
+                {
+                    "question": "Situación: Un cliente potencial pide un descuento significativo en un producto. ¿Qué haces?",
+                    "options": [
+                        "Aceptas el descuento para asegurar la venta.",
+                        "Niegas el descuento porque no es política de la empresa.",
+                        "Ofreces un descuento menor como compromiso.",
+                        "Consultas con tu supervisor antes de responder."
+                    ]
+                },
+                {
+                    "question": "Situación: Tienes que tomar una decisión rápida en ausencia de tu supervisor. ¿Qué haces?",
+                    "options": [
+                        "Tomas la decisión basándote en tu juicio.",
+                        "Esperas a que tu supervisor regrese.",
+                        "Consultas con un compañero antes de tomar la decisión.",
+                        "Buscas información adicional antes de decidir."
+                    ]
+                },
+                {
+                    "question": "Situación: Te das cuenta de un error en el proyecto que ya ha sido enviado al cliente. ¿Qué haces?",
+                    "options": [
+                        "Informas al cliente del error inmediatamente.",
+                        "Intentas corregir el error sin que el cliente lo sepa.",
+                        "Informas a tu supervisor y le pides consejo.",
+                        "Ignoras el error y esperas que el cliente no lo note."
+                    ]
+                },
+                {
+                    "question": "Situación: Notas que un compañero está pasando por un momento difícil personal. ¿Qué haces?",
+                    "options": [
+                        "Ignoras la situación y te concentras en tu trabajo.",
+                        "Ofreces tu apoyo y te ofreces a escuchar.",
+                        "Informas a tu supervisor sobre la situación.",
+                        "Sugieres que el compañero tome un tiempo libre."
+                    ]
+                },
+                {
+                    "question": "Situación: Un miembro del equipo tiene un enfoque diferente al tuyo para resolver un problema. ¿Qué haces?",
+                    "options": [
+                        "Insistes en tu método.",
+                        "Escuchas su enfoque y colaboras para encontrar la mejor solución.",
+                        "Dejas que maneje el problema a su manera.",
+                        "Consultas con el equipo para decidir el mejor enfoque."
+                    ]
+                },
+                {
+                    "question": "Situación: Un cliente te ofrece una propina por un buen servicio, pero la política de la empresa prohíbe aceptarlas. ¿Qué haces?",
+                    "options": [
+                        "Aceptas la propina.",
+                        "Rechazas la propina educadamente.",
+                        "Aceptas la propina y no le dices a nadie.",
+                        "Rechazas la propina y explicas la política al cliente."
+                    ]
+                },
+                {
+                    "question": "Situación: Te ofrecen una promoción pero requiere reubicarte a otra ciudad. ¿Qué haces?",
+                    "options": [
+                        "Aceptas la promoción sin dudar.",
+                        "Pides tiempo para considerar la oferta.",
+                        "Rechazas la promoción porque no quieres reubicarte.",
+                        "Preguntas si hay opciones de promoción sin reubicación."
+                    ]
+                },
+                {
+                    "question": "Situación: Un colega te acusa injustamente de un error. ¿Qué haces?",
+                    "options": [
+                        "Confrontas al colega inmediatamente.",
+                        "Hablas con tu supervisor para aclarar la situación.",
+                        "Ignoras la acusación y sigues con tu trabajo.",
+                        "Buscas evidencia para demostrar tu inocencia."
+                    ]
+                },
+                {
+                    "question": "Situación: Tienes que lidiar con una queja de un cliente sobre un servicio que no prestaste. ¿Qué haces?",
+                    "options": [
+                        "Informas al cliente de que no es tu responsabilidad.",
+                        "Intentas ayudar al cliente a resolver el problema.",
+                        "Pasas la queja al departamento correspondiente.",
+                        "Ignoras la queja y sigues con tu trabajo."
+                    ]
+                },
+                {
+                    "question": "Situación: Un miembro del equipo no está cumpliendo con sus responsabilidades. ¿Qué haces?",
+                    "options": [
+                        "Hablas con el miembro del equipo sobre el problema.",
+                        "Informas al supervisor.",
+                        "Tomas sus responsabilidades temporalmente.",
+                        "Ignoras el problema esperando que se resuelva solo."
+                    ]
+                },
+                {
+                    "question": "Situación: Te das cuenta de que has cometido un error que podría afectar al cliente. ¿Qué haces?",
+                    "options": [
+                        "Informas al cliente del error inmediatamente.",
+                        "Intentas corregir el error antes de que el cliente se dé cuenta.",
+                        "Informas a tu supervisor y le pides consejo.",
+                        "Ignoras el error esperando que no se note."
+                    ]
+                },
+                {
+                    "question": "Situación: Un cliente te pide hacer algo que va en contra de la política de la empresa. ¿Qué haces?",
+                    "options": [
+                        "Sigues la política de la empresa y explicas al cliente.",
+                        "Haces lo que el cliente pide para mantenerlo contento.",
+                        "Consultas con tu supervisor antes de actuar.",
+                        "Buscas una solución que cumpla con la política y satisfaga al cliente."
+                    ]
+                },
+                {
+                    "question": "Situación: Un compañero de trabajo está siendo acosado por otro empleado. ¿Qué haces?",
+                    "options": [
+                        "Confrontas al acosador inmediatamente.",
+                        "Informas al supervisor sobre la situación.",
+                        "Apoyas al compañero y lo animas a informar.",
+                        "Ignoras la situación esperando que se resuelva sola."
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Prueba de Razonamiento Verbal",
+            "questions": [
+                {
+                    "question": "Completa la oración: \"El perro está ladrando porque ____.\"",
+                    "options": [
+                        "Tiene hambre",
+                        "Está corriendo",
+                        "Es de noche",
+                        "Está durmiendo"
+                    ]
+                },
+                {
+                    "question": "Sinónimo de \"rápido\".",
+                    "options": [
+                        "Lento",
+                        "Veloz",
+                        "Pesado",
+                        "Ancho"
+                    ]
+                },
+                {
+                    "question": "Antónimo de \"feliz\".",
+                    "options": [
+                        "Triste",
+                        "Contento",
+                        "Alegre",
+                        "Divertido"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que mejor completa la frase: \"La lluvia cae del ____.\"",
+                    "options": [
+                        "Suelo",
+                        "Techo",
+                        "Árbol",
+                        "Cielo"
+                    ]
+                },
+                {
+                    "question": "Encuentra la palabra que no encaja en el grupo:",
+                    "options": [
+                        "Manzana",
+                        "Naranja",
+                        "Pera",
+                        "Coche"
+                    ]
+                },
+                {
+                    "question": "Completa la analogía: \"Libro es a leer como comida es a ____.\"",
+                    "options": [
+                        "Comer",
+                        "Dormir",
+                        "Correr",
+                        "Jugar"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que es un sinónimo de \"valiente\".",
+                    "options": [
+                        "Cobarde",
+                        "Audaz",
+                        "Tímido",
+                        "Miedoso"
+                    ]
+                },
+                {
+                    "question": "Encuentra el antónimo de \"caliente\".",
+                    "options": [
+                        "Frío",
+                        "Templado",
+                        "Tibio",
+                        "Ardiente"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que mejor completa la frase: \"El coche se detuvo en el ____.\"",
+                    "options": [
+                        "Mar",
+                        "Semáforo",
+                        "Aire",
+                        "Techo"
+                    ]
+                },
+                {
+                    "question": "Completa la oración: \"Los pájaros ____ en el cielo.\"",
+                    "options": [
+                        "Cantan",
+                        "Corren",
+                        "Vuelan",
+                        "Caminan"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que es un sinónimo de \"inteligente\".",
+                    "options": [
+                        "Tonto",
+                        "Sabio",
+                        "Lento",
+                        "Pesado"
+                    ]
+                },
+                {
+                    "question": "Encuentra el antónimo de \"pequeño\".",
+                    "options": [
+                        "Grande",
+                        "Corto",
+                        "Bajo",
+                        "Angosto"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que mejor completa la frase: \"La luna brilla en la ____.\"",
+                    "options": [
+                        "Mañana",
+                        "Noche",
+                        "Tarde",
+                        "Madrugada"
+                    ]
+                },
+                {
+                    "question": "Completa la oración: \"Los peces ____ en el agua.\"",
+                    "options": [
+                        "Vuelan",
+                        "Caminan",
+                        "Nadan",
+                        "Saltan"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que es un sinónimo de \"rápido\".",
+                    "options": [
+                        "Lento",
+                        "Veloz",
+                        "Pesado",
+                        "Corto"
+                    ]
+                },
+                {
+                    "question": "Encuentra el antónimo de \"duro\".",
+                    "options": [
+                        "Suave",
+                        "Pesado",
+                        "Alto",
+                        "Firme"
+                    ]
+                },
+                {
+                    "question": "Completa la analogía: \"Frío es a hielo como caliente es a ____.\"",
+                    "options": [
+                        "Sol",
+                        "Agua",
+                        "Viento",
+                        "Nieve"
+                    ]
+                },
+                {
+                    "question": "Elige la palabra que mejor completa la frase: \"El niño ____ con su juguete.\"",
+                    "options": [
+                        "Come",
+                        "Juega",
+                        "Duerme",
+                        "Corre"
+                    ]
+                },
+                {
+                    "question": "Encuentra la palabra que no encaja en el grupo:",
+                    "options": [
+                        "Silla",
+                        "Mesa",
+                        "Sofá",
+                        "Computadora"
+                    ]
+                },
+                {
+                    "question": "Completa la oración: \"El gato ____ en el sofá.\"",
+                    "options": [
+                        "Duerme",
+                        "Nada",
+                        "Vuela",
+                        "Canta"
+                    ]
+                }
+            ]
+        }
+    ]
+}

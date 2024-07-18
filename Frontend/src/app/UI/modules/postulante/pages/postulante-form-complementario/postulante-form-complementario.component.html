@@ -1,0 +1,125 @@
+<div class="bg-light w-100 h-100 d-flex flex-column justify-content-between align-items-center">
+
+    <section class="section-header w-100">
+        <app-postulante-nav />
+    </section>
+
+    <main class="d-flex justify-content-center align-items-center ">
+        
+        <div class="container my-5">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-xl-10">
+                    <div class="card rounded-0 text-black overflow-hidden border-0">
+
+                        <div class="row g-0">
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-4 mx-md-3">
+                                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                        <app-text text="Por favor, ingresa la información solicitada" />    
+                                        <div class="container-input">
+                                            <label> Teléfono </label>
+                                            <div class="input-box shadow-sm">
+                                                <div class="icon">
+                                                    <i class="pi pi-phone"></i>
+                                                </div>
+                                                <input class="input" type="tel" formControlName="telefono" autocomplete="off">
+                                            </div>
+                                            @if (telefono.invalid && (telefono.dirty || telefono.touched)) {
+                                                @if (telefono.errors?.['required']) {
+                                                    <span class="input-helper">Campo requerido</span>
+                                                } @else if (telefono.errors?.['maxlength']) {
+                                                    <p class="input-helper">Excedió el máximo carácteres</p>
+                                                }
+                                            }
+                                        </div>
+    
+                                        <div class="container-input mt-3">
+                                            <label> Nombre del Banco </label>
+                                            <div class="input-box shadow-sm">
+                                                <div class="icon">
+                                                    <i class="pi pi-building-columns"></i>
+                                                </div>
+                                                <input class="input" type="text" formControlName="banco" autocomplete="off">
+                                            </div>
+                                            @if (banco.invalid && (banco.dirty || banco.touched)) {
+                                                @if (banco.errors?.['required']) {
+                                                    <span class="input-helper">Campo requerido</span>
+                                                } @else if (banco.errors?.['maxlength']) {
+                                                    <p class="input-helper">Excedió el máximo carácteres</p>
+                                                }
+                                            }
+                                        </div>
+
+                                        <div class="container-input mt-3">
+                                            <label> Número de cuenta bancaria </label>
+                                            <div class="input-box shadow-sm">
+                                                <div class="icon">
+                                                    <i class="bi bi-123"></i>
+                                                </div>
+                                                <input class="input" type="text" formControlName="numeroCuenta" autocomplete="off">
+                                            </div>
+                                            @if (numeroCuenta.invalid && (numeroCuenta.dirty || numeroCuenta.touched)) {
+                                                @if (numeroCuenta.errors?.['required']) {
+                                                    <span class="input-helper">Campo requerido</span>
+                                                } @else if (numeroCuenta.errors?.['maxlength']) {
+                                                    <p class="input-helper">Excedió el máximo carácteres</p>
+                                                }
+                                            }
+                                        </div>
+
+                                        <div class="container-input mt-3">
+                                            <label> Tipo de sangre </label>
+                                            <div class="input-box shadow-sm">
+                                                <div class="icon">
+                                                    <i class="bi bi-bandaid-fill"></i>
+                                                </div>
+                                                <input class="input" type="text" formControlName="tipoSangre" autocomplete="off">
+                                            </div>
+                                            @if (tipoSangre.invalid && (tipoSangre.dirty || tipoSangre.touched)) {
+                                                @if (tipoSangre.errors?.['required']) {
+                                                    <span class="input-helper">Campo requerido</span>
+                                                } @else if (tipoSangre.errors?.['maxlength']) {
+                                                    <p class="input-helper">Excedió el máximo carácteres</p>
+                                                }
+                                            }
+                                        </div>
+    
+                                        <button type="submit" class="btn-custom my-4 shadow-sm">
+                                            @if (loading()) {
+                                                <div class="spinner-border spinner-border-sm">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            } @else {
+                                                <span>Enviar Datos</span>
+                                            }
+                                        </button>
+
+                                    </form>
+    
+                                </div>
+                            </div>
+    
+                            <div class="container-right col-lg-6 d-none d-lg-flex align-items-center">
+                                <div class="px-3 pb-4 p-md-4">
+                                    <div class="container-p p-2">
+                                        <p class="mt-5 px-4 text-center user-select-none">
+                                            Estamos emocionados de que formes parte de nuestra empresa. Juntos, alcanzaremos
+                                            grandes logros y contribuiremos al crecimiento y éxito de nuestro equipo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <section class="w-100">
+        <app-postulante-footer />
+    </section>
+    
+</div>

@@ -1,15 +1,24 @@
 // Importaciones de RxJS y Angular
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-import { AfterViewInit, Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TextComponent } from '@UI/shared/atoms/text/text.component';
 
 // Modelos de Dominio y Casos de Uso
+import { UserModel } from '@domain/models/user/user.model';
 import { ResponseModel } from '@domain/common/response-model';
 import { TrabajoModel } from '@domain/models/trabajos/trabajo.model';
+import { PostulacionModel } from '@domain/models/postulacion/postulacion.model';
 import { TrabajoListaUsecase } from '@domain/usecases/trabajo/trabajo-lista.usecase';
+import { PostulacionListaPorPostulanteUsecase } from '@domain/usecases/postulacion/postulacion-lista-por-postulante.usecase';
+
+// Infrastructura
+import { TokenService } from '@infrastructure/common/token.service';
+
+// UI
+import { ToastService } from '@UI/shared/services/toast.service';
 import { CardPlazasLaboralesComponent } from '../../layouts/card-plazas-laborales/card-plazas-laborales.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-section-plazas-laborales',
@@ -18,13 +27,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './section-plazas-laborales.component.html',
   styleUrl: './section-plazas-laborales.component.css'
 })
-export class SectionPlazasLaboralesComponent implements OnInit {
+export class SectionPlazasLaboralesComponent implements OnInit, OnDestroy {
 
   public btnAll: boolean = true
   public btnFavorites: boolean = false
   public loading = signal<boolean>(false)
   public data!: TrabajoModel[]
   public filteredData!: TrabajoModel[];
+  public listPostulaciones: PostulacionModel[] = []
+  public usuario!: UserModel
 
   public selectedModalidad: string = 'Todos';
   public selectedContrato: string = 'Todos';
@@ -34,7 +45,10 @@ export class SectionPlazasLaboralesComponent implements OnInit {
   private response$!: Observable<ResponseModel>
 
   constructor(
-    private _listTrabajo: TrabajoListaUsecase
+    private _toast: ToastService,
+    private _token: TokenService,
+    private _listTrabajo: TrabajoListaUsecase,
+    private _postulaciones: PostulacionListaPorPostulanteUsecase
   ) { }
 
   public listModalidad = [
@@ -52,7 +66,9 @@ export class SectionPlazasLaboralesComponent implements OnInit {
   ]
 
   ngOnInit(): void {
+    this.usuario = this._token.decryptAndSetUserData()
     this.loadPlazasLaborales()
+    this.loadPostulaciones()
   }
 
   private loadPlazasLaborales() {
@@ -68,6 +84,19 @@ export class SectionPlazasLaboralesComponent implements OnInit {
     })
   }
 
+  private loadPostulaciones() {
+    if (!this.usuario.id) {
+      this._toast.error('No se pueden encontrar datos del usuario')
+      return
+    }
+    this.response$ = this._postulaciones.perform({ id: this.usuario.id })
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: ResponseModel) => this.listPostulaciones = data.body,
+      error: (err) => this.handleError(err),
+      complete: () => this.loading.update(() => false)
+    })
+  }
+
   public showAll(): void {
     this.btnAll = true;
     this.btnFavorites = false;
@@ -77,7 +106,7 @@ export class SectionPlazasLaboralesComponent implements OnInit {
   public showFavorites(): void {
     this.btnAll = false;
     this.btnFavorites = true;
-    const favoriteIds = JSON.parse(localStorage.getItem('favoriteIds') || '[]');
+    const favoriteIds = JSON.parse(localStorage.getItem(`favoriteIds_${this.usuario.id}`) || '[]');
     const favoriteData = this.data.filter(item => favoriteIds.includes(item.id));
     this.filteredData = this.applyFilters(favoriteData);
   }
@@ -107,7 +136,13 @@ export class SectionPlazasLaboralesComponent implements OnInit {
 
   // Maneja el error de la respuesta
   private handleError(err: any) {
-    console.error('Error al momento de listar los permisos:', err)
+    this._toast.error('Error al momento de listar las plazas laborales')
+  }
+
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   private normalizeText(text: string): string {

@@ -1,0 +1,69 @@
+<section>
+    <div class="container">
+        <div class="row row-header d-flex justify-content-around align-items-center">
+            <div class="col">
+                <img src="/assets/image/logo.png" alt="">
+            </div>
+            <div class="col text-end">
+                <span>Guayaquil, {{currentDate}}</span>
+            </div>
+            <div class="container-btn btn-close-custom" (click)="onClose()">
+                    <i class="pi pi-times"></i>
+            </div>
+        </div>
+        <div class="pt-3">
+            <div class="container-input h-auto">
+                <div class="input-box shadow-sm">
+                    <div class="icon">
+                        <i [class]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-list'"></i>
+                    </div>
+                    <form [formGroup]="formPostulante" class="w-100">
+                        <select class="input" autocomplete="off" formControlName="postulante">
+                            <option selected disabled value="">Seleccionar Aspirante</option>
+                            @for (item of postulaciones; track $index) {
+                                <option [value]=item.id class="text-capitalize">{{ item.aspiranteNombres }} {{ item.aspiranteApellidos }}</option>
+                            }
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <main>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                @if (cuestionario) {
+                    @for (item of cuestionario.blocks; track item; let blockIndex = $index) {
+                        <div class="w-100 d-flex justify-content-center align-items-center">
+                            <span class="title text-capitalize font-astonpoliz text-center">{{ item.title }}</span>
+                        </div>
+                        <section class="p-0 mt-3">
+                            @for(questions of item.questions; track questions; let questionIndex = $index) {
+                                <fieldset>
+                                    <legend>
+                                        <span class="small">{{questionIndex+1}}) </span>{{questions.question}}
+                                    </legend>
+                                    @for (options of questions.options; track options; let optionIndex = $index) {
+                                        <div>
+                                            <input 
+                                                type="radio" 
+                                                [id]="'bloque-'+blockIndex+'-pregunta-'+questionIndex+'-opcion-'+optionIndex" 
+                                                [name]="'bloque-'+blockIndex+'-pregunta-'+questionIndex"
+                                                [value]="options" 
+                                                [formControlName]="'bloque-'+blockIndex+'-pregunta-'+questionIndex" />
+                                            <label [for]="'bloque-'+blockIndex+'-pregunta-'+questionIndex+'-opcion-'+optionIndex">{{options}}</label>
+                                        </div>
+                                    }
+                                </fieldset>
+                            }
+                        </section>
+                    }
+                    <div class="container-btn">
+                        <button type="submit" class="btn-custom shadow-sm">
+                            <span>Finalizar</span>
+                        </button>
+                    </div>
+                }
+            </form>
+        </main>
+    </div>
+</section>

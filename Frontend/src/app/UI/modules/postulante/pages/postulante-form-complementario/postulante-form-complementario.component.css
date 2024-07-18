@@ -1,0 +1,58 @@
+.section-header {
+    height: 3.8rem;
+}
+
+.card {
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 2px 1px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+img {
+    width: 150px
+}
+
+.container-right {
+    background-color: var(--orange-custom);
+    color: var(--white-custom);
+}
+
+.container-right div h3,
+.container-right div p {
+    color: var(--white-custom);
+}
+
+.container-right div h3 {
+    font-family: 'astonpoliz', sans-serif;
+}
+
+.container-p {
+    background: url("/assets/image/background-text.png") no-repeat top;
+    background-size: cover;
+}
+
+.container-right div p {
+    font-size: 2rem;
+    line-height: 1.2;
+    font-weight: bold;
+    font-family: 'astonpoliz', sans-serif;
+    color: var(--white-custom);
+    opacity: .95;
+}
+
+a {
+    text-decoration: none;
+    font-family: 'astonpoliz', sans-serif;
+    font-size: small;
+    color: var(--black-custom);
+    transition: color .3s ease-in-out;
+}
+
+a:hover {
+    color: var(--orange-custom);
+}
+
+.icon .text-black {
+    cursor: pointer;
+}

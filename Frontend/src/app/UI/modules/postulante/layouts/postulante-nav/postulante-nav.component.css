@@ -28,7 +28,8 @@ header nav ul li {
     font-size: medium;
 }
 
-.btn-notification::before, .btn-notification::after {
+.btn-notification::before,
+.btn-notification::after {
     position: absolute;
     content: "";
     width: 8px;
@@ -41,6 +42,43 @@ header nav ul li {
 
 .btn-notification::after {
     animation: pulse 1s linear infinite;
+}
+
+.notification {
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+    position: relative;
+    width: auto;
+    height: 9.5rem;
+    background: transparent;
+    border-radius: 1rem;
+    overflow: hidden;
+    font-family: 'astonpoliz', sans-serif;
+    font-size: 16px;
+}
+
+.notification:after {
+    position: absolute;
+    content: "";
+    width: 0.25rem;
+    inset: 0.65rem auto 0.65rem 0.5rem;
+    border-radius: 0.125rem;
+    background: var(--orange-custom);
+    z-index: 4;
+}
+
+.notititle {
+    color: var(--black-custom);
+    padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+    font-weight: 500;
+    font-size: large;
+}
+
+.notibody {
+    color: #3c3c3e;
+    padding: 0 1.25rem;
+    font-size: .7rem;
 }
 
 @keyframes pulse {

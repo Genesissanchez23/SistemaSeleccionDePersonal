@@ -29,13 +29,14 @@ export const routes: Routes = [
         path: 'postulante',
         title: 'Postulante | SSDP',
         canActivate: [tokenRolGuard('postulante')],
-        loadComponent: () => import('./../../UI/modules/postulante/pages/postulante-home/postulante-home.component'),
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('./../../UI/modules/postulante/postulante.routes').then(r => r.postulante)
-            }
-        ]
+        loadComponent: () => import('./../../UI/modules/postulante/pages/postulante-home/postulante-home.component')
+    },
+
+    {
+        path: 'formulario-complementario',
+        title: 'Datos complementarios | SSDP',
+        canActivate: [tokenRolGuard('postulante')],
+        loadComponent: () => import('./../../UI/modules/postulante/pages/postulante-form-complementario/postulante-form-complementario.component')
     },
 
     // Ruta para el home de empleados, protegida por guardia de rol

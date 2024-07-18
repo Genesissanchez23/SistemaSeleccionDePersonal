@@ -47,11 +47,11 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _toast: ToastService,
-    private _dialogRef: MatDialogRef<EmpleadosFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: UserModel,
     private _rolesServices: LocalUserRolesRepositoryService,
+    private _dialogRef: MatDialogRef<EmpleadosFormComponent>,
     private _userEmpleadosRegistrar: UserRegistrarEmpleadoUsecase,
     private _userEmpleadosModificar: UserModificarEmpleadoUsecase,
-    @Inject(MAT_DIALOG_DATA) public data: UserModel,
   ) { }
 
   ngOnInit(): void {

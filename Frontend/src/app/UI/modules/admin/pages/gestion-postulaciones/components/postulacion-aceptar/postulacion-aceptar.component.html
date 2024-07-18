@@ -1,0 +1,44 @@
+<div class="card text-black border-0 w-100 h-auto rounded-0">
+    <div class="card-body py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-11">
+                <span class="fw-bold fs-3 font-raleway">Asignar fecha y hora de la entrevista</span>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-start mt-4">
+                    <div class="row">
+                        <div class="col mb-1">
+                            <div class="container-input">
+                                <label> Fecha y Hora </label>
+                                <div class="input-box shadow-sm">
+                                    <div class="icon">
+                                        <i class="pi pi-calendar-clock"></i>
+                                    </div>
+                                    <input class="input" type="datetime-local" formControlName="fecha">
+                                </div>
+                                @if (fecha.invalid && (fecha.dirty || fecha.touched)) { 
+                                    @if (fecha.errors?.['required']) {
+                                        <span class="input-helper">Campo requerido</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-1">
+                            <div class="container-btn">
+                                <button type="submit" class="btn-custom shadow-sm">
+                                    @if (loading()) {
+                                        <div class="spinner-border spinner-border-sm">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    } @else {
+                                        <span>Asignar</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

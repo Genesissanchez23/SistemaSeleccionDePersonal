@@ -62,9 +62,8 @@ export class PermisosActionsComponent implements OnInit, OnDestroy {
 
   }
 
-  // Maneja el error de la respuesta de login
+  // Maneja el error de la respuesta
   private handleError(err: any) {
-    console.error('Error durante la autenticación:', err)
     this._toast.error('Lo sentimos, intente mas luego.')
   }
   

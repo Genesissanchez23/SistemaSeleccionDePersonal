@@ -1,0 +1,49 @@
+<main class="container p-0 m-0 overflow-hidden">
+    <div class="card rounded-0 text-black overflow-hidden border-0">
+        <div class="card-body ">
+            <form [formGroup]="form" class="px-4">
+                <app-text text="Información adicional" />
+                <div class="container-input">
+                    <label> Teléfono </label>
+                    <div class="input-box shadow-sm">
+                        <div class="icon">
+                            <i class="pi pi-phone"></i>
+                        </div>
+                        <input class="input" type="tel" formControlName="telefono" autocomplete="off" readonly>
+                    </div>
+                </div>
+
+                <div class="container-input mt-3">
+                    <label> Nombre del Banco </label>
+                    <div class="input-box shadow-sm">
+                        <div class="icon">
+                            <i class="pi pi-building-columns"></i>
+                        </div>
+                        <input class="input" type="text" formControlName="banco" autocomplete="off" readonly>
+                    </div>
+                </div>
+
+                <div class="container-input mt-3">
+                    <label> Número de cuenta bancaria </label>
+                    <div class="input-box shadow-sm">
+                        <div class="icon">
+                            <i class="bi bi-123"></i>
+                        </div>
+                        <input class="input" type="text" formControlName="numeroCuenta" autocomplete="off" readonly>
+                    </div>
+                </div>
+
+                <div class="container-input mt-3">
+                    <label> Tipo de sangre </label>
+                    <div class="input-box shadow-sm">
+                        <div class="icon">
+                            <i class="bi bi-bandaid-fill"></i>
+                        </div>
+                        <input class="input" type="text" formControlName="tipoSangre" autocomplete="off" readonly>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</main>

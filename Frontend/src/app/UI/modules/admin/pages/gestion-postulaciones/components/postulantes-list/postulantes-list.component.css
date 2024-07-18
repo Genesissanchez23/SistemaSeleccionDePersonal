@@ -1,0 +1,87 @@
+.container-table {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+.mdc-data-table__table {
+    min-width: min-content;
+}
+
+.table-header {
+    min-height: 2rem;
+    border-top: 1px solid var(--black-custom);
+    z-index: 0 !important;
+    background-color: var(--orange-custom);
+    font-family: 'astonpoliz', sans-serif;
+    font-size: .750rem;
+    font-weight: 100;
+    color: #FFFFFF;    
+}
+
+.mat-mdc-table {
+    width: 100%;
+    border: 1px solid var(--black-custom);
+    border-top: none;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    width: 100%;
+    min-width: auto;
+    height: 100%;
+    min-height: 2.3rem;
+    font-family: "Raleway", sans-serif;
+    font-size: .700rem;
+    font-weight: 570;
+    text-transform: capitalize;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+}
+
+mat-row,
+mat-footer-row {
+    min-height: auto;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    font-weight: 525;
+    background-color: #f7f7f7;
+}
+
+mat-paginator {
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--black-custom);
+    border-top: none;
+}
+
+.badge {
+    font-size: .550rem;
+    width: 5rem;
+    text-wrap: wrap;
+    cursor: none;
+    border-radius: 0;
+    box-shadow:
+        rgba(0, 0, 0, 0.4) 0px 0px 1px,
+        rgba(0, 0, 0, 0.3) .5px .5px .1px -.3px,
+        rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+.btn-pdf {
+    background-color: var(--orange-custom);
+    color: white;
+    cursor: pointer;
+}
+
+.btn-txt {
+    background-color: var(--blue-custom);
+    color: white;
+    cursor: pointer;
+}
+
+.d-flex .container-actions button  {
+    height: 1.5rem;
+    padding: .5rem .7rem;
+    padding-top: 0;
+}

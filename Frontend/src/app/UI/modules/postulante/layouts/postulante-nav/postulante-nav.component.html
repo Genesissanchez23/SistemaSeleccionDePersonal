@@ -6,25 +6,61 @@
         <ul class="d-flex m-0">
             <li class="me-3">
                 <div class="d-flex align-items-center h-100">
-                    <button class="w-auto bg-transparent d-flex border-0 position-relative" matTooltip="Historial"
-                        (click)="onCerrarSesion()">
-                        <i class="pi pi-history text-white"></i>
+                    <button class="w-auto bg-transparent d-flex border-0 position-relative" matTooltip="Home"
+                        routerLink="/postulante">
+                        <i class="pi pi-home text-white"></i>
                     </button>
                 </div>
             </li>
-            <li class="m-0 me-lg-3">
-                <div class="d-flex align-items-center h-100">
-                    <button [class]="!message() ? 'btn-notification' : ''" class="w-auto bg-transparent d-flex border-0 position-relative" matTooltip="Notificaciones"
-                        (click)="onCerrarSesion()">
-                        <i class="pi pi-bell text-white"></i>
-                    </button>
-                </div>
-            </li>
+            @if (postulacion) {
+                @if (postulacion.estadoChar == 'P') {                    
+                    <li class="m-0 me-lg-3">
+                        <div class="d-flex align-items-center h-100">
+                            <button [class]="!message() ? 'btn-notification' : ''"
+                                class="w-auto bg-transparent d-flex border-0 position-relative" matTooltip="Notificaciones"
+                                [matMenuTriggerFor]="menu">
+                                <i class="pi pi-bell text-white"></i>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <div class="notification">
+                                    <div class="notiglow"></div>
+                                    <div class="notiborderglow"></div>
+                                    <div class="notititle">Enhorabuena 🎊</div>
+                                    <div class="notibody">Es un placer comunicarte que tienes una entrevista de trabajo el 
+                                        {{postulacion.fechaEntrevista | date: 'dd/MM/yyyy'}} a las {{postulacion.fechaEntrevista | date: 'HH:mm'}}  para el puesto de
+                                        {{postulacion.plazaLaboralNombre}}</div>
+                                </div>
+                            </mat-menu>
+                        </div>
+                    </li>
+                }
+                @if (postulacion.estadoChar == 'I') {                    
+                    <li class="m-0 me-lg-3">
+                        <div class="d-flex align-items-center h-100">
+                            <button [class]="!message() ? 'btn-notification' : ''"
+                                class="w-auto bg-transparent d-flex border-0 position-relative" matTooltip="Notificaciones"
+                                [matMenuTriggerFor]="menu">
+                                <i class="pi pi-address-book text-white"></i>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <div class="notification">
+                                    <div class="notiglow"></div>
+                                    <div class="notiborderglow"></div>
+                                    <div class="notititle">Ya Casi!! 🎊</div>
+                                    <div class="notibody">Felicidades has pasado con éxito todos los filtros para la plaza laboral de {{postulacion.plazaLaboralNombre}}, Solo te falta llenar el siguiente formulario. <a routerLink="/formulario-complementario">Llenar</a>
+                                    </div>
+                                </div>
+                            </mat-menu>
+                        </div>
+                    </li>
+                }
+            }
             <div class="border border-end border-light d-lg-flex d-none"></div>
             <li class="d-lg-flex align-items-center h-100 d-none">
                 <div class="d-lg-flex align-items-center h-100 d-none">
                     <i class="pi pi-user"></i>
-                    <span class="text-capitalize pt-1 ms-3">Bienvenido, Genesis Sanchez Loy</span>
+                    <span class="text-capitalize pt-1 ms-3">Bienvenido, {{ usuario.nombres }} {{ usuario.apellidos
+                        }}</span>
                 </div>
             </li>
             <li>

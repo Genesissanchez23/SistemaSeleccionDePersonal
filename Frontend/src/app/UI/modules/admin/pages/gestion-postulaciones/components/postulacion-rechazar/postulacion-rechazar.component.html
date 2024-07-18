@@ -1,0 +1,28 @@
+<div class="card overflow-hidden border-0 rounded-0">
+    <div class="card-body p-0">
+        <div class="py-4 px-3">
+            <div class="bg-orange-custom container-icon d-flex justify-content-center align-items-center mx-auto rounded-circle">
+                <i class="pi pi-times"></i>
+            </div>
+            <div class="content">
+                <span class="title font-astonpoliz fs-5">Rechazar postulación</span>
+                <p class="message my-3 font-raleway px-3">
+                    ¿Estás seguro que quieres rechazar la postulación de <strong class="text-capitalize">{{ data.aspiranteNombres }} {{ data.aspiranteApellidos }} ? <br></strong>
+                    Esta acción no se puede deshacer.
+                </p>
+            </div>
+            <div class="actions">
+                <button (click)="onSubmit()" class="btn-delete"
+                    class="w-100 btn-custom rounded-0 col-3">
+                    @if (loading()) {
+                        <div class="spinner-border spinner-border-sm">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }@else {
+                        <i class="pi pi-times-circle"></i>
+                    }
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

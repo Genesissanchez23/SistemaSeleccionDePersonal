@@ -9,7 +9,7 @@ import { environment } from '@environment/environment';
 // Importación de modelos y clases del dominio
 import { TrabajoModel } from '@domain/models/trabajos/trabajo.model';
 import { ResponseModel } from '@domain/common/response-model';
-import { TrabajoGateway } from '@domain/models/trabajos/gateway/user.gateway';
+import { TrabajoGateway } from '@domain/models/trabajos/gateway/trabajo.gateway';
 
 // Importación de entidades y mapeadores de la infraestructura
 import { TrabajoInsertMapper } from '@infrastructure/repositories/trabajos/mappers/trabajo-insert.mapper';

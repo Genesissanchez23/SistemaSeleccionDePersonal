@@ -89,7 +89,6 @@ export class GestionTrabajosComponent implements OnInit, AfterViewInit, OnDestro
 
   // Maneja el error de la respuesta
   private handleError(err: any) {
-    console.error('Error al momento de listar los permisos:', err)
     this._toast.error('Lo sentimos, intente mas luego.')
   }
 

@@ -31,12 +31,15 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Si hay un token disponible, añadirlo a los encabezados de la solicitud clonada
   if (token) {
+    // Determinar el tipo de contenido del cuerpo de la solicitud
+    const contentType = req.body instanceof FormData ? 'multipart/form-data' : 'application/json';
+
+    // Clonar la solicitud y establecer los encabezados adecuados
     clonedRequest = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`,
-        ...(req.body ? { 'Content-Type': 'application/json' } : {}),
+        Authorization: `Bearer ${token}`
       }
-    })
+    });
   }
 
   // Pasar la solicitud clonada al siguiente interceptor y manejar errores

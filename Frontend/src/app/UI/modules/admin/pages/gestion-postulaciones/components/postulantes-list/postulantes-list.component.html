@@ -1,0 +1,133 @@
+<div class="container-fluid w-100 p-4">
+
+    <div class="row row-cols-2">
+        <div class="container-input h-auto col-12 bg-white">
+            <div class="input-box shadow-sm">
+                <div class="icon">
+                    <i class="pi pi-search"></i>
+                </div>
+                <input class="input" type="text" placeholder="Filtrar.." (keyup)="applyFilter($event)" #input
+                    autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    @if (loading()) {
+    <div class="container-progress my-2">
+        <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+    </div>
+    }
+
+    <div class="container-table mt-1">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="aspiranteNombres">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.aspiranteNombres}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="aspiranteApellidos">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.aspiranteApellidos}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estadoNombre">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="badge px-1 py-2 fw-semibold bg-blue-custom">{{ element.estadoNombre }}</span>
+                </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="curriculum">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Curriculum</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <div class="container-actions">
+                        <button type="submit" class="btn-pdf text-center d-flex justify-content-center px-4"
+                            (click)="downloadPDF(element.curriculum, 'curriculum.pdf')">
+                            <i class="pi pi-file-pdf"></i>
+                        </button>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="entrevista">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Respuestas entrevista</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
+                    @if (element.formularioEntrevista) {
+                        <div class="container-actions">
+                            <button type="submit" (click)="openCuestionario(element)">
+                                <span>Descargar</span>
+                            </button>
+                        </div>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Datos Complementarios">
+                <mat-header-cell *matHeaderCellDef class="text-center">
+                    <span class="w-100">Datos</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
+                    @if (element.estadoChar == 'F') {
+                        <div class="container-actions">
+                            <button type="submit" (click)="openDatosAdicionales(element)">
+                                <span>Ver</span>
+                            </button>
+                        </div>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Aceptar Postulación">
+                <mat-header-cell *matHeaderCellDef class="text-center">
+                    <span class="w-100">Aceptar Postulación</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
+                    @if (element.estadoChar == 'E') {
+                        <div class="container-actions">
+                            <button type="submit" (click)="openAsignarFecha(element)">
+                                <span>Aceptar</span>
+                            </button>
+                        </div>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Solicitar Datos Personales">
+                <mat-header-cell *matHeaderCellDef class="text-center">
+                    <span class="w-100">Solicitar Datos Personales</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
+                    @if (element.estadoChar == 'P') {
+                        <div class="container-actions" (click)="openSolictarDatos(element)">
+                            <button type="submit">
+                                <span>Solicitar</span>
+                            </button>
+                        </div>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Eliminar Proceso">
+                <mat-header-cell *matHeaderCellDef class="text-center">
+                    <span class="w-100">Rechazar Proceso</span>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
+                    @if (element.estadoChar == 'P') {
+                        <div class="container-actions">
+                            <button type="submit" (click)="openRechazar(element)">
+                                <span>Rechazar</span>
+                            </button>
+                        </div>
+                    }
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;" class="table-header"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[7]"></mat-paginator>
+    </div>
+
+</div>

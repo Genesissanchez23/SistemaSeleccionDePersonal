@@ -7,8 +7,10 @@
             </ol>
         </nav>
         <div class="btn-group btn-group-sm w-auto" role="group">
-            <button type="button" [ngClass]="btnAll ? 'btn btn-primary' : 'btn btn-outline-primary'" (click)="showAll()">Todos</button>
-            <button type="button" [ngClass]="btnFavorites ? 'btn btn-danger' : 'btn btn-outline-danger'" (click)="showFavorites()">Favoritos</button>
+            <button type="button" [ngClass]="btnAll ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                (click)="showAll()">Todos</button>
+            <button type="button" [ngClass]="btnFavorites ? 'btn btn-danger' : 'btn btn-outline-danger'"
+                (click)="showFavorites()">Favoritos</button>
         </div>
     </div>
     <div class="row row-cols-1 row-cols-lg-2 mt-4">
@@ -50,6 +52,24 @@
                     </div>
                 </div>
             </div>
+            @if (listPostulaciones.length > 0) {
+                <div class="card bg-white rounded-0 mt-4 pb-4">
+                    <div class="card-header py-3">
+                    <span class="font-astonpoliz fs-5">Postulaciones aplicadas</span>
+                </div>
+                <div class="card-body card-body-historial d-flex flex-wrap gap-4">
+                    @for (item of listPostulaciones; track $index) {
+                        <div class="card-info-historial">
+                            <h2>{{item.plazaLaboralNombre}}</h2>
+                            <div class="info-estado">
+                                <p>{{item.estadoNombre}}</p>
+                                <div></div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                </div>
+            }
         </div>
         <div class="col-12 col-lg-9 mt-4 m-lg-0 container-plazas">
             <app-card-plazas-laborales [data]="filteredData" />
