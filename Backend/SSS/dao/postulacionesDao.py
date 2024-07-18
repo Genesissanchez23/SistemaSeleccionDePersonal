@@ -14,7 +14,6 @@ class PostulacionesDao(BaseModel):
     s_telefono: Optional[str] = None
     s_cargo: Optional[str] = None
     s_banco: Optional[str] = None
-    s_sueldo: Optional[float] = None
     s_cuenta_bancaria: Optional[str] = None
     s_tipo_sangre: Optional[str] = None
 
@@ -34,7 +33,6 @@ class CambiarEstadoPostulacionFinalizado(BaseModel):
     s_postulacion_id: int
     s_telefono: str
     s_cargo: str
-    s_sueldo: float
     s_cuenta_bancaria: str
     s_tipo_sangre: str
     s_banco:str

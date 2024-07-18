@@ -262,7 +262,6 @@ async def postulaciones_cambiar_estado_finalizado(objeto: CambiarEstadoPostulaci
             s_telefono=objeto.s_telefono,
             s_cargo=objeto.s_cargo,
             s_banco=objeto.s_banco,
-            s_sueldo=objeto.s_sueldo,
             s_cuenta_bancaria=objeto.s_cuenta_bancaria,
             s_tipo_sangre=objeto.s_tipo_sangre
         )
@@ -276,6 +275,27 @@ async def postulaciones_cambiar_estado_finalizado(objeto: CambiarEstadoPostulaci
                 return {"resultado": "", "mensaje": False}
     except Exception as e:
         return {"resultado": str(e), "mensaje": False}
+    finally:
+        conn.close()
+
+
+@postulaciones.put("/postulacionesCambiarEstadoRechazado")
+async def postulaciones_cambiar_estado_rechazado(objeto: CambiarEstadoPostulacion, bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
+    if accion is not None:
+        return accion
+    conn = await conexion.conectar()
+    try:
+        postulaciones_dao = PostulacionesDao(s_opcion=9, s_postulacion_id=objeto.s_postulacion_id)
+        async with conn.cursor() as cur:
+            await cur.callproc('pr_postulaciones', tuple(dict(postulaciones_dao).values()))
+            result = await cur.fetchall()
+            if result:
+                return {"resultado": "", "mensaje": bool(result[0]["mensaje"])}
+            else:
+                return {"resultado": "", "mensaje": False}
+    except Exception as e:
+        return {"resultado": extraer_mensaje_error(str(e)), "mensaje": False}
     finally:
         conn.close()
 
