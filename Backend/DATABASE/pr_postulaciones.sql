@@ -12,7 +12,6 @@ CREATE PROCEDURE pr_postulaciones (
     IN s_telefono VARCHAR(20),
     IN s_cargo VARCHAR(100),
     IN s_banco VARCHAR(30),
-    IN s_sueldo DECIMAL(10,2),
     IN s_cuenta_bancaria VARCHAR(50),
     IN s_tipo_sangre VARCHAR(5)
 )
@@ -29,6 +28,13 @@ BEGIN
 	DECLARE cupos_disponibles_ INT;
     DECLARE postulaciones_finalizadas INT;
     DECLARE id_registro_datos_personales INT DEFAULT NULL;
+    DECLARE v_tipo_usuario_empleado_id INT DEFAULT NULL;
+    
+    -- Obtener tipo_usuario_id para el rol 'Empleado' y almacenarlo en la variable
+	SELECT tipo_usuario_id INTO v_tipo_usuario_empleado_id
+	FROM tipo_usuario
+	WHERE tipo = 'Empleado'
+	LIMIT 1;
     
     -- Obtener estado_solicitud_postulante_id por defecto (estado 'E')
     SELECT estado_solicitud_postulante_id INTO v_estado_solicitud_postulante_id 
@@ -246,11 +252,11 @@ BEGIN
 			IF s_postulacion_id IS NOT NULL THEN
 				BEGIN
 					-- Validar que los campos no estén vacíos
-					IF s_telefono IS NOT NULL AND s_cargo IS NOT NULL AND s_sueldo IS NOT NULL AND s_banco IS NOT NULL AND s_cuenta_bancaria IS NOT NULL AND s_tipo_sangre IS NOT NULL THEN
+					IF s_telefono IS NOT NULL AND s_cargo IS NOT NULL AND s_banco IS NOT NULL AND s_cuenta_bancaria IS NOT NULL AND s_tipo_sangre IS NOT NULL THEN
 						BEGIN
 							-- Insertar el nuevo registro en la tabla formulario_datos_personales
-							INSERT INTO formulario_datos_personales (telefono, cargo, sueldo, banco, cuenta_bancaria, tipo_sangre)
-							VALUES (s_telefono, s_cargo, s_sueldo, s_banco, s_cuenta_bancaria, s_tipo_sangre);
+							INSERT INTO formulario_datos_personales (telefono, cargo, banco, cuenta_bancaria, tipo_sangre)
+							VALUES (s_telefono, s_cargo, s_banco, s_cuenta_bancaria, s_tipo_sangre);
 
 							-- Obtener el ID del nuevo registro
 							SET id_registro_datos_personales = LAST_INSERT_ID();
@@ -265,7 +271,20 @@ BEGIN
 									WHERE postulacion_id = s_postulacion_id;
 									SET conteo = ROW_COUNT();
 									IF conteo = 1 THEN
-										SET v_estado = true;
+										SET conteo = 0;
+                                         UPDATE usuario
+											SET tipo_usuario_id = v_tipo_usuario_empleado_id
+											WHERE usuario_id = (
+												SELECT usuario_id
+												FROM postulaciones
+												WHERE postulacion_id = s_postulacion_id
+											);
+										SET conteo = ROW_COUNT();
+                                        IF conteo = 1 THEN
+											SET v_estado = true;
+										ELSE
+											SET v_estado = false;
+										END IF;
 									ELSE
 										SET v_estado = false;
 									END IF;
@@ -287,7 +306,6 @@ BEGIN
                 BEGIN
                     UPDATE postulaciones
                     SET estado_solicitud_postulante_id = v_estado_solicitud_rechazado_id,
-						id_formulario_datos_personales = s_id_formulario_datos_personales,
                         fecha_entrevista = NULL
                     WHERE postulacion_id = s_postulacion_id;
                     SET conteo = ROW_COUNT();
@@ -354,7 +372,7 @@ BEGIN
         -- ver formulario asociado a una postulacion
 			IF s_postulacion_id IS NOT NULL THEN
                 BEGIN
-                   SELECT telefono,cargo,sueldo,banco,cuenta_bancaria,tipo_sangre 
+                   SELECT telefono s_telefono,cargo s_cargo,banco s_banco,cuenta_bancaria s_cuenta_bancaria,tipo_sangre s_tipo_sangre
                    FROM SSS_DATABASE.formulario_datos_personales f
                    join postulaciones p ON p.id_formulario_datos_personales = f.formulario_datos_personales_id
                    WHERE p.postulacion_id = s_postulacion_id;
