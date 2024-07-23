@@ -3,16 +3,12 @@
     <ngx-charts-pie-chart
       [view]="view"
       [scheme]="colorScheme"
-      [results]="single"
+      [results]="list"
       [gradient]="gradient"
       [legendPosition]="legendPosition"
       [labels]="showLabels"
       [maxLabelLength]="22"
-      [doughnut]="isDoughnut"
-      (select)="onSelect($event)"
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)"
-      >
+      [doughnut]="isDoughnut">
     </ngx-charts-pie-chart>
   </div>
 </section>

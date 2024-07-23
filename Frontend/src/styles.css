@@ -64,7 +64,7 @@
 
 /* 𝗕𝗮𝗰𝗸𝗴𝗿𝗼𝘂𝗻𝗱 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹𝗶𝘇𝗮𝗱𝗼 */
 
- .background-custom {
+.background-custom {
     background:
         linear-gradient(135deg, #0000 18.75%, #F5F5F5 0 31.25%, #0000 0),
         repeating-linear-gradient(45deg, #F5F5F5 -6.25% 6.25%, #ffffff 0 18.75%);
@@ -72,6 +72,15 @@
     background-attachment: fixed;
     background-position: center;
 }
+
+/*
+.background-custom {
+    background: #F5F5F5;
+    background-size: 100px 100px;
+    background-attachment: fixed;
+    background-position: center;
+}*/
+
 
 
 /* 𝗖𝘂𝘀𝘁𝗼𝗺 𝗜𝗻𝗽𝘂𝘁 */
@@ -208,3 +217,18 @@
     font-weight: 550;
 }
 
+
+.btn-search {
+    background-color: var(--blue-custom) !important;
+    color: white !important;
+}
+
+.btn-edit {
+    background-color: var(--green-custom) !important;
+    color: white !important;
+}
+
+.btn-delete {
+    background-color: var(--orange-custom) !important;
+    color: white !important;
+}

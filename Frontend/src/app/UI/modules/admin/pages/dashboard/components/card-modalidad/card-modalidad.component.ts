@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CategoryData } from '@domain/models/dashboard/dashboard.model';
+import { DashboardCuatroUsecase } from '@domain/usecases/dashboard/dashboard-card-cuatro.usecase';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-card-modalidad',
@@ -8,51 +11,26 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
   templateUrl: './card-modalidad.component.html',
   styleUrl: './card-modalidad.component.css'
 })
-export class CardModalidadComponent {
+export class CardModalidadComponent implements OnInit, OnDestroy {
 
-  multi = [
-    {
-      "name": "Presencial",
-      "series": [
-        {
-          "name": "Plazas Ocupadas",
-          "value": 20
-        },
-        {
-          "name": "Plazas Laborales",
-          "value": 5
-        },
-      ]
-    },
+  public list: CategoryData[] = []
+  private destroy$ = new Subject<void>()
+  private response$!: Observable<CategoryData[]>
 
-    {
-      "name": "Virtual",
-      "series": [
-        {
-          "name": "Plazas Ocupadas",
-          "value": 24
-        },
-        {
-          "name": "Plazas Laborales",
-          "value": 15
-        },
-      ]
-    },
+  constructor(private _dashboard: DashboardCuatroUsecase) {
+    Object.assign(this, { multi: this.list });
+  }
 
-    {
-      "name": "Híbrido",
-      "series": [
-        {
-          "name": "Plazas Ocupadas",
-          "value": 11
-        },
-        {
-          "name": "Plazas Laborales",
-          "value": 10
-        },
-      ]
-    }
-  ];
+  ngOnInit(): void {
+    this.loadInfo()
+  }
+
+  private loadInfo() {
+    this.response$ = this._dashboard.perform()
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: CategoryData[]) => this.list = data
+    })
+  }
 
   view: [number, number] = [0, 0];
 
@@ -74,12 +52,10 @@ export class CardModalidadComponent {
     group: ScaleType.Time
   };
 
-  constructor() {
-    Object.assign(this, { multi: this.multi });
-  }
-
-  onSelect(event: Event) {
-    console.log(event);
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
 }

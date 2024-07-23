@@ -14,6 +14,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { UserGateway } from '@domain/models/user/gateway/user.gateway';
 import { PermisoGateway } from '@domain/models/permisos/gateway/permiso.gateway';
 import { TrabajoGateway } from '@domain/models/trabajos/gateway/trabajo.gateway';
+import { DashboardGateway } from '@domain/models/dashboard/gateway/dashboard.gateway';
 import { PostulacionGateway } from '@domain/models/postulacion/gateway/postulacion.gateway';
 import { DatosComplementariosGateway } from '@domain/models/postulacion/gateway/datos-complementarios.gateway';
 
@@ -21,6 +22,7 @@ import { DatosComplementariosGateway } from '@domain/models/postulacion/gateway/
 import { LocalUserRepositoryService } from '@infrastructure/repositories/user/drivernadapters/local-user.repository.service';
 import { LocalPermisoRepositoryService } from '@infrastructure/repositories/permisos/drivernadapters/local-permiso.repository.service';
 import { LocalTrabajoRespositoryService } from '@infrastructure/repositories/trabajos/drivernadapters/local-trabajo.respository.service';
+import { LocalDashboardRepositoryService } from '@infrastructure/repositories/dashboard/drivernadapters/local-dashboard.repository.service';
 import { LocalPostulacionRepositoryService } from '@infrastructure/repositories/postulacion/drivernadapters/local-postulacion.repository.service';
 import { LocalDatosComplementariosRepositoryService } from '@infrastructure/repositories/datos-complementarios/drivernadapters/local-datos-complementarios.repository.service';
 
@@ -45,5 +47,6 @@ export const appConfig: ApplicationConfig = {
     { provide: TrabajoGateway, useClass: LocalTrabajoRespositoryService },
     { provide: PostulacionGateway, useClass: LocalPostulacionRepositoryService },
     { provide: DatosComplementariosGateway, useClass: LocalDatosComplementariosRepositoryService },
+    { provide: DashboardGateway, useClass: LocalDashboardRepositoryService },
   ]
 };

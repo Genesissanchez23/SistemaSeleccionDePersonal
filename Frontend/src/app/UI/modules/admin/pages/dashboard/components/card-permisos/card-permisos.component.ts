@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DataItems } from '@domain/models/dashboard/dashboard.model';
+import { DashboardCincoUsecase } from '@domain/usecases/dashboard/dashboard-card-cinco.usecase';
 import { NgxChartsModule, Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-card-permisos',
@@ -8,21 +11,26 @@ import { NgxChartsModule, Color, ScaleType, LegendPosition } from '@swimlane/ngx
   templateUrl: './card-permisos.component.html',
   styleUrl: './card-permisos.component.css'
 })
-export class CardPermisosComponent {
-  single = [
-    {
-      "name": "Permisos Aceptados",
-      "value": 23
-    },
-    {
-      "name": "Permisos Rechazados",
-      "value": 10
-    },
-    {
-      "name": "Permisos Pendientes",
-      "value": 25
-    }
-  ];
+export class CardPermisosComponent implements OnInit, OnDestroy {
+
+  public list: DataItems[] = []
+  private destroy$ = new Subject<void>()
+  private response$!: Observable<DataItems[]>
+
+  constructor(private _dashboard: DashboardCincoUsecase) {
+    Object.assign(this, { multi: this.list });
+  }
+
+  ngOnInit(): void {
+    this.loadInfo()
+  }
+
+  private loadInfo() {
+    this.response$ = this._dashboard.perform()
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: DataItems[]) => this.list = data
+    })
+  }
 
   view: [number, number] = [0, 0];
 
@@ -40,19 +48,10 @@ export class CardPermisosComponent {
     group: ScaleType.Time
   };
 
-  constructor() {
-    Object.assign(this, { single: this.single });
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
-  onSelect(data: Event): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: Event): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: Event): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
 }

@@ -1,5 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+
+import { DataItems } from '@domain/models/dashboard/dashboard.model';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
+import { DashboardTresUsecase } from '@domain/usecases/dashboard/dashboard-card-tres.usecase';
 
 @Component({
   selector: 'app-card-informacion',
@@ -8,14 +12,26 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
   templateUrl: './card-informacion.component.html',
   styleUrl: './card-informacion.component.css'
 })
-export class CardInformacionComponent  {
+export class CardInformacionComponent implements OnInit, OnDestroy  {
 
-  public single: card[] = [
-    { name: 'Plazas Laborales',value: 144002 },
-    { name: 'Aspirantes', value: 3424222 },
-    { name: 'Empleados', value: 235500 },
-    { name: 'Solicitudes', value: 1222421 },
-  ]
+  public list: DataItems[] = []
+  private destroy$ = new Subject<void>()
+  private response$!: Observable<DataItems[]>
+
+  ngOnInit(): void {
+    this.loadInfo()
+  }
+
+  constructor(private _dashboard: DashboardTresUsecase) {
+    Object.assign(this, { single: this.list });
+  }
+
+  private loadInfo() {
+    this.response$ = this._dashboard.perform()
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: DataItems[]) => this.list = data
+    })
+  }
 
   view: [number, number] = [0, 0];
   
@@ -26,18 +42,15 @@ export class CardInformacionComponent  {
     group: ScaleType.Time
     };
   cardColor: string = '#7CAC81';
-  
-  constructor() {
-    Object.assign(this, { single: this.single });
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
+  }  
+  
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
-}
-
-export interface card {
-  name:         string
-  value:        number
 }

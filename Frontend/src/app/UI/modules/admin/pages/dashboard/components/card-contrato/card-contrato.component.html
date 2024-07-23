@@ -3,7 +3,7 @@
     <ngx-charts-bar-horizontal-2d
       [view]="view"
       [scheme]="colorScheme"
-      [results]="multi"
+      [results]="list"
       [gradient]="gradient"
       [xAxis]="showXAxis"
       [yAxis]="showYAxis"
@@ -12,10 +12,7 @@
       [showXAxisLabel]="showXAxisLabel"
       [showYAxisLabel]="showYAxisLabel"
       [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      (select)="onSelect($event)"
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)">
+      [yAxisLabel]="yAxisLabel">
     </ngx-charts-bar-horizontal-2d>
   </div>
 </section>

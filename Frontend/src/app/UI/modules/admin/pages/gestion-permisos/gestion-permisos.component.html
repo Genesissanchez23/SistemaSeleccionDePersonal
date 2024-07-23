@@ -57,16 +57,16 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
                     <div class="container-actions row row-cols-3 flex-nowrap">
-                        <button type="submit" class="col-3"
+                        <button type="submit" class="col-3 btn-search"
                             (click)="openDetalle(element)">
                             <i class="pi pi-eye"></i>
                         </button>
                         @if (element.estado === 'E') {
-                        <button type="submit" class="col-3"
+                        <button type="submit" class="col-3 btn-edit"
                             (click)="openAceptar(element)">
                             <i class="pi pi-file-check"></i>
                         </button>
-                        <button type="submit" class="col-3"
+                        <button type="submit" class="col-3 btn-delete"
                             (click)="openRechazar(element)">
                             <i class="pi pi-file-excel"></i>
                         </button>

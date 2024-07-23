@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { DataItemsUno } from '@domain/models/dashboard/dashboard.model';
+import { DashboardUnoUsecase } from '@domain/usecases/dashboard/dashboard-card-uno.usecase';
 
 @Component({
   selector: 'app-card-header',
@@ -7,13 +11,24 @@ import { Component } from '@angular/core';
   templateUrl: './card-header.component.html',
   styleUrl: './card-header.component.css'
 })
-export class CardHeaderComponent {
+export class CardHeaderComponent implements OnInit, OnDestroy {
+ 
+  public list: DataItemsUno[] = []
+  private destroy$ = new Subject<void>()
+  private response$!: Observable<DataItemsUno[]>
 
-  public list: card[] = [
-    { label: 'Plazas Laborales', value: 124077 },
-    { label: 'Empleados', value: 523220 },
-    { label: 'Aspirantes', value: 723240 },
-  ]
+  constructor(private _dashboard: DashboardUnoUsecase) { }
+
+  ngOnInit(): void {
+    this.loadInfo()
+  }
+
+  private loadInfo() {
+    this.response$ = this._dashboard.perform()
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: DataItemsUno[]) => this.list = data
+    })
+  }
 
   public getClass(index: number): string {
     if (index === 1) {
@@ -40,9 +55,10 @@ export class CardHeaderComponent {
         : 'bg-black-custom';
   }
 
-}
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
 
-export interface card {
-  label: string
-  value: number
 }

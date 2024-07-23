@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxChartsModule, Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
+
+import { CategoryData } from '@domain/models/dashboard/dashboard.model';
+import { DashboardDosUsecase } from '@domain/usecases/dashboard/dashboard-card-dos.usecase';
 
 @Component({
   selector: 'app-card-contrato',
@@ -8,54 +12,28 @@ import { NgxChartsModule, Color, ScaleType, LegendPosition } from '@swimlane/ngx
   templateUrl: './card-contrato.component.html',
   styleUrl: './card-contrato.component.css'
 })
-export class CardContratoComponent {
+export class CardContratoComponent implements OnInit, OnDestroy {
 
-  public multi: card[] = [
-    {
-      "name": "Completo",
-      "series": [
-        {
-          "name": "Plazas Totales",
-          "value": 20
-        },
-        {
-          "name": "Plazas Ocupadas",
-          "value": 2
-        }
-      ]
-    },
+  public list: CategoryData[] = []
+  private destroy$ = new Subject<void>()
+  private response$!: Observable<CategoryData[]>
 
-    {
-      "name": "Medio Tiempo",
-      "series": [
-        {
-          "name": "Plazas Totales",
-          "value": 30
-        },
-        {
-          "name": "Plazas Ocupadas",
-          "value": 5
-        }
-      ]
-    },
+  constructor(private _dashboard: DashboardDosUsecase) {
+    Object.assign(this, { multi: this.list });
+  }
 
-    {
-      "name": "Por Horas",
-      "series": [
-        {
-          "name": "Plazas Totales",
-          "value": 50
-        },
-        {
-          "name": "Plazas Ocupadas",
-          "value": 40
-        }
-      ]
-    }
-  ];
+  ngOnInit(): void {
+    this.loadInfo()
+  }
+
+  private loadInfo() {
+    this.response$ = this._dashboard.perform()
+    this.response$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: CategoryData[]) => this.list = data
+    })
+  }
 
   view: [number, number] = [0, 0];
-
 
   // options
   showXAxis: boolean = true;
@@ -76,30 +54,10 @@ export class CardContratoComponent {
   };
   schemeType: ScaleType = ScaleType.Linear;
 
-  constructor() {
-    Object.assign(this, { multi: this.multi });
+  // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
-
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
-
-}
-
-export interface card {
-  name: string
-  series: serie[]
-}
-
-export interface serie {
-  name: string
-  value: number
+  
 }
