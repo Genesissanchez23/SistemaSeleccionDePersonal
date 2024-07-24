@@ -51,7 +51,6 @@ CREATE TABLE plaza_laboral (
     fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-
 -- Crear la tabla estado_solicitud_empleado
 CREATE TABLE estado_solicitud_empleado (
     estado_solicitud_empleado_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -88,7 +87,6 @@ CREATE TABLE solicitud_empleado (
     FOREIGN KEY (estado_solicitud_empleado_id) REFERENCES estado_solicitud_empleado(estado_solicitud_empleado_id)
 );
 
-
 -- Crear la tabla estado_solicitud_postulante
 CREATE TABLE estado_solicitud_postulante (
     estado_solicitud_postulante_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -104,7 +102,6 @@ INSERT INTO estado_solicitud_postulante (estado, nombre_estado_solicitud) VALUES
 ('I', 'Informacion Personal'), 
 ('F', 'Finalizado');
 -- proceso para gregar estado R
-ALTER TABLE estado_solicitud_postulante DROP CONSTRAINT chk_estado;
 ALTER TABLE estado_solicitud_postulante DROP CONSTRAINT estado_solicitud_postulante_chk_1;
 -- Alterar la tabla para agregar un nuevo CHECK CONSTRAINT
 ALTER TABLE estado_solicitud_postulante ADD CONSTRAINT chk_estado CHECK (estado IN ('E', 'P', 'I', 'F', 'R'));
@@ -123,6 +120,8 @@ CREATE TABLE formulario_datos_personales (
     tipo_sangre VARCHAR(5) NOT NULL
 );
 
+ALTER TABLE formulario_datos_personales DROP COLUMN sueldo;
+
 -- Crear la tabla postulaciones
 CREATE TABLE postulaciones (
     postulacion_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -136,7 +135,6 @@ CREATE TABLE postulaciones (
     FOREIGN KEY (estado_solicitud_postulante_id) REFERENCES estado_solicitud_postulante(estado_solicitud_postulante_id)
 );
 
-
 -- alterar la tabla para agregar la fecha de entrevista y la conexion 
 ALTER TABLE postulaciones
 ADD COLUMN fecha_entrevista DATETIME NULL,
@@ -147,7 +145,6 @@ REFERENCES formulario_datos_personales(formulario_datos_personales_id);
 
 ALTER TABLE postulaciones
 ADD COLUMN formulario_entrevista TEXT NULL;
-
 
 INSERT INTO usuario (alias, contrasena, estado, tipo_usuario_id) 
                     VALUES ('admin', '$2b$12$t99V4EqGzyH.gV6sXyMQh.5Ms9PVrj8No/u9plUjcIpqMIh6QHj.C', 'A', 1);
