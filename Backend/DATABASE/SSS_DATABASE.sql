@@ -114,7 +114,6 @@ CREATE TABLE formulario_datos_personales (
     formulario_datos_personales_id INT AUTO_INCREMENT PRIMARY KEY,
     telefono VARCHAR(20) NOT NULL,
     cargo VARCHAR(100) NOT NULL,
-    sueldo DECIMAL(10, 2) NOT NULL,
     banco VARCHAR(100) NOT NULL,
     cuenta_bancaria VARCHAR(50) NOT NULL,
     tipo_sangre VARCHAR(5) NOT NULL
