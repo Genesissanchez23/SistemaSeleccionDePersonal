@@ -119,7 +119,6 @@ CREATE TABLE formulario_datos_personales (
     tipo_sangre VARCHAR(5) NOT NULL
 );
 
-ALTER TABLE formulario_datos_personales DROP COLUMN sueldo;
 
 -- Crear la tabla postulaciones
 CREATE TABLE postulaciones (
