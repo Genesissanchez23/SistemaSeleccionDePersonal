@@ -65,13 +65,13 @@
                                                 <i class="pi pi-id-card"></i>
                                             </div>
                                             <input class="input" type="text" autocomplete="off"
-                                                (keypress)="onNumberKeyPress($event, 20)" formControlName="cedula">
+                                                (keypress)="onNumberKeyPress($event, 10)" formControlName="cedula">
                                         </div>
                                         @if (cedula.invalid && (cedula.dirty || cedula.touched)) {  
                                             @if (cedula.errors?.['required']) {
                                                 <span class="input-helper">Campo requerido</span>
                                             } @else if (cedula.errors?.['maxlength']) {
-                                                <span class="input-helper">Máximo 20 carácteres</span>
+                                                <span class="input-helper">Máximo 10 carácteres</span>
                                             }
                                         }
                                     </div>

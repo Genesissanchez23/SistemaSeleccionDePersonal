@@ -1,5 +1,5 @@
 // Importaciones de RxJS y Angular
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { Component, OnDestroy, signal } from '@angular/core';
@@ -87,12 +87,19 @@ export default class PostulanteFormComponent implements OnDestroy {
 
   // Maneja el éxito de la respuesta de login
   private handleSuccess(data: ResponseModel) {
-    const errorMessage = "Usuario duplicado";
+    const errorUsuarioMessage = "Usuario duplicado";
+    const errorCedulaMessage = "Cedula duplicado";
     const successMessage = "Registro exitoso, inicia sesión.";
 
-    if (!data.status && data.body === errorMessage) {
+    if (!data.status && data.body === errorUsuarioMessage) {
       this._toast.error('Intente de nuevo, Usuario ya registrado');
       this.usuario.setValue('')
+      return
+    }
+
+    if (!data.status && data.body === errorCedulaMessage) {
+      this._toast.error('Intente de nuevo, Cédula ya registrado');
+      this.cedula.setValue('')
       return
     }
 
