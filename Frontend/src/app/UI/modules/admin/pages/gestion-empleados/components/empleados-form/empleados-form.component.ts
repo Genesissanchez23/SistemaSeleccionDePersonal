@@ -106,13 +106,19 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
   // Maneja el éxito de la respuesta de login
   private handleSuccess(data: ResponseModel) {
     const errorMessage = "Usuario duplicado";
+    const errorCedulaMessage = "Cedula duplicado";
 
     if (!data.status && data.body === errorMessage) {
       this._toast.error('Intente de nuevo, Usuario ya registrado');
       this.usuario.setValue('')
       return
     }
-
+    
+    if (!data.status && data.body === errorCedulaMessage) {
+      this._toast.error('Intente de nuevo, Cédula ya registrado');
+      this.cedula.setValue('')
+      return
+    }
     if (this.data) data.body = 'Modificación exitosa'
     else data.body = 'Registro exitoso'
 
