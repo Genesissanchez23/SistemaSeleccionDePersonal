@@ -30,7 +30,7 @@ CREATE TABLE datos_personales (
     datos_personales_id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL ,
-    cedula VARCHAR(20) NOT NULL,
+    cedula VARCHAR(10) NOT NULL UNIQUE,
     direccion VARCHAR(255) NOT NULL,
     correo VARCHAR(100) NOT NULL,
     usuario_id INT,
