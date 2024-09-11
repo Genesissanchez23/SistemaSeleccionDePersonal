@@ -36,7 +36,8 @@ export class EmpleadoFormComponent implements OnInit, OnDestroy {
   public list!: PermisoTipoModel[]
   public currentDate: Date = new Date()
   public loading = signal<boolean>(false)
-
+  
+  private certificadoFile!: File;
   private destroy$ = new Subject<void>()
   private response$!: Observable<ResponseModel>
 
@@ -53,12 +54,28 @@ export class EmpleadoFormComponent implements OnInit, OnDestroy {
       descripcion: ['', Validators.required],
       fechaInicioPermiso: ['', Validators.required],
       fechaFinPermiso: ['', Validators.required],
+      certificado: ['', Validators.required],
     })
   }
 
   ngOnInit(): void {
     this.user = this._token.decryptAndSetUserData()
     this.loadTipoSolicitud()
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0] as File
+
+    // Límite de tamaño en bytes (5 MB)
+    const sizeLimit = 5 * 1024 * 1024;
+
+    if (file.size > sizeLimit) {
+      this.certificado.setValue(null)
+      this._toast.error('El archivo no debe pesar más de 5 MB.');
+      return;
+    }
+
+    this.certificadoFile = file
   }
 
   onSubmit() {
@@ -73,7 +90,8 @@ export class EmpleadoFormComponent implements OnInit, OnDestroy {
       permisoTipoId: this.permisoTipoId.value,
       descripcion: this.descripcion.value,
       fechaInicioPermiso: this.fechaInicioPermiso.value,
-      fechaFinPermiso: this.fechaFinPermiso.value
+      fechaFinPermiso: this.fechaFinPermiso.value,
+      certificado: this.certificadoFile
     }
 
     this.loading.update(() => true)
@@ -125,5 +143,6 @@ export class EmpleadoFormComponent implements OnInit, OnDestroy {
   get descripcion() { return this.form.get('descripcion')! }
   get fechaInicioPermiso() { return this.form.get('fechaInicioPermiso')! }
   get fechaFinPermiso() { return this.form.get('fechaFinPermiso')! }
+  get certificado() { return this.form.get('certificado')! }
 
 }

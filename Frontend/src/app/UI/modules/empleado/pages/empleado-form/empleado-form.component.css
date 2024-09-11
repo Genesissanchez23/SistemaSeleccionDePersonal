@@ -1,5 +1,5 @@
 .card {
-    max-width: 800px;
+    max-width: 850px;
     box-shadow:
         rgba(0, 0, 0, 0.4) 0px 2px 1px,
         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
@@ -7,7 +7,7 @@
 }
 
 .testimonial-card .card-up {
-    height: 75px;
+    height: 60px;
     overflow: hidden;
     background-color: var(--orange-custom);
     box-shadow:
@@ -53,4 +53,10 @@ input {
 
 input[type="date"] {
     width: 185px;
+}
+
+input[type="file"]::file-selector-button {
+    border: none;
+    border-right: 1px solid var(--black-custom);
+    background-color: transparent;
 }

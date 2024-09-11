@@ -20,6 +20,8 @@ import { LocalUserRolesRepositoryService } from '@infrastructure/repositories/ro
 import { ToastService } from '@shared/services/toast.service';
 
 // UI
+import { emailValidator } from '@UI/shared/validators/email-validator';
+import { cedulaValidator } from '@UI/shared/validators/cedula-validator';
 import { passwordValidator } from '@UI/shared/validators/password-validator';
 
 @Component({
@@ -137,8 +139,8 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
     this.form = this._fb.group({
       nombres: ['', [Validators.required, Validators.maxLength(50)]],
       apellidos: ['', [Validators.required, Validators.maxLength(50)]],
-      cedula: ['', [Validators.required, Validators.maxLength(20)]],
-      correo: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+      cedula: ['', [Validators.required, Validators.maxLength(10), cedulaValidator()]],
+      correo: ['', [Validators.required, Validators.email, Validators.maxLength(100), emailValidator()]],
       direccion: ['', [Validators.required, Validators.maxLength(255)]],
       usuario: ['', [Validators.required, Validators.maxLength(50)]],
       contrasena: ['', [Validators.required, Validators.maxLength(255), passwordValidator()]]
@@ -156,6 +158,7 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
       direccion: data.direccion,
       usuario: data.usuario,
     });
+    this.form.get('cedula')?.disable();
   }
 
   private identificador(tipo: string) {

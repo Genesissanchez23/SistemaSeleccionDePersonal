@@ -14,6 +14,8 @@ import { UserRegistrarPostulanteUsecase } from '@domain/usecases/user/user-regis
 import { ToastService } from '@shared/services/toast.service';
 
 // UI
+import { emailValidator } from '@UI/shared/validators/email-validator';
+import { cedulaValidator } from '@UI/shared/validators/cedula-validator';
 import { passwordValidator } from '@UI/shared/validators/password-validator';
 
 // Componentes Atómicos Compartidos
@@ -44,8 +46,8 @@ export default class PostulanteFormComponent implements OnDestroy {
     this.form = this._fb.group({
       nombres: ['', [Validators.required, Validators.maxLength(50)]],
       apellidos: ['', [Validators.required, Validators.maxLength(50)]],
-      cedula: ['', [Validators.required, Validators.maxLength(20)]],
-      correo: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+      cedula: ['', [Validators.required, Validators.maxLength(10), cedulaValidator()]],
+      correo: ['', [Validators.required, Validators.email, Validators.maxLength(100), emailValidator()]],
       direccion: ['', [Validators.required, Validators.maxLength(255)]],
       usuario: ['', [Validators.required, Validators.maxLength(50)]],
       contrasena: ['', [Validators.required, Validators.maxLength(255), passwordValidator()]]

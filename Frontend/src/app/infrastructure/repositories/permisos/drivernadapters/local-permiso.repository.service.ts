@@ -93,9 +93,18 @@ export class LocalPermisoRepositoryService extends PermisoGateway {
     * @returns {Observable<ResponseModel<any>>} Observable que emite una respuesta con el resultado del registro de la solicitud.
   */
   override registrarSolicitudPermiso(params: PermisoSolicitudModel): Observable<ResponseModel> {
-    const requestBody: PermisoEntity = this.permisosRegistrarTiposMapper.mapTo(params);
+
+    const formData = new FormData();
+    formData.append('s_usuario_id', params.usuarioId!.toString());
+    formData.append('s_tipo_solicitud_id', params.permisoTipoId!.toString());
+    formData.append('s_descripcion_solicitud', params.descripcion!.toString());
+    formData.append('s_fecha_inicio', params.fechaInicioPermiso!.toString());
+    formData.append('s_fecha_fin', params.fechaFinPermiso!.toString());
+    formData.append('s_certificado', params.certificado!, params.certificado?.name);
+
+    //const requestBody: PermisoEntity = this.permisosRegistrarTiposMapper.mapTo(params);
     return this.http
-      .post<ResponseData>(`${this.urlBase}${this.registrarSolicitudPermisoEndpoint}`, requestBody)
+      .post<ResponseData>(`${this.urlBase}${this.registrarSolicitudPermisoEndpoint}`, formData)
       .pipe(
         map(response => this.permisosRegistrarTiposMapper.mapFrom(response))
       )

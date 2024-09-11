@@ -45,7 +45,7 @@ export class EmpleadoHistorialComponent implements OnInit, AfterViewInit, OnDest
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['tipo', 'fechaRegistro', 'descripcion', 'estado', 'acciones'];
+  displayedColumns: string[] = ['tipo', 'fechaRegistro', 'descripcion', 'certificado', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<PermisoSolicitudModel>();
 
   public user!: UserModel
@@ -130,6 +130,22 @@ export class EmpleadoHistorialComponent implements OnInit, AfterViewInit, OnDest
     } else {
       this._toast.error(respuesta.body);
     }
+  }
+
+  downloadPDF(base64String: string, fileName: string) {
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(blobUrl);
   }
 
   // Obtener la clase CSS según el estado del permiso

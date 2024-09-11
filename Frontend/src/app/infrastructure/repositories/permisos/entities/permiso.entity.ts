@@ -18,5 +18,6 @@ export interface PermisoEntity {
     tipo?:                              string
     s_nombre_estado_solicitud?:         string
     s_estado?:                          string
+    s_certificado?:                      File  
 }
 

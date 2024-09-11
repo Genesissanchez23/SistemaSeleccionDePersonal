@@ -36,7 +36,8 @@ export class PermisoRegistrarRepositoryMapper extends Mapper<PermisoEntity | Res
       s_tipo_solicitud_id: param.permisoTipoId,
       s_descripcion_solicitud: param.descripcion,
       s_fecha_inicio: param.fechaInicioPermiso,
-      s_fecha_fin: param.fechaFinPermiso
+      s_fecha_fin: param.fechaFinPermiso,
+      s_certificado: param.certificado
     };
   }
 

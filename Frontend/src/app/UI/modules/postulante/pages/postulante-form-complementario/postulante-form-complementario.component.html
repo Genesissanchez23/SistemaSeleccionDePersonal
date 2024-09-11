@@ -56,7 +56,7 @@
                                                 <div class="icon">
                                                     <i class="bi bi-123"></i>
                                                 </div>
-                                                <input class="input" type="text" formControlName="numeroCuenta" autocomplete="off">
+                                                <input class="input" type="text" (keypress)="onNumberKeyPress($event, 12)" formControlName="numeroCuenta" autocomplete="off">
                                             </div>
                                             @if (numeroCuenta.invalid && (numeroCuenta.dirty || numeroCuenta.touched)) {
                                                 @if (numeroCuenta.errors?.['required']) {

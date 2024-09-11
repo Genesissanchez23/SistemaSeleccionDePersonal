@@ -42,7 +42,7 @@ export class GestionPermisosComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['nombres', 'fechaRegistro', 'permisoTipo', 'estado', 'acciones'];
+  displayedColumns: string[] = ['nombres', 'fechaRegistro', 'permisoTipo', 'certificado', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<PermisoSolicitudModel>();
 
   public loading = signal<boolean>(false)
@@ -158,6 +158,22 @@ export class GestionPermisosComponent implements OnInit, AfterViewInit, OnDestro
         objeto: data
       }
     }).afterClosed().subscribe((respuesta: ResponseModel) => this.toastClose(respuesta));
+  }
+
+  downloadPDF(base64String: string, fileName: string) {
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(blobUrl);
   }
 
   // Manejar acción después del cierre del diálogo

@@ -72,6 +72,8 @@
                                                 <span class="input-helper">Campo requerido</span>
                                             } @else if (cedula.errors?.['maxlength']) {
                                                 <span class="input-helper">Máximo 10 carácteres</span>
+                                            } @else if(cedula.errors?.['cedulaInvalida']){
+                                                <span class="input-helper">Cédula no valida</span>
                                             }
                                         }
                                     </div>
@@ -90,6 +92,8 @@
                                             @if (correo.errors?.['required']) {
                                                 <span class="input-helper">Campo requerido</span>
                                             } @else if (correo.errors?.['email']) {
+                                                <span class="input-helper">Formato invalido</span>
+                                            } @else if(correo.errors?.['emailInvalido']){
                                                 <span class="input-helper">Formato invalido</span>
                                             } @else if (correo.errors?.['maxlength']) {
                                                 <span class="input-helper">Máximo 20 carácteres</span>

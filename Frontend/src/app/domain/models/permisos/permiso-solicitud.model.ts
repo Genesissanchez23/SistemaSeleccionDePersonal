@@ -10,5 +10,6 @@ export interface PermisoSolicitudModel {
     fechaFinPermiso?:       Date
     estado?:                string
     descripcionEstado?:     string
+    certificado?:           File  
 }
  

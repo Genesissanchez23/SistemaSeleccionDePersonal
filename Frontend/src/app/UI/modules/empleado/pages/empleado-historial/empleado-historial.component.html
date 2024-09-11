@@ -35,6 +35,20 @@
                 <mat-cell *matCellDef="let element">{{element.descripcion}}</mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="certificado">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Certificado</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <div class="container-actions">
+                        @if (element.certificado) {
+                            <button type="submit" class="btn-pdf text-center d-flex justify-content-center px-4"
+                                (click)="downloadPDF(element.certificado, 'certificado.pdf')">
+                                <i class="pi pi-file-pdf"></i>
+                            </button>
+                        }
+                    </div>
+                </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="estado">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
                 <mat-cell *matCellDef="let element">

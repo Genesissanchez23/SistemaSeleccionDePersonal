@@ -52,7 +52,8 @@ export class PermisoListaRepositoryMapper extends Mapper<ResponseData, ResponseM
       fechaInicioPermiso: entity.s_fecha_inicio,
       fechaFinPermiso: entity.s_fecha_fin,
       estado: entity.s_estado,
-      descripcionEstado: entity.s_nombre_estado_solicitud
+      descripcionEstado: entity.s_nombre_estado_solicitud,
+      certificado: entity.s_certificado
     };
   }
 

@@ -36,6 +36,7 @@ import { PostulanteFooterComponent } from '../../layouts/postulante-footer/postu
     ReactiveFormsModule,
     PostulanteNavComponent,
     PostulanteFooterComponent,
+    
   ],
   templateUrl: './postulante-form-complementario.component.html',
   styleUrl: './postulante-form-complementario.component.css'
@@ -140,6 +141,14 @@ export default class PostulanteFormComplementarioComponent implements OnInit, On
       tipoSangre: ['', [Validators.required, Validators.maxLength(5)]],
       numeroCuenta: ['', [Validators.required, Validators.maxLength(50)]],
     })
+  }
+
+  onNumberKeyPress(event: KeyboardEvent, maxLength: number) {
+    const key = event.key;
+    const currentValue = (event.target as HTMLInputElement).value;
+    if (currentValue.length >= maxLength || !/\d/.test(key)) {
+      event.preventDefault();
+    }
   }
 
   // Método de ciclo de vida de Angular: Se ejecuta al destruir el componente
