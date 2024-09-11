@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter,  File, UploadFile, Depends, HTTPException, Body
 from fastapi.security import HTTPAuthorizationCredentials
 from dao import conexion
 from dao.tokenizacionDao import Tokenizacion, auth_scheme, acciones
 from dao.ErrorResponse import extraer_mensaje_error
 from dao.solicitudEmpleadoDao import CambiarEstadoEmpleado,SolicitudEmpleadoDao,ModificarSolicitudEmpleadoDao,RegistrarSolicitudEmpleadoDao
+import base64
 
 solicitud_empleado = APIRouter()
 
@@ -33,13 +34,33 @@ async def consultar_estados_solicitud(bearer: HTTPAuthorizationCredentials = Dep
         conn.close()
 
 @solicitud_empleado.post("/registrarSolicitudEmpleado")
-async def registrar_solicitud_empleado(solicitud_body: RegistrarSolicitudEmpleadoDao = Body(...), bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+async def registrar_solicitud_empleado(
+    s_usuario_id: int = Body(...),
+    s_tipo_solicitud_id: int = Body(...),
+    s_descripcion_solicitud: str = Body(...),
+    s_fecha_inicio: str = Body(...),
+    s_fecha_fin: str = Body(...),
+    s_certificado: UploadFile = File(...), 
+    bearer: HTTPAuthorizationCredentials = Depends(auth_scheme)
+    ):
     accion = acciones.get(Tokenizacion.ValidarToken(bearer), lambda: None)
     if accion is not None:
         return accion
     conn = await conexion.conectar()
     try:
-        solicitud_empleado_dao = SolicitudEmpleadoDao(s_opcion=2, **solicitud_body.dict())
+        # Leer el archivo PDF
+        certificado_bytes = await s_certificado.read()
+
+
+        solicitud_empleado_dao = SolicitudEmpleadoDao(  s_opcion=2, 
+                                                        s_usuario_id=int(s_usuario_id),
+                                                        s_tipo_solicitud_id=int(s_tipo_solicitud_id),
+                                                        s_descripcion_solicitud=str(s_descripcion_solicitud),
+                                                        s_fecha_inicio=str(s_fecha_inicio),
+                                                        s_fecha_fin=str(s_fecha_fin),
+                                                        s_certificado=certificado_bytes
+                                                      )
+
         async with conn.cursor() as cur:
             await cur.callproc('pr_solicitud_empleado', tuple(dict(solicitud_empleado_dao).values()))
             result = await cur.fetchall()
@@ -73,6 +94,13 @@ async def consultar_solicitudes_empleado(bearer: HTTPAuthorizationCredentials = 
             result2 = await cur.fetchall()
             print(result)
             print(result2)
+            
+            # Codificar el campo BLOB (cv) a base64
+            for row in result:
+                if 's_certificado' in row and row['s_certificado'] is not None:
+                    if row['s_certificado'] is not None:
+                        row['s_certificado'] = base64.b64encode(row['s_certificado']).decode('utf-8')
+
             if result and result2:
                 return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
@@ -98,6 +126,13 @@ async def consultar_solicitudes_empleado_por_usuario(s_usuario_id: int, bearer: 
             result2 = await cur.fetchall()
             print(result)
             print(result2)
+
+            # Codificar el campo BLOB (cv) a base64
+            for row in result:
+                if 's_certificado' in row and row['s_certificado'] is not None:
+                    if row['s_certificado'] is not None:
+                        row['s_certificado'] = base64.b64encode(row['s_certificado']).decode('utf-8')
+
             if result and result2:
                 return {"resultado": result, "mensaje": bool(result2[0]["mensaje"])}
             else:
