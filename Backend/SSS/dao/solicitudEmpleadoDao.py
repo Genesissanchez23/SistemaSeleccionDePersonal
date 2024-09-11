@@ -10,6 +10,7 @@ class SolicitudEmpleadoDao(BaseModel):
     s_estado_solicitud_empleado_id: Optional[int] = None
     s_fecha_inicio: Optional[str] = None
     s_fecha_fin: Optional[str] = None
+    s_certificado: Optional[bytes] = None
 
 
 
@@ -28,6 +29,7 @@ class RegistrarSolicitudEmpleadoDao(BaseModel):
     s_descripcion_solicitud: Optional[str] = None
     s_fecha_inicio: Optional[str] = None
     s_fecha_fin: Optional[str] = None
+    s_certificado: Optional[bytes] = None
 
 
 class CambiarEstadoEmpleado(BaseModel):

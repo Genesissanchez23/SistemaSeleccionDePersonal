@@ -8,7 +8,8 @@ CREATE PROCEDURE pr_solicitud_empleado (
     IN s_descripcion_solicitud TEXT,
     IN s_estado_solicitud_empleado_id INT,
     IN s_fecha_inicio DATETIME,
-    IN s_fecha_fin DATETIME
+    IN s_fecha_fin DATETIME,
+    IN s_certificado BLOB
 )
 BEGIN
     DECLARE v_mensaje VARCHAR(255);
@@ -62,8 +63,8 @@ BEGIN
                     WHERE usuario_id = s_usuario_id AND estado_solicitud_empleado_id = v_estado_solicitud_empleado_id;
     
                     IF conteoE = 0 THEN
-                        INSERT INTO solicitud_empleado (usuario_id, tipo_solicitud_id, descripcion_solicitud, estado_solicitud_empleado_id, fecha_inicio, fecha_fin) 
-                        VALUES (s_usuario_id, s_tipo_solicitud_id, s_descripcion_solicitud, v_estado_solicitud_empleado_id , s_fecha_inicio, s_fecha_fin);
+                        INSERT INTO solicitud_empleado (usuario_id, tipo_solicitud_id, descripcion_solicitud, estado_solicitud_empleado_id, fecha_inicio, fecha_fin,certificado) 
+                        VALUES (s_usuario_id, s_tipo_solicitud_id, s_descripcion_solicitud, v_estado_solicitud_empleado_id , s_fecha_inicio, s_fecha_fin,s_certificado);
                         SET conteo = ROW_COUNT();
                         IF conteo = 1 THEN
                             SELECT "Solicitud enviada con exito." AS v_mensaje;
@@ -98,7 +99,8 @@ BEGIN
                     dt.apellido AS s_apellido,
                     ts.tipo AS s_tipo,
                     ese.nombre_estado_solicitud AS s_nombre_estado_solicitud,
-                    ese.estado AS s_estado
+                    ese.estado AS s_estado,
+                    se.certificado as s_certificado
                 FROM solicitud_empleado se
                 JOIN tipo_solicitud ts ON se.tipo_solicitud_id = ts.tipo_solicitud_id
                 JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id
@@ -123,7 +125,8 @@ BEGIN
                         dt.apellido AS s_apellido,
                         ts.tipo AS s_tipo,
                         ese.nombre_estado_solicitud AS s_nombre_estado_solicitud,
-                        ese.estado AS s_estado
+                        ese.estado AS s_estado,
+						se.certificado as s_certificado
                     FROM solicitud_empleado se
                     JOIN tipo_solicitud ts ON se.tipo_solicitud_id = ts.tipo_solicitud_id
                     JOIN estado_solicitud_empleado ese ON se.estado_solicitud_empleado_id = ese.estado_solicitud_empleado_id

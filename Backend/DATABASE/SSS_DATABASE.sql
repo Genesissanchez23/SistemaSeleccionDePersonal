@@ -82,6 +82,7 @@ CREATE TABLE solicitud_empleado (
     fecha_inicio DATETIME NOT NULL,
     fecha_fin DATETIME NOT NULL,
     fecha_ingreso DATETIME DEFAULT CURRENT_TIMESTAMP,
+    certificado BLOB,
     FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
     FOREIGN KEY (tipo_solicitud_id) REFERENCES tipo_solicitud(tipo_solicitud_id),
     FOREIGN KEY (estado_solicitud_empleado_id) REFERENCES estado_solicitud_empleado(estado_solicitud_empleado_id)
