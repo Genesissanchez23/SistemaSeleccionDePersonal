@@ -114,7 +114,7 @@
                     <span class="w-100">Rechazar Proceso</span>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" class="d-flex justify-content-center">
-                    @if (element.estadoChar == 'P') {
+                    @if (element.estadoChar == 'P' || element.estadoChar == 'E') {
                         <div class="container-actions">
                             <button type="submit" (click)="openRechazar(element)">
                                 <span>Rechazar</span>

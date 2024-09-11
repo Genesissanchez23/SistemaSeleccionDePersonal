@@ -22,7 +22,7 @@
                                                 <div class="icon">
                                                     <i class="pi pi-phone"></i>
                                                 </div>
-                                                <input class="input" type="tel" formControlName="telefono" autocomplete="off">
+                                                <input class="input" type="tel" (keypress)="onNumberKeyPress($event, 10)"  formControlName="telefono" autocomplete="off">
                                             </div>
                                             @if (telefono.invalid && (telefono.dirty || telefono.touched)) {
                                                 @if (telefono.errors?.['required']) {
